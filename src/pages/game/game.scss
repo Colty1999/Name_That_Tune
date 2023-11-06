@@ -1,0 +1,17 @@
+.gamestyle {
+    .logo {
+        height: 10rem;
+        // padding: 1.5em;
+        will-change: filter;
+        transition: filter 300ms;
+        filter: drop-shadow(0 0 2em #646cffaa);
+    }
+
+    .logo:hover {
+        filter: drop-shadow(0 0 2em #646cffaa);
+    }
+
+    .logo.react:hover {
+        filter: drop-shadow(0 0 2em #61dafbaa);
+    }
+}
