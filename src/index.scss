@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  // max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -30,8 +30,18 @@
 // }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 3.2rem;
   line-height: 1.1;
+}
+
+h2 {
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+h3 {
+  font-size: 1.5rem;
+  line-height: 0.1;
 }
 
 // @media (prefers-color-scheme: light) {
@@ -57,11 +67,11 @@ a:hover {
   color: #535bf2;
 }
 
-button:hover {
+button:hover:enabled {
   border-color: #646cff;
 }
-button:focus,
-button:focus-visible {
+button:focus:enabled,
+button:focus-visible:enabled {
   outline: 4px auto -webkit-focus-ring-color;
 }
 

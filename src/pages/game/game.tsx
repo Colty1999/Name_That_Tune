@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './game.scss'
+import SongPicker from '../../components/songpicker/songPicker';
 
 
 const Game = () => {
@@ -52,20 +53,30 @@ const Game = () => {
     return (
         <div className='gamestyle'>
             <div>
-                <img src="../src/assets/gameLogo.png" className="logo" alt="logo"/>
+                <img src="../src/assets/gameLogo.png" className="logo" alt="logo" />
             </div>
-            <div>
-                <button onClick={() => setCount((count) => count + 1)}>
-                    {team1Points}
-                </button>
-                <button onClick={() => setCount((count) => count + 1)} style={{ justifyContent: "space-evenly" }}>
-                    {team2Points}
-                </button>
-                <button onClick={() => setCount((count) => count + 1)}>
-                    {team3Points}
-                </button>
+            <SongPicker />
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5rem" }}>
+                <div>
+                    <h2>Drużyna 1</h2>
+                    <button onClick={() => setCount((count) => count + 1)}>
+                        <h3>{team1Points}</h3>
+                    </button>
+                </div>
+                <div>
+                    <h2>Drużyna 2</h2>
+                    <button onClick={() => setCount((count) => count + 1)}>
+                        <h3>{team2Points}</h3>
+                    </button>
+                </div>
+                <div>
+                    <h2>Drużyna 3</h2>
+                    <button onClick={() => setCount((count) => count + 1)}>
+                        <h3>{team3Points}</h3>
+                    </button>
+                </div>
             </div>
-        </div>
+        </div >
     );
 };
 
