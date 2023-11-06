@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import './game.scss'
-import Button from '../../components/button/button';
 
 
 const Game = () => {
@@ -56,15 +55,15 @@ const Game = () => {
                 <img src="../src/assets/gameLogo.png" className="logo" alt="logo"/>
             </div>
             <div>
-                <Button onClick={() => setCount((count) => count + 1)}>
+                <button onClick={() => setCount((count) => count + 1)}>
                     {team1Points}
-                </Button>
-                <Button onClick={() => setCount((count) => count + 1)} style={{ justifyContent: "space-evenly" }}>
+                </button>
+                <button onClick={() => setCount((count) => count + 1)} style={{ justifyContent: "space-evenly" }}>
                     {team2Points}
-                </Button>
-                <Button onClick={() => setCount((count) => count + 1)}>
+                </button>
+                <button onClick={() => setCount((count) => count + 1)}>
                     {team3Points}
-                </Button>
+                </button>
             </div>
         </div>
     );

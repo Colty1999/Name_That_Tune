@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import './mainMenu.scss'
-import Button from '../../components/button/button';
 
 
 const MainMenu = () => {
@@ -12,16 +11,16 @@ const MainMenu = () => {
             <h1>Jaka to melodia?</h1>
             <div className="card button">
                 <Link to="/game">
-                    <Button onClick={() => {window.open(`${window.location.origin}/admin`, "_blank", "popup")}}>
+                    <button onClick={() => {window.open(`${window.location.origin}/admin`, "_blank", "popup")}}>
                         Rozpocznij
-                    </Button>
+                    </button>
                 </Link>
             </div>
             <div className="card button">
                 <Link to="/instruction">
-                    <Button onClick={() => { }}>
+                    <button onClick={() => { }}>
                         Instrukcja
-                    </Button>
+                    </button>
                 </Link>
                 {/* <p>
           Edit <code>src/App.tsx</code> and save to test HMR
