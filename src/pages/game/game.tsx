@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './game.scss'
 import SongPicker from '../../components/songpicker/songPicker';
+import { gameLogo } from '../../assets/common';
 
 
 const Game = () => {
@@ -53,7 +54,7 @@ const Game = () => {
     return (
         <div className='gamestyle'>
             <div>
-                <img src="../src/assets/gameLogo.png" className="logo" alt="logo" />
+                <img src={gameLogo} className="logo" alt="logo" />
             </div>
             <SongPicker />
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5rem" }}>

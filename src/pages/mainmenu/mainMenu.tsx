@@ -1,17 +1,18 @@
 import { Link } from 'react-router-dom';
 import './mainMenu.scss'
+import { gameLogo } from '../../assets/common';
 
 
 const MainMenu = () => {
     return (
         <div className="mainmenu">
             <div>
-                <img src="../src/assets/gameLogo.png" className="logo" alt="logo" />
+                <img src={gameLogo} className="logo" alt="logo" />
             </div>
             <h1>Jaka to melodia?</h1>
             <div className="card button">
                 <Link to="/game">
-                    <button onClick={() => {window.open(`${window.location.origin}/admin`, "_blank", "popup")}}>
+                    <button onClick={() => {window.open(`${window.location.origin}/gamemaster`, "_blank", "popup")}}>
                         Rozpocznij
                     </button>
                 </Link>
