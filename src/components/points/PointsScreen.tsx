@@ -1,33 +1,34 @@
-import { useState } from "react";
+import { useStorageState } from "../../hooks/useStorageState";
+import "./pointsScreen.scss";
 
-const PointsScreen = (props: {count: number}) => {
-    const {count} = props;
+const PointsScreen = () => {
 
-    const [team1Points, setTeam1Points] = useState(0);
-    const [team2Points, setTeam2Points] = useState(0);
-    const [team3Points, setTeam3Points] = useState(0);
+    let team1Points = useStorageState({ state: "team1Points" });
+    let team2Points = useStorageState({ state: "team2Points" });
+    let team3Points = useStorageState({ state: "team3Points" });
 
     return (
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5rem" }}>
-                <div>
-                    <h2>Drużyna 1</h2>
-                    <button onClick={() => setTeam1Points((points) => points + count)}>
-                        <h3>{team1Points}</h3>
-                    </button>
-                </div>
-                <div>
-                    <h2>Drużyna 2</h2>
-                    <button onClick={() => setTeam2Points((points) => points + count)}>
-                        <h3>{team2Points}</h3>
-                    </button>
-                </div>
-                <div>
-                    <h2>Drużyna 3</h2>
-                    <button onClick={() => setTeam3Points((points) => points + count)}>
-                        <h3>{team3Points}</h3>
-                    </button>
+        <div className="pointscreenstyle">
+            <div>
+                <h2>Drużyna 1</h2>
+                <div className="teampoints">
+                    <h3>{team1Points.store}</h3>
                 </div>
             </div>
+            <div>
+                <h2>Drużyna 2</h2>
+                <div className="teampoints">
+                    <h3>{team2Points.store}</h3>
+                </div>
+            </div>
+            <div>
+                <h2>Drużyna 3</h2>
+                <div className="teampoints">
+
+                    <h3>{team3Points.store}</h3>
+                </div>
+            </div>
+        </div>
     );
 };
 

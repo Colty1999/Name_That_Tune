@@ -2,13 +2,12 @@ import { useEffect, useState } from 'react';
 import './game.scss'
 import SongPicker from '../../components/songpicker/songPicker';
 import { gameLogo } from '../../assets/common';
-import PointsScreen from '../../components/points/PointsScreen';
 import { useStorageState } from '../../hooks/useStorageState';
+import PointsScreen from '../../components/points/PointsScreen';
 
 
 const Game = () => {
     let category = useStorageState({ state: "category" })
-    const [count, setCount] = useState(0);
 
 
     //-----------------
@@ -38,22 +37,15 @@ const Game = () => {
 
     //-----------------
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if (category.store !== "" && count<400) setCount(count + 10);
-        }, 2000); // 1000ms = 1 second
-        return () => {
-            clearInterval(interval); // Clean up the interval when the component unmounts
-        };
-    }, [count]);
-
     return (
         <div className='gamestyle'>
-            <div>
+            <div style={{ display: "flex" }}>
                 <img src={gameLogo} className="logo" alt="logo" />
             </div>
+            <div style={{ paddingBottom: "1rem" }}>
+                <PointsScreen />
+            </div>
             <SongPicker />
-            <PointsScreen count={count}/>
         </div >
     );
 };

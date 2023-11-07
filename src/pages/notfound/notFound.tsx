@@ -8,7 +8,7 @@ const NotFound = () => {
             </div>
             <h1>Jaka to melodia?</h1>
             <div className="card button">
-                Not Found
+                <h2>Not Found</h2>
             </div>
             <p className="read-the-docs">
                 Mateusz gietka | 2023
