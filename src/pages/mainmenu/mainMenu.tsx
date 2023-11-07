@@ -25,14 +25,18 @@ const MainMenu = () => {
                 </Link>
             </div>
             <div className="card button">
+                <Link to="/setup">
+                    <button onClick={() => { }}>
+                        Konfiguracja
+                    </button>
+                </Link>
+            </div>
+            <div className="card button">
                 <Link to="/instruction">
                     <button onClick={() => { }}>
                         Instrukcja
                     </button>
                 </Link>
-                {/* <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p> */}
             </div>
             <p className="read-the-docs">
                 Mateusz gietka | 2023

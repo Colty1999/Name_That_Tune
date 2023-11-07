@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Song, songs } from '../../assets/common';
 import "./gameMaster.scss";
 import { useStorageState } from '../../hooks/useStorageState';
@@ -6,6 +6,7 @@ import { useStorageState } from '../../hooks/useStorageState';
 
 const GameMaster = () => {
     let category = useStorageState({ state: "category" })
+    const [currentSong, setCurrentSong] = useState<Song | null>(null);
     // const [category, setCategory] = useState("");
 
     // const onStorageUpdate = (e: any) => {
@@ -55,7 +56,15 @@ const GameMaster = () => {
                 <div key={song.id} className="horizontalpanel">
                     <button
                         className={`${category.store === song.songName ? "active" : ""} song`}
-                        onClick={() => { category.setStorageState(song.songName); song.songAudio!.play() }}
+                        onClick={() => { 
+                            if (currentSong && currentSong.songName !== song.songName) {
+                                currentSong.songAudio!.pause(); 
+                                currentSong.songAudio!.currentTime = 0
+                            }; 
+                            category.setStorageState(song.songName); 
+                            song.songAudio!.play(); 
+                            setCurrentSong(song) ;
+                        }}
                         style={{width: "100%"}}
                     >
                         <h3>{song.songName}</h3>
