@@ -1,9 +1,16 @@
 import { Link } from 'react-router-dom';
 import './mainMenu.scss'
 import { gameLogo } from '../../assets/common';
+import { useStorageState } from '../../hooks/useStorageState';
+import { useEffect } from 'react';
 
 
 const MainMenu = () => {
+    let category = useStorageState({state: "category"});
+    useEffect(() => {
+    category.setStorageState("");
+    }, []);
+
     return (
         <div className="mainmenu">
             <div>
