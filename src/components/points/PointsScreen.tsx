@@ -10,22 +10,22 @@ const PointsScreen = () => {
     return (
         <div className="pointscreenstyle">
             <div>
-                <h2>Drużyna 1</h2>
+                <h3>Drużyna 1</h3>
                 <div className="teampoints">
-                    <h3>{team1Points.store}</h3>
+                    <h3>{team1Points.store}pkt</h3>
                 </div>
             </div>
             <div>
-                <h2>Drużyna 2</h2>
+                <h3>Drużyna 2</h3>
                 <div className="teampoints">
-                    <h3>{team2Points.store}</h3>
+                    <h3>{team2Points.store}pkt</h3>
                 </div>
             </div>
             <div>
-                <h2>Drużyna 3</h2>
+                <h3>Drużyna 3</h3>
                 <div className="teampoints">
 
-                    <h3>{team3Points.store}</h3>
+                    <h3>{team3Points.store}pkt</h3>
                 </div>
             </div>
         </div>

@@ -1,17 +1,13 @@
 import "./songPicker.scss";
-import { useStorageState } from "../../hooks/useStorageState";
-import { Song } from "../../assets/common";
-import { useEffect } from "react";
+import { Song, StateType } from "../../assets/common";
 
-const SongPicker = () => {
-    let category = useStorageState({state: "category"})
-    let songStorage = useStorageState({ state: "songs" });
-    let songs: Song[] = JSON.parse(songStorage.store ?? "");
-    // let songs = JSON.parse(useStorageState({ state: "songs" }).store ?? "");
+interface SongPickerProps {
+    songs: Song[];
+    category: StateType;
+}
 
-    useEffect(() => {
-        songs = JSON.parse(songStorage.store ?? "");
-    }, [songStorage]);
+const SongPicker = (props: SongPickerProps) => {
+    const { songs, category } = props;
 
     return (
         <div className="songpickerstyle" >

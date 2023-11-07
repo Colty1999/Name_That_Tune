@@ -32,6 +32,10 @@
         // }
     }
 
+    .songbutton {
+        padding: 0 2rem;
+    }
+
     .active {
         background-color: rgba(255, 255, 255, 0.87);
         color: #1a1a1a;
@@ -39,6 +43,7 @@
     }
 
     .punctationbutton {
+        display: inline-block;
         min-width: 20rem;
     }
 

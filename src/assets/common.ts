@@ -15,7 +15,7 @@ export interface StateType {
   readonly setStorageState: (newValue: string) => void;
 }
 
-export const songList: Song[] = [
+export const songList1: Song[] = [
   {
     id: 1,
     songName: "Song 1ioasdhfguoaofgu",
@@ -52,3 +52,30 @@ export const songList: Song[] = [
     clue: "elephant",
   },
 ];
+
+
+export const songList2: Song[] = [
+  {
+    id: 1,
+    songName: "Song 1ioasdhfguoaofgu",
+    songPath: "audio/pokemon.mp3",
+    points: 100,
+    clue: "AAAAAAAAAAAAAAAA",
+  },
+  {
+    id: 2,
+    songName: "Song 2",
+    songPath: "audio/pokemon.mp3",
+    points: 100,
+    clue: "banana",
+  },
+  {
+    id: 3,
+    songName: "Song 3",
+    songPath: "audio/pokemon.mp3",
+    points: 100,
+    clue: "chocolate",
+  },
+];
+
+export const songList: Song[][] = [songList1, songList2];

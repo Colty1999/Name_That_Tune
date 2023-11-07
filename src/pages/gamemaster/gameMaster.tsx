@@ -5,16 +5,22 @@ import { useStorageState } from '../../hooks/useStorageState';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPause } from '@fortawesome/free-solid-svg-icons/faPause';
 import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
-import { faRotateLeft } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faMinus, faPlus, faRotateLeft } from '@fortawesome/free-solid-svg-icons';
 
 
 const GameMaster = () => {
+    const [, updateState] = useState<{}>();
+    const forceUpdate = useCallback(() => updateState({}), []);
 
     let category = useStorageState({ state: "category" });
     let count = useStorageState({ state: "count" });
     let songStorage = useStorageState({ state: "songs" });
-    let songs: Song[] = songList;
+    let songs: Song[][] = songList;
     useEffect(() => {
+        category.setStorageState("");
+        songs[0].forEach((song: Song) => {
+            song.songAudio = new Audio((song.songPath));
+        });
         songStorage.setStorageState(JSON.stringify(songs));
     }, []);
 
@@ -38,21 +44,6 @@ const GameMaster = () => {
     //-----------------
 
     useEffect(() => {
-        category.setStorageState("");
-        songs.forEach((song: Song) => {
-            song.songAudio = new Audio((song.songPath));
-        });
-    }, []);
-
-    // useEffect(() => {
-    //     songs.forEach((song: Song) => {
-    //         if (category.store === song.songName) song.songAudio!.play();
-    //     });
-    // }, [category]);
-
-    //-----------------
-
-    useEffect(() => {
         const interval = setInterval(() => {
             switch (true) {
                 case (category.store === ""):
@@ -72,76 +63,93 @@ const GameMaster = () => {
         };
     }, [count]);
 
+    //starts playing song
     const startPlaying = (song: Song) => {
-        if (currentSong && currentSong.songName !== song.songName) {
+        if (!currentSong) {
+            count.setStorageState((song.points).toString());
+            forceUpdate();
+            console.log(song.points);
+        }
+        else if (currentSong && currentSong.songName !== song.songName) {
             currentSong.songAudio!.pause();
-            currentSong.songAudio!.currentTime = 0
-        };
+            currentSong.songAudio!.currentTime = 0;
+            count.setStorageState((song.points).toString());
+            // console.log(song.points);
+        }
+        else {
+            count.setStorageState((Number(count.store)).toString());
+        }
         category.setStorageState(song.songName);
         song.songAudio!.play();
         setCurrentSong(song);
     };
 
+    //pauses song
     const pausePlaying = (song: Song) => {
         // category.setStorageState(""); 
         song.songAudio!.pause();
+        forceUpdate();
     };
 
-
-    const setPoints = (teamPoints: StateType, count: StateType) => {
-        songs.find((song: Song) => song.songName === category.store)!.played = true;
+    //adds points to team and resets count
+    const setPoints = (teamPoints: StateType | null, count: StateType) => {
+        songs[0].find((song: Song) => song.songName === category.store)!.played = true;
         songStorage.setStorageState(JSON.stringify(songs));
-        category.setStorageState(""); 
+        category.setStorageState("");
         if (currentSong) currentSong.songAudio!.pause();
         if (currentSong) currentSong.songAudio!.currentTime = 0;
-        teamPoints.setStorageState((Number(teamPoints.store!) + Number(count.store)).toString());
+        if (teamPoints) teamPoints.setStorageState((Number(teamPoints.store!) + Number(count.store)).toString());
         count.setStorageState("0");
-        // console.log(count.store);
+    };
+
+    //resets disabled song
+    const resetSong = (song: Song) => {
+        song.played = false;
+        songStorage.setStorageState(JSON.stringify(songs))
     };
 
     //-----------------
 
     return (
         <div className="gamemasterstyle" >
-            {songs.map((song: Song) => (
+            <div style={{ display: "flex", justifyContent: "space-between", paddingLeft: "1rem" }}>
+                <h2>Master Panel</h2>
+                <div>
+                    <h3>Punkty</h3>
+                    <div className="punctationbutton song">
+                        <h4>{count.store}</h4>
+                    </div>
+                </div>
+            </div>
+            {songs[0].map((song: Song) => (
                 <div key={song.id} className="horizontalpanel">
-                    {/* <button
-                        className={`${category.store === song.songName ? "active" : ""} song`}
-                        onClick={() => {
-                            if (currentSong && currentSong.songName !== song.songName) {
-                                currentSong.songAudio!.pause();
-                                currentSong.songAudio!.currentTime = 0
-                            };
-                            category.setStorageState(song.songName);
-                            song.songAudio!.play();
-                            setCurrentSong(song);
-                        }}
-                        style={{ width: "100%" }}
-                    >
-                        <h4>{song.songName}</h4>
-                        <h4>{song.points}pkt</h4>
-                    </button> */}
                     <div className={`${category.store === song.songName ? "active" : ""} ${song.played === true ? "playedsong" : ""} song`} style={{ width: "100%" }}>
                         <h4>{song.songName}</h4>
                         <h4>{song.points}pkt</h4>
                     </div>
                     <button
-                        className={`${song.played === true ? "playedsong" : ""} song`}
+                        className={`${song.played === true ? "playedsong" : ""} song songbutton`}
                         onClick={() => startPlaying(song)}
-                        disabled={song.played}
+                        disabled={song.played || !song.songAudio?.paused}
                     >
                         <FontAwesomeIcon icon={faPlay} />
                     </button>
                     <button
-                        className={`${song.played === true ? "playedsong" : ""} song`}
+                        className={`${song.played === true ? "playedsong" : ""} song songbutton`}
                         onClick={() => pausePlaying(song)}
                         disabled={song.played}
                     >
                         <FontAwesomeIcon icon={faPause} />
                     </button>
                     <button
-                        className={`song`}
-                        onClick={() => {song.played = false; songStorage.setStorageState(JSON.stringify(songs))}}
+                        className={`${song.played === true ? "playedsong" : ""} song songbutton`}
+                        onClick={() => setPoints(null, count)}
+                    >
+                        <FontAwesomeIcon icon={faBan} />
+                    </button>
+                    <button
+                        className={`${song.played !== true ? "playedsong" : ""} song songbutton`}
+                        onClick={() => resetSong(song)}
                     >
                         <FontAwesomeIcon icon={faRotateLeft} />
                     </button>
@@ -152,30 +160,55 @@ const GameMaster = () => {
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5rem", paddingBottom: "2rem" }}>
                 <div>
                     <h3>Drużyna 1</h3>
-                    <button onClick={() => setPoints(team1Points, count)} className="punctationbutton">
-                        <h4>{team1Points.store}</h4>
-                    </button>
+                    <div style={{ display: "flex" }}>
+                        <button onClick={() => setPoints(team1Points, count)} className="punctationbutton">
+                            <h4>{team1Points.store}</h4>
+                        </button>
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                            <button onClick={() => team1Points.setStorageState((Number(team1Points.store) + 10).toString())}>
+                                <FontAwesomeIcon icon={faPlus} />
+                            </button>
+                            <button onClick={() => team1Points.setStorageState((Number(team1Points.store) - 10).toString())}>
+                                <FontAwesomeIcon icon={faMinus} />
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <h3>Drużyna 2</h3>
-                    <button onClick={() => setPoints(team2Points, count)} className="punctationbutton">
-                        <h4>{team2Points.store}</h4>
-                    </button>
+                    <div style={{ display: "flex" }}>
+                        <button onClick={() => setPoints(team2Points, count)} className="punctationbutton">
+                            <h4>{team2Points.store}</h4>
+                        </button>
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                            <button onClick={() => team2Points.setStorageState((Number(team2Points.store) + 10).toString())}>
+                                <FontAwesomeIcon icon={faPlus} />
+                            </button>
+                            <button onClick={() => team2Points.setStorageState((Number(team2Points.store) - 10).toString())}>
+                                <FontAwesomeIcon icon={faMinus} />
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <h3>Drużyna 3</h3>
-                    <button onClick={() => setPoints(team3Points, count)} className="punctationbutton">
-                        <h4>{team3Points.store}</h4>
-                    </button>
+                    <div style={{ display: "flex" }}>
+                        <button onClick={() => setPoints(team3Points, count)} className="punctationbutton">
+                            <h4>{team3Points.store}</h4>
+                        </button>
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                            <button onClick={() => team3Points.setStorageState((Number(team3Points.store) + 10).toString())}>
+                                <FontAwesomeIcon icon={faPlus} />
+                            </button>
+                            <button onClick={() => team3Points.setStorageState((Number(team3Points.store) - 10).toString())}>
+                                <FontAwesomeIcon icon={faMinus} />
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div>
-                <h3>Punkty</h3>
-                <div className="teampoints">
-                    <h4>{count.store}</h4>
-                </div>
-            </div>
+
 
             <button onClick={() => {
                 team1Points.setStorageState("0");
