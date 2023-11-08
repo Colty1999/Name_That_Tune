@@ -1,0 +1,73 @@
+[
+    {
+      "id": 1,
+      "songName": "Song 1asfa",
+      "songPath": "audio/pokemon.mp3",
+      "clue": "apple",
+      "points": 100
+    },
+    {
+      "id": 2,
+      "songName": "Song 2",
+      "songPath": "audio/pokemon.mp3",
+      "clue": "banana",
+      "points": 100
+    },
+    {
+      "id": 3,
+      "songName": "Song 3",
+      "songPath": "audio/pokemon.mp3",
+      "clue": "chocolate",
+      "points": 100
+    },
+    {
+      "id": 4,
+      "songName": "Song 4",
+      "songPath": "audio/pokemon.mp3",
+      "clue": "dragon",
+      "points": 100
+    },
+    {
+      "id": 5,
+      "songName": "Song 5",
+      "songPath": "audio/pokemon.mp3",
+      "clue": "elephant",
+      "points": 200
+    },
+    {
+      "id": 6,
+      "songName": "Song 6",
+      "songPath": "audio/pokemon.mp3",
+      "clue": "fire",
+      "points": 100
+    },
+    {
+      "id": 7,
+      "songName": "Song 7",
+      "songPath": "audio/pokemon.mp3",
+      "clue": "guitar",
+      "points": 100
+    },
+    {
+      "id": 8,
+      "songName": "Song 8",
+      "songPath": "audio/pokemon.mp3",
+      "clue": "happiness",
+      "points": 100
+    },
+    {
+      "id": 9,
+      "songName": "Song 9",
+      "songPath": "audio/pokemon.mp3",
+      "clue": "island",
+      "points": 100
+    },
+    {
+      "id": 10,
+      "songName": "Song 10",
+      "songPath": "audio/pokemon.mp3",
+      "clue": "jazz",
+      "points": 200
+    }
+  ]
+  

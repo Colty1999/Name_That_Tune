@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import './game.scss'
 import SongPicker from '../../components/songpicker/songPicker';
 import { Song, gameLogo } from '../../assets/common';
@@ -14,12 +13,9 @@ const Game = () => {
     let pageStorage = useStorageState({ state: "currentPage" });
     let currentPage: number = Number(pageStorage.store ?? 0);
 
-    useEffect(() => {
-        songs = JSON.parse(songStorage.store ?? "");
-        pageStorage.setStorageState("0");
-    }, [songStorage]);
-
-
+    // useEffect(() => {
+    //     songs = JSON.parse(songStorage.store ?? "");
+    // }, [songStorage]);
 
 
     return (
