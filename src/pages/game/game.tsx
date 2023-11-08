@@ -17,7 +17,7 @@ const Game = () => {
     //     songs = JSON.parse(songStorage.store ?? "");
     // }, [songStorage]);
 
-
+    if (!songs) return <div>Loading...</div>;
     return (
         <div className='gamestyle'>
             <div style={{ paddingBottom: "1rem" }}>

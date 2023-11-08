@@ -1,15 +1,9 @@
 import { Link } from 'react-router-dom';
 import './mainMenu.scss'
 import { gameLogo } from '../../assets/common';
-import { useStorageState } from '../../hooks/useStorageState';
-import { useEffect } from 'react';
 
 
 const MainMenu = () => {
-    let category = useStorageState({state: "category"});
-    useEffect(() => {
-    category.setStorageState("");
-    }, []);
 
     return (
         <div className="mainmenu">
@@ -19,7 +13,7 @@ const MainMenu = () => {
             <h1>Jaka to melodia?</h1>
             <div className="card button">
                 <Link to="/game">
-                    <button onClick={() => {window.open(`${window.location.origin}/gamemaster`, "_blank", "popup")}}>
+                    <button onClick={() => { window.open(`${window.location.origin}/gamemaster`, "_blank", "popup") }}>
                         Rozpocznij
                     </button>
                 </Link>
@@ -39,7 +33,9 @@ const MainMenu = () => {
                 </Link>
             </div>
             <p className="read-the-docs">
-                Mateusz gietka | 2023
+                Mateusz gietka 2023 | <Link to="https://www.linkedin.com/in/mateusz-gietka-50032b210/" target='_blank'>
+                    LinkedIn
+                </Link>
             </p>
         </div>
     );

@@ -8,7 +8,7 @@ interface SongButtonProps {
     count: StateType;
     startPlaying: (song: Song) => void;
     pausePlaying: (song: Song) => void;
-    setPoints: (teamPoints: StateType | null, count: StateType) => void;
+    setPoints: (song: Song | null,teamPoints: StateType | null, count: StateType) => void;
     resetSong: (song: Song) => void;
 }
 
@@ -36,7 +36,7 @@ const SongButton = (props: SongButtonProps) => {
                     </button>
                     <button
                         className={`${song.played === true ? "playedsong" : ""} song songbutton`}
-                        onClick={() => setPoints(null, count)}
+                        onClick={() => setPoints(song, null, count)}
                     >
                         <FontAwesomeIcon icon={faBan} />
                     </button>

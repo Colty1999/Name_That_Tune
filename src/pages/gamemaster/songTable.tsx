@@ -7,7 +7,7 @@ export interface SongTableProps {
     count: StateType;
     startPlaying: (song: Song) => void;
     pausePlaying: (song: Song) => void;
-    setPoints: (teamPoints: StateType | null, count: StateType) => void;
+    setPoints: (song: Song | null, teamPoints: StateType | null, count: StateType) => void;
     resetSong: (song: Song) => void;
 }
 

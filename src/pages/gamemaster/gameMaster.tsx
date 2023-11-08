@@ -25,33 +25,33 @@ const GameMaster = () => {
 
     useEffect(() => {
         fetch('songsList.json',
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
             }
-          }
         )
-          .then(function (response) {
-            return response.json();
-          })
-          .then(function (myJson: JSON) {
-            const chunkSize = 5;
-            const fetchedArray:Song[] = JSON.parse(JSON.stringify(myJson));
-            const splitArrays = [];
-            fetchedArray.forEach((song: Song) => {
-                song.songAudio = new Audio((song.songPath));
+            .then(function (response) {
+                return response.json();
             })
-            for (let i = 0; i < fetchedArray.length; i += chunkSize) {
-              splitArrays.push(fetchedArray.slice(i, i + chunkSize));
-            }
-            setSongs(splitArrays);
-            songStorage.setStorageState(JSON.stringify(splitArrays));
-            //function to parse the json file with audio data
-          });
-      }, []);
+            .then(function (myJson: JSON) {
+                const chunkSize = 5;
+                const fetchedArray: Song[] = JSON.parse(JSON.stringify(myJson));
+                const splitArrays = [];
+                fetchedArray.forEach((song: Song) => {
+                    song.songAudio = new Audio((song.songPath));
+                })
+                for (let i = 0; i < fetchedArray.length; i += chunkSize) {
+                    splitArrays.push(fetchedArray.slice(i, i + chunkSize));
+                }
+                setSongs(splitArrays);
+                songStorage.setStorageState(JSON.stringify(splitArrays));
+                //function to parse the json file with audio data
+            });
+    }, []);
 
-    useEffect (() => {
+    useEffect(() => {
         category.setStorageState("");
         count.setStorageState("0");
         if (!team1Points.store) team1Points.setStorageState('0');
@@ -121,14 +121,8 @@ const GameMaster = () => {
     };
 
     //adds points to team and resets count
-    const setPoints = (teamPoints: StateType | null, count: StateType) => {
-        songs!.forEach((song: Song[]) => {song.find((song: Song) => song.songName === category.store)!.played = true}); //TODO
-        // songs!.forEach((song: Song[]) => {
-        //     song.find((song: Song) => {
-        //         return song.songName === category.store;
-        //         song.played = true;
-        //     })
-        // });
+    const setPoints = (song: Song | null, teamPoints: StateType | null, count: StateType) => {
+        if (song) song.played = true;
         songStorage.setStorageState(JSON.stringify(songs));
         category.setStorageState("");
         if (currentSong) currentSong.songAudio!.pause();
@@ -152,10 +146,10 @@ const GameMaster = () => {
                 <div>
                     <h1>Master Panel</h1>
                     <div style={{ display: "flex", justifyContent: "left", gap: "0.2rem" }}>
-                        {(Number(pageStorage.store) !== 0) && <button onClick={() => { pageStorage.setStorageState((Number(pageStorage.store)-1).toString()) }} className='setbuttom'>
+                        {(Number(pageStorage.store) !== 0) && <button onClick={() => { pageStorage.setStorageState((Number(pageStorage.store) - 1).toString()) }} className='setbuttom'>
                             <FontAwesomeIcon icon={faSquareCaretLeft} /> Previous Set
                         </button>}
-                        {(Number(pageStorage.store) < songs.length-1) && <button onClick={() => { pageStorage.setStorageState((Number(pageStorage.store)+1).toString()); }} className='setbuttom'>
+                        {(Number(pageStorage.store) < songs.length - 1) && <button onClick={() => { pageStorage.setStorageState((Number(pageStorage.store) + 1).toString()); }} className='setbuttom'>
                             Next Set <FontAwesomeIcon icon={faSquareCaretRight} />
                         </button>}
                     </div>
@@ -163,24 +157,24 @@ const GameMaster = () => {
                 <div style={{ margin: "auto 0 0 0" }}>
                     <h3>Punkty</h3>
                     <div className="punctationbutton song" style={{ margin: 0 }}>
-                        <h4>{count.store}</h4>
+                        <h4>{count.store}pkt</h4>
                     </div>
                 </div>
             </div>
             {songs.map((song: Song[], key: number) => (
-                    < div key={key} className={`${key === currentPage ? 'visible' : 'hidden'}`}>
-                        <SongTable
-                            songs={song}
-                            category={category}
-                            count={count}
-                            startPlaying={startPlaying}
-                            pausePlaying={pausePlaying}
-                            setPoints={setPoints}
-                            resetSong={resetSong}
-                        />
-                    </div>
+                < div key={key} className={`${key === currentPage ? 'visible' : 'hidden'}`}>
+                    <SongTable
+                        songs={song}
+                        category={category}
+                        count={count}
+                        startPlaying={startPlaying}
+                        pausePlaying={pausePlaying}
+                        setPoints={setPoints}
+                        resetSong={resetSong}
+                    />
+                </div>
 
-                
+
             ))}
 
 
@@ -188,8 +182,8 @@ const GameMaster = () => {
                 <div>
                     <h3>Drużyna 1</h3>
                     <div style={{ display: "flex" }}>
-                        <button onClick={() => setPoints(team1Points, count)} className="punctationbutton">
-                            <h4>{team1Points.store}</h4>
+                        <button onClick={() => setPoints(currentSong, team1Points, count)} className="punctationbutton">
+                            <h4>{team1Points.store}pkt</h4>
                         </button>
                         <div style={{ display: "flex", flexDirection: "column" }}>
                             <button onClick={() => team1Points.setStorageState((Number(team1Points.store) + 10).toString())}>
@@ -204,8 +198,8 @@ const GameMaster = () => {
                 <div>
                     <h3>Drużyna 2</h3>
                     <div style={{ display: "flex" }}>
-                        <button onClick={() => setPoints(team2Points, count)} className="punctationbutton">
-                            <h4>{team2Points.store}</h4>
+                        <button onClick={() => setPoints(currentSong, team2Points, count)} className="punctationbutton">
+                            <h4>{team2Points.store}pkt</h4>
                         </button>
                         <div style={{ display: "flex", flexDirection: "column" }}>
                             <button onClick={() => team2Points.setStorageState((Number(team2Points.store) + 10).toString())}>
@@ -220,8 +214,8 @@ const GameMaster = () => {
                 <div>
                     <h3>Drużyna 3</h3>
                     <div style={{ display: "flex" }}>
-                        <button onClick={() => setPoints(team3Points, count)} className="punctationbutton">
-                            <h4>{team3Points.store}</h4>
+                        <button onClick={() => setPoints(currentSong, team3Points, count)} className="punctationbutton">
+                            <h4>{team3Points.store}pkt</h4>
                         </button>
                         <div style={{ display: "flex", flexDirection: "column" }}>
                             <button onClick={() => team3Points.setStorageState((Number(team3Points.store) + 10).toString())}>
