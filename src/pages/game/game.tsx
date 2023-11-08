@@ -3,6 +3,7 @@ import SongPicker from '../../components/songpicker/songPicker';
 import { Song, gameLogo } from '../../assets/common';
 import { useStorageState } from '../../hooks/useStorageState';
 import PointsScreen from '../../components/points/pointsScreen';
+import { useEffect } from 'react';
 
 
 const Game = () => {
@@ -13,9 +14,9 @@ const Game = () => {
     let pageStorage = useStorageState({ state: "currentPage" });
     let currentPage: number = Number(pageStorage.store ?? 0);
 
-    // useEffect(() => {
-    //     songs = JSON.parse(songStorage.store ?? "");
-    // }, [songStorage]);
+    useEffect(() => {
+        songs = JSON.parse(songStorage.store ?? "");
+    }, [songStorage]);
 
     if (!songs) return <div>Loading...</div>;
     return (

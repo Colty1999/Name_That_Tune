@@ -1,4 +1,4 @@
-import { Song, StateType } from "../../assets/common";
+import { Song, StateType } from "../../../assets/common";
 import SongButton from "./songButtons";
 
 export interface SongTableProps {

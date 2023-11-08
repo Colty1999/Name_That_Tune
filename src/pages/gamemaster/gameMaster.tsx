@@ -3,25 +3,29 @@ import { Song, StateType } from '../../assets/common';
 import "./gameMaster.scss";
 import { useStorageState } from '../../hooks/useStorageState';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMinus, faPlus, faSquareCaretLeft, faSquareCaretRight } from '@fortawesome/free-solid-svg-icons';
-import SongTable from './songTable';
+import { faSquareCaretLeft, faSquareCaretRight } from '@fortawesome/free-solid-svg-icons';
+import SongTable from './components/songTable';
+import { TeamPoints } from './components/teamPoints';
 
 
 const GameMaster = () => {
     const [, updateState] = useState<{}>();
     const forceUpdate = useCallback(() => updateState({}), []);
-
-    let category = useStorageState({ state: "category" });
-    let count = useStorageState({ state: "count" });
-    let songStorage = useStorageState({ state: "songs" });
-    const [songs, setSongs] = useState<Song[][] | null>(null);
-
-    let pageStorage = useStorageState({ state: "currentPage" });
-    let currentPage: number = Number(pageStorage.store ?? 0);
-
+    //-----------------
     let team1Points = useStorageState({ state: "team1Points" });
     let team2Points = useStorageState({ state: "team2Points" });
     let team3Points = useStorageState({ state: "team3Points" });
+    let category = useStorageState({ state: "category" });
+    let count = useStorageState({ state: "count" });
+    //-----------------
+    let songStorage = useStorageState({ state: "songs" });
+    const [songs, setSongs] = useState<Song[][] | null>(null);
+    //-----------------
+    let pageStorage = useStorageState({ state: "currentPage" });
+    let currentPage: number = Number(pageStorage.store ?? 0);
+    //-----------------
+    const [currentSong, setCurrentSong] = useState<Song | null>(null);
+    // const [songSet, setSongSet] = useState<number>(0);
 
     useEffect(() => {
         fetch('songsList.json',
@@ -59,9 +63,6 @@ const GameMaster = () => {
         if (!team3Points.store) team3Points.setStorageState('0');
     }, []);
 
-
-    const [currentSong, setCurrentSong] = useState<Song | null>(null);
-
     window.addEventListener("beforeunload", () => {
         category.setStorageState("");
         team1Points.setStorageState("0");
@@ -85,7 +86,6 @@ const GameMaster = () => {
                 default:
                     break;
             }
-            // if (category.store !== "" && Number(count.store) < 400) count.setStorageState((Number(count.store) + 10).toString());
         }, 2000); // 1000ms = 1 second
         return () => {
             clearInterval(interval); // Clean up the interval when the component unmounts
@@ -97,13 +97,11 @@ const GameMaster = () => {
         if (!currentSong) {
             count.setStorageState((song.points).toString());
             forceUpdate();
-            // console.log(song.points);
         }
         else if (currentSong && currentSong.songName !== song.songName) {
             currentSong.songAudio!.pause();
             currentSong.songAudio!.currentTime = 0;
             count.setStorageState((song.points).toString());
-            // console.log(song.points);
         }
         else {
             count.setStorageState((Number(count.store)).toString());
@@ -173,63 +171,15 @@ const GameMaster = () => {
                         resetSong={resetSong}
                     />
                 </div>
-
-
             ))}
-
-
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5rem", paddingBottom: "2rem" }}>
-                <div>
-                    <h3>Drużyna 1</h3>
-                    <div style={{ display: "flex" }}>
-                        <button onClick={() => setPoints(currentSong, team1Points, count)} className="punctationbutton">
-                            <h4>{team1Points.store}pkt</h4>
-                        </button>
-                        <div style={{ display: "flex", flexDirection: "column" }}>
-                            <button onClick={() => team1Points.setStorageState((Number(team1Points.store) + 10).toString())}>
-                                <FontAwesomeIcon icon={faPlus} />
-                            </button>
-                            <button onClick={() => team1Points.setStorageState((Number(team1Points.store) - 10).toString())}>
-                                <FontAwesomeIcon icon={faMinus} />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h3>Drużyna 2</h3>
-                    <div style={{ display: "flex" }}>
-                        <button onClick={() => setPoints(currentSong, team2Points, count)} className="punctationbutton">
-                            <h4>{team2Points.store}pkt</h4>
-                        </button>
-                        <div style={{ display: "flex", flexDirection: "column" }}>
-                            <button onClick={() => team2Points.setStorageState((Number(team2Points.store) + 10).toString())}>
-                                <FontAwesomeIcon icon={faPlus} />
-                            </button>
-                            <button onClick={() => team2Points.setStorageState((Number(team2Points.store) - 10).toString())}>
-                                <FontAwesomeIcon icon={faMinus} />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h3>Drużyna 3</h3>
-                    <div style={{ display: "flex" }}>
-                        <button onClick={() => setPoints(currentSong, team3Points, count)} className="punctationbutton">
-                            <h4>{team3Points.store}pkt</h4>
-                        </button>
-                        <div style={{ display: "flex", flexDirection: "column" }}>
-                            <button onClick={() => team3Points.setStorageState((Number(team3Points.store) + 10).toString())}>
-                                <FontAwesomeIcon icon={faPlus} />
-                            </button>
-                            <button onClick={() => team3Points.setStorageState((Number(team3Points.store) - 10).toString())}>
-                                <FontAwesomeIcon icon={faMinus} />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
+            <TeamPoints
+                team1Points={team1Points}
+                team2Points={team2Points}
+                team3Points={team3Points}
+                currentSong={currentSong!}
+                count={count}
+                setPoints={setPoints}
+            />
             <div style={{ display: "flex", justifyContent: "center", gap: "0.2rem" }}>
                 <button
                     onClick={() => {
