@@ -1,73 +1,285 @@
 [
-    {
-      "id": 1,
-      "songName": "Song 1asfa",
-      "songPath": "audio/pokemon.mp3",
-      "clue": "apple",
-      "points": 100
-    },
-    {
-      "id": 2,
-      "songName": "Song 2",
-      "songPath": "audio/pokemon.mp3",
-      "clue": "banana",
-      "points": 100
-    },
-    {
-      "id": 3,
-      "songName": "Song 3",
-      "songPath": "audio/pokemon.mp3",
-      "clue": "chocolate",
-      "points": 100
-    },
-    {
-      "id": 4,
-      "songName": "Song 4",
-      "songPath": "audio/pokemon.mp3",
-      "clue": "dragon",
-      "points": 100
-    },
-    {
-      "id": 5,
-      "songName": "Song 5",
-      "songPath": "audio/pokemon.mp3",
-      "clue": "elephant",
-      "points": 200
-    },
-    {
-      "id": 6,
-      "songName": "Song 6",
-      "songPath": "audio/pokemon.mp3",
-      "clue": "fire",
-      "points": 100
-    },
-    {
-      "id": 7,
-      "songName": "Song 7",
-      "songPath": "audio/pokemon.mp3",
-      "clue": "guitar",
-      "points": 100
-    },
-    {
-      "id": 8,
-      "songName": "Song 8",
-      "songPath": "audio/pokemon.mp3",
-      "clue": "happiness",
-      "points": 100
-    },
-    {
-      "id": 9,
-      "songName": "Song 9",
-      "songPath": "audio/pokemon.mp3",
-      "clue": "island",
-      "points": 100
-    },
-    {
-      "id": 10,
-      "songName": "Song 10",
-      "songPath": "audio/pokemon.mp3",
-      "clue": "jazz",
-      "points": 200
-    }
-  ]
-  
+  {
+    "id": 1,
+    "songName": "Mandaryna - Evry Night",
+    "songPath": "audio/Mandaryna - Evry Night.mp3",
+    "points": 100,
+    "clue": "Lata 2000"
+  },
+  {
+    "id": 2,
+    "songName": "Lady Gaga - Just Dance",
+    "songPath": "audio/Lady Gaga - Just Dance (Audio).mp3",
+    "points": 100,
+    "clue": "Pierwszy Singiel"
+  },
+  {
+    "id": 3,
+    "songName": "Michael Jackson - Billie Jean",
+    "songPath": "audio/Michael Jackson - Billie Jean.mp3",
+    "points": 100,
+    "clue": "Dziewczyna"
+  },
+  {
+    "id": 4,
+    "songName": "Bracia Figo Fagot feat. Popek - 3 króli",
+    "songPath": "audio/Bracia Figo Fagot feat. Popek - 3 króli.mp3",
+    "points": 100,
+    "clue": "Kacper Melchior i Baltazar"
+  },
+  {
+    "id": 5,
+    "songName": "Zbigniew Wodecki - Zacznij od Bacha",
+    "songPath": "audio/Zacznij od Bacha.mp3",
+    "points": 200,
+    "clue": "Poranek"
+  },
+  {
+    "id": 6,
+    "songName": "Kraina lodu - Mam tę moc",
+    "songPath": "audio/Kraina lodu - Mam tę moc.mp3",
+    "points": 100,
+    "clue": "Muzyka z bajek"
+  },
+  {
+    "id": 7,
+    "songName": "The Clash - Should I Stay or Should I Go",
+    "songPath": "audio/The Clash - Should I Stay or Should I Go (Official Audio).mp3",
+    "points": 100,
+    "clue": "Stranger Things"
+  },
+  {
+    "id": 8,
+    "songName": "Elton John - I'm Still Standing",
+    "songPath": "audio/Elton John - Im Still Standing.mp3",
+    "points": 100,
+    "clue": "Siła Grawitacji"
+  },
+  {
+    "id": 9,
+    "songName": "AC/DC - Thunderstruck",
+    "songPath": "audio/ACDC - Thunderstruck (Official Video).mp3",
+    "points": 100,
+    "clue": "Elektryczność"
+  },
+  {
+    "id": 10,
+    "songName": "Troy - Bet On It",
+    "songPath": "audio/Troy - Bet On It (From High School Musical 2).mp3",
+    "points": 200,
+    "clue": "Szkoła"
+  },
+  {
+    "id": 11,
+    "songName": "Queen - Radio Ga Ga",
+    "songPath": "audio/Queen - Radio Ga Ga (Official Video).mp3",
+    "points": 100,
+    "clue": "Królowa"
+  },
+  {
+    "id": 12,
+    "songName": "KUKI-CIEPŁE DRANIE", 
+    "songPath": "audio/KUKI-CIEPŁE DRANIE (reupload).mp3",
+    "points": 100,
+    "clue": "Hymn"
+  },
+  {
+    "id": 13,
+    "songName": "Pitbull - Rain Over Me ft. Marc Anthony",
+    "songPath": "audio/Pitbull - Rain Over Me ft. Marc Anthony.mp3",
+    "points": 100,
+    "clue": "Panta Rhei"
+  },
+  {
+    "id": 14,
+    "songName": "Pies GPS",
+    "songPath": "audio/Pies GPS jp2 zpierdal.mp3",
+    "points": 100,
+    "clue": "Nadajnik"
+  },
+  {
+    "id": 15,
+    "songName": "Kalwi & Remi - Explosion Ech poleczko",
+    "songPath": "audio/Kalwi  Remi feat Guzowianki - Explosion Ech poleczko (DNSQ Remix).mp3",
+    "points": 200,
+    "clue": "Muzyka Gra Dalej"
+  },
+  {
+    "id": 16,
+    "songName": "Gusttavo Lima - Balada",
+    "songPath": "audio/Balada.mp3",
+    "points": 100,
+    "clue": "Latino"
+  },
+  {
+    "id": 17,
+    "songName": "Camila Cabello - Havana",
+    "songPath": "audio/Camila Cabello - Havana.mp3",
+    "points": 100,
+    "clue": "Kuba"
+  },
+  {
+    "id": 18,
+    "songName": "Rihanna - Umbrella",
+    "songPath": "audio/Rihanna - Umbrella (Lyrics) ft. JAY-Z.mp3",
+    "points": 100,
+    "clue": "Deszcz"
+  },
+  {
+    "id": 19,
+    "songName": "ABBA - Voulez-Vous",
+    "songPath": "audio/ABBA - Voulez-Vous.mp3",
+    "points": 100,
+    "clue": "Szwecja"
+  },
+  {
+    "id": 20,
+    "songName": "KULT - Polska",
+    "songPath": "audio/KULT - Polska [OFFICIAL VIDEO].mp3",
+    "points": 200,
+    "clue": "Kultowe"
+  },
+  {
+    "id": 21,
+    "songName": "Adele - Skyfall",
+    "songPath": "audio/Adele - Skyfall (Lyrics).mp3",
+    "points": 100,
+    "clue": "Bond"
+  },
+  {
+    "id": 22,
+    "songName": "David Guetta - Titanium", 
+    "songPath": "audio/David Guetta - Titanium (ft  Sia).mp3",
+    "points": 100,
+    "clue": "Pierwiastki"
+  },
+  {
+    "id": 23,
+    "songName": "Michael Jackson - Smooth Criminal",
+    "songPath": "audio/Michael Jackson - Smooth Criminal (Lyrics).mp3",
+    "points": 100,
+    "clue": "Król POPu"
+  },
+  {
+    "id": 24,
+    "songName": "George Michael - Careless Whisper",
+    "songPath": "audio/George Michael - Careless Whisper (Official Video).mp3",
+    "points": 100,
+    "clue": "Romantyzm"
+  },
+  {
+    "id": 25,
+    "songName": "Fancy - Flames of love",
+    "songPath": "audio/Fancy - Flames of love.mp3",
+    "points": 200,
+    "clue": "Ogień"
+  },
+  {
+    "id": 26,
+    "songName": "Doda - Dzaga",
+    "songPath": "audio/Doda - Dzaga.mp3",
+    "points": 100,
+    "clue": "Virgin"
+  },
+  {
+    "id": 27,
+    "songName": "Boney M. - Rasputin",
+    "songPath": "audio/Boney M. - Rasputin (Official Audio).mp3",
+    "points": 100,
+    "clue": "Jasnowidz"
+  },
+  {
+    "id": 28,
+    "songName": "LEJ MI PÓŁ - Łabędź",
+    "songPath": "audio/Lej Mi Pół - Łabędź (Wędrowny Druciarz 2022).mp3",
+    "points": 100,
+    "clue": "Zwierzęta"
+  },
+  {
+    "id": 29,
+    "songName": "Mark Ronson - Uptown Funk",
+    "songPath": "audio/Mark Ronson - Uptown Funk.mp3",
+    "points": 100,
+    "clue": "Too Hot"
+  },
+  {
+    "id": 30,
+    "songName": "Ich Troje - A wszystko to... (Bo Ciebie Kocham)",
+    "songPath": "audio/ICH TROJE - A WSZYSTKO TO (Bo Ciebie Kocham).mp3",
+    "points": 200,
+    "clue": "Wiśnia"
+  },
+  {
+    "id": 31,
+    "songName": "Rednex - Cotton Eye Joe",
+    "songPath": "audio/Rednex - Cotton Eye Joe (Official Music Video) [HD] - RednexMusic com.mp3",
+    "points": 100,
+    "clue": "Tańce"
+  },
+  {
+    "id": 32,
+    "songName": "Brathanki - Gdzie ten, który powie mi", 
+    "songPath": "audio/Brathanki - Gdzie ten, który powie mi (2000).mp3",
+    "points": 100,
+    "clue": "Góralskie"
+  },
+  {
+    "id": 33,
+    "songName": "Golec uOrkiestra - Lornetka",
+    "songPath": "audio/Golec uOrkiestra - Lornetka.mp3",
+    "points": 100,
+    "clue": "Podglądanie"
+  },
+  {
+    "id": 34,
+    "songName": "Ryan Gosling - Im Just Ken",
+    "songPath": "audio/Ryan Gosling - Im Just Ken.mp3",
+    "points": 100,
+    "clue": "Barbie"
+  },
+  {
+    "id": 35,
+    "songName": "Piotr Rubik - Psalm dla ciebie",
+    "songPath": "audio/Piotr Rubik - Psalm dla ciebie [Official Music Video 2006].mp3",
+    "points": 200,
+    "clue": "Piotr Rubik"
+  },
+  {
+    "id": 36,
+    "songName": "Dzień Dobry Kocham Cię",
+    "songPath": "audio/Dzień Dobry Kocham Cię.mp3",
+    "points": 100,
+    "clue": "Niedopowiedzenia"
+
+  },
+  {
+    "id": 37,
+    "songName": "Madonna - La Isla Bonita",
+    "songPath": "audio/Madonna - La Isla Bonita (Official Video).mp3",
+    "points": 100,
+    "clue": "Madonna"
+
+  },
+  {
+    "id": 38,
+    "songName": "Smash Mouth - I'm A Believer",
+    "songPath": "audio/Smash Mouth - Im A Believer.mp3",
+    "points": 100,
+    "clue": "film"
+
+  },
+  {
+    "id": 39,
+    "songName": "Ed Sheeran - Shape Of You",
+    "songPath": "audio/Ed Sheeran - Shape Of You.mp3",
+    "points": 100,
+    "clue": "Kształty"
+  },
+  {
+    "id": 40,
+    "songName": "Arka Noego - Sieje Je",
+    "songPath": "audio/Arka Noego - Sieje Je.mp3",
+    "points": 200,
+    "clue": "Bliżej Boga"
+  }
+]

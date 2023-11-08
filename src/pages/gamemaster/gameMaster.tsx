@@ -40,6 +40,7 @@ const GameMaster = () => {
                 return response.json();
             })
             .then(function (myJson: JSON) {
+                // const chosenSet = songSet;
                 const chunkSize = 5;
                 const fetchedArray: Song[] = JSON.parse(JSON.stringify(myJson));
                 const splitArrays = [];
@@ -56,6 +57,7 @@ const GameMaster = () => {
     }, []);
 
     useEffect(() => {
+        pageStorage.setStorageState("0");
         category.setStorageState("");
         count.setStorageState("0");
         if (!team1Points.store) team1Points.setStorageState('0');
