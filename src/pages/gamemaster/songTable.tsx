@@ -13,7 +13,6 @@ export interface SongTableProps {
 
 const SongTable = (props: SongTableProps) => {
     const { songs, category, count, startPlaying, pausePlaying, setPoints, resetSong } = props;
-    console.log(songs)
     return (
         <div>
             {songs.map((song: Song) => (

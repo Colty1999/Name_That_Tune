@@ -4,45 +4,10 @@ import Container from 'react-bootstrap/esm/Container';
 import Game from './pages/game/game';
 import NotFound from './pages/notfound/notFound';
 import GameMaster from './pages/gamemaster/gameMaster';
-import { useEffect } from 'react';
-import { useStorageState } from './hooks/useStorageState';
-import { Song } from './assets/common';
-
 // export const UserContext = createContext<{number:number, setNumber: React.Dispatch<React.SetStateAction<boolean>> | Function}>({number: 0, setNumber:() => { }});
 
 function App() {
-  // const [songList, setSongList] = useState([]);
-  let songStorage = useStorageState({ state: "songs" });
-
-  useEffect(() => {
-    fetch('songsList.json',
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
-      }
-    )
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (myJson: JSON) {
-        const chunkSize = 5;
-        const fetchedArray:Song[] = JSON.parse(JSON.stringify(myJson));
-        // fetchedArray.forEach((song: any) => {
-        //   song.songAudio = new Audio((song.songPath));
-        // });
-        const splitArrays = [];
-        for (let i = 0; i < fetchedArray.length; i += chunkSize) {
-          splitArrays.push(fetchedArray.slice(i, i + chunkSize));
-        }
-        // console.log(fetchedArray);
-        // console.log(songList1);
-        songStorage.setStorageState(JSON.stringify(splitArrays));
-        //function to parse the json file with audio data
-      });
-  }, []);
-
+  
   return (
     <Container fluid="true">
       <Router>

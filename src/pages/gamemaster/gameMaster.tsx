@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Song, StateType } from '../../assets/common';
 import "./gameMaster.scss";
 import { useStorageState } from '../../hooks/useStorageState';
@@ -14,7 +14,8 @@ const GameMaster = () => {
     let category = useStorageState({ state: "category" });
     let count = useStorageState({ state: "count" });
     let songStorage = useStorageState({ state: "songs" });
-    let songs: Song[][] = JSON.parse(songStorage.store ?? "");
+    const [songs, setSongs] = useState<Song[][] | null>(null);
+
     let pageStorage = useStorageState({ state: "currentPage" });
     let currentPage: number = Number(pageStorage.store ?? 0);
 
@@ -22,20 +23,40 @@ const GameMaster = () => {
     let team2Points = useStorageState({ state: "team2Points" });
     let team3Points = useStorageState({ state: "team3Points" });
 
+    useEffect(() => {
+        fetch('songsList.json',
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            }
+          }
+        )
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (myJson: JSON) {
+            const chunkSize = 5;
+            const fetchedArray:Song[] = JSON.parse(JSON.stringify(myJson));
+            const splitArrays = [];
+            fetchedArray.forEach((song: Song) => {
+                song.songAudio = new Audio((song.songPath));
+            })
+            for (let i = 0; i < fetchedArray.length; i += chunkSize) {
+              splitArrays.push(fetchedArray.slice(i, i + chunkSize));
+            }
+            setSongs(splitArrays);
+            songStorage.setStorageState(JSON.stringify(splitArrays));
+            //function to parse the json file with audio data
+          });
+      }, []);
 
-    useLayoutEffect (() => {
+    useEffect (() => {
         category.setStorageState("");
         count.setStorageState("0");
         if (!team1Points.store) team1Points.setStorageState('0');
         if (!team2Points.store) team2Points.setStorageState('0');
         if (!team3Points.store) team3Points.setStorageState('0');
-        songs.forEach((song: Song[]) => {
-            song.forEach((song: Song) => {
-                song.songAudio = new Audio((song.songPath));
-                // console.log(song);
-            })
-        });
-        console.log(songs);
     }, []);
 
 
@@ -101,11 +122,13 @@ const GameMaster = () => {
 
     //adds points to team and resets count
     const setPoints = (teamPoints: StateType | null, count: StateType) => {
-        songs.forEach((song: Song[]) => {
-            song.forEach((song: Song) => {
-                song.played = true;
-            })
-        });
+        songs!.forEach((song: Song[]) => {song.find((song: Song) => song.songName === category.store)!.played = true}); //TODO
+        // songs!.forEach((song: Song[]) => {
+        //     song.find((song: Song) => {
+        //         return song.songName === category.store;
+        //         song.played = true;
+        //     })
+        // });
         songStorage.setStorageState(JSON.stringify(songs));
         category.setStorageState("");
         if (currentSong) currentSong.songAudio!.pause();
@@ -122,6 +145,7 @@ const GameMaster = () => {
 
     //-----------------
 
+    if (!songs) return <div>Loading...</div>;
     return (
         <div className="gamemasterstyle" >
             <div style={{ display: "flex", justifyContent: "space-between", padding: "0 0.5rem", marginBottom: "1rem" }}>
