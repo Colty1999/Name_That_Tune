@@ -13,7 +13,7 @@ const MainMenu = () => {
             <h1>Jaka to melodia?</h1>
             <div className="card button">
                 <Link to="/game">
-                    <button onClick={() => { window.open(`${window.location.origin}/gamemaster`, "_blank", "popup") }}>
+                    <button onClick={() => { window.open(`${window.location.origin}${window.location.pathname}/#/gamemaster`, "_blank", "popup") }}>
                         Rozpocznij
                     </button>
                 </Link>

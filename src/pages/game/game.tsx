@@ -3,19 +3,42 @@ import SongPicker from '../../components/songpicker/songPicker';
 import { Song, gameLogo } from '../../assets/common';
 import { useStorageState } from '../../hooks/useStorageState';
 import PointsScreen from '../../components/points/pointsScreen';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 const Game = () => {
     let count = useStorageState({ state: "count" });
     let category = useStorageState({ state: "category" })
     let songStorage = useStorageState({ state: "songs" });
-    let songs: Song[][] = JSON.parse(songStorage.store ?? "");
+    const [songs, setSongs] = useState<Song[][] | null>(null);
     let pageStorage = useStorageState({ state: "currentPage" });
     let currentPage: number = Number(pageStorage.store ?? 0);
 
     useEffect(() => {
-        songs = JSON.parse(songStorage.store ?? "");
+      fetch('songsList.json',
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }
+        }
+      )
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (myJson: JSON) {
+          const chunkSize = 5;
+          const fetchedArray: Song[] = JSON.parse(JSON.stringify(myJson));
+          const splitArrays = [];
+          for (let i = 0; i < fetchedArray.length; i += chunkSize) {
+            splitArrays.push(fetchedArray.slice(i, i + chunkSize));
+          }
+          songStorage.setStorageState(JSON.stringify(splitArrays));
+        });
+    }, []);
+
+    useEffect(() => {
+        setSongs(JSON.parse(songStorage.store ?? ""));
     }, [songStorage]);
 
     if (!songs) return <div>Loading...</div>;
