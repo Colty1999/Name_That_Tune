@@ -1,9 +1,10 @@
 import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import { gameLogo } from "../../assets/common";
+import { gameLogo } from "../assets/common";
 
-const NotFound = () => {
+
+const NotImplemented = () => {
     return (
         <div className="mainmenu">
             <div>
@@ -11,7 +12,7 @@ const NotFound = () => {
             </div>
             <h1>Jaka to melodia?</h1>
             <div className="card button">
-                <h2>Not Found</h2>
+                <h2>Not Implemented</h2>
             </div>
             <p className="footer">
                 Mateusz Gietka 2023 | <Link to="https://www.linkedin.com/in/mateusz-gietka-50032b210/" target='_blank'>
@@ -24,4 +25,4 @@ const NotFound = () => {
     );
 };
 
-export default NotFound;
+export default NotImplemented;

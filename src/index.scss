@@ -75,6 +75,7 @@ a:hover {
 button:hover:enabled {
   border-color: #646cff;
 }
+
 button:focus:enabled,
 button:focus-visible:enabled {
   outline: 4px auto -webkit-focus-ring-color;
@@ -90,4 +91,27 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+}
+
+.footer {
+  color: #888;
+  font-size: 1rem;
+
+
+  .github {
+    color: darkorange;
+  }
+
+  .github:hover {
+    filter: drop-shadow(0 0 20rem orange);
+  }
+
+  .linkdenin {
+    color: darkblue;
+  }
+
+  .linkdenin:hover {
+    filter: drop-shadow(0 0 20rem blue);
+  }
+
 }

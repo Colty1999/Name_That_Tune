@@ -4,6 +4,7 @@ import Game from './pages/game/game';
 import NotFound from './pages/notfound/notFound';
 import GameMaster from './pages/gamemaster/gameMaster';
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
+import NotImplemented from './notimplemented/notImplemented';
 // export const UserContext = createContext<{number:number, setNumber: React.Dispatch<React.SetStateAction<boolean>> | Function}>({number: 0, setNumber:() => { }});
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/gamemaster" Component={GameMaster} />
           {/* <Route path="/game" Component={GalleryYearView} />
             <Route path="/archive/:year/:folder" Component={GalleryFolderView} />*/}
+          <Route path='/notimplemented' Component={NotImplemented} />
           <Route path='/404' Component={NotFound} />
           <Route
             path="*"
