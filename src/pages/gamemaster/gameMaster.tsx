@@ -25,7 +25,8 @@ const GameMaster = () => {
     let currentPage: number = Number(pageStorage.store ?? 0);
     //-----------------
     const [currentSong, setCurrentSong] = useState<Song | null>(null);
-    // const [songSet, setSongSet] = useState<number>(0);
+    //-----------------
+    let songsLoaded = useStorageState({ state: "songsLoaded" });
 
     useEffect(() => {
         fetch('songsList.json',
@@ -52,6 +53,7 @@ const GameMaster = () => {
                 }
                 setSongs(splitArrays);
                 songStorage.setStorageState(JSON.stringify(splitArrays));
+                songsLoaded.setStorageState("true");
                 //function to parse the json file with audio data
             });
     }, []);

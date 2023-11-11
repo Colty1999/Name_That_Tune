@@ -10,38 +10,17 @@ const Game = () => {
     let count = useStorageState({ state: "count" });
     let category = useStorageState({ state: "category" })
     let songStorage = useStorageState({ state: "songs" });
-    const [songs, setSongs] = useState<Song[][] | null>(null);
     let pageStorage = useStorageState({ state: "currentPage" });
     let currentPage: number = Number(pageStorage.store ?? 0);
+    let songsLoaded = useStorageState({ state: "songsLoaded" });
+    const [loading, setLoading] = useState<boolean>(true);
+
 
     useEffect(() => {
-      fetch('songsList.json',
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          }
-        }
-      )
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (myJson: JSON) {
-          const chunkSize = 5;
-          const fetchedArray: Song[] = JSON.parse(JSON.stringify(myJson));
-          const splitArrays = [];
-          for (let i = 0; i < fetchedArray.length; i += chunkSize) {
-            splitArrays.push(fetchedArray.slice(i, i + chunkSize));
-          }
-          songStorage.setStorageState(JSON.stringify(splitArrays));
-        });
-    }, []);
-
-    useEffect(() => {
-        setSongs(JSON.parse(songStorage.store ?? ""));
-    }, [songStorage]);
-
-    if (!songs) return <div>Loading...</div>;
+      setLoading(false);
+    }, [songsLoaded]);
+    
+    if (loading) return <div>Loading...</div>;
     return (
         <div className='gamestyle'>
             <div style={{ paddingBottom: "1rem" }}>
@@ -56,7 +35,7 @@ const Game = () => {
                 <PointsScreen />
             </div>
             <div style={{ paddingBottom: "5rem", minHeight: "25rem" }}>
-                {songs.map((songs: Song[], key: number) => (
+                {JSON.parse(songStorage.store ?? "").map((songs: Song[], key: number) => (
                     <div key={key} className={`${key === currentPage ? 'visible' : 'hidden'}`}>
                         <SongPicker songs={songs} category={category} />
                     </div>

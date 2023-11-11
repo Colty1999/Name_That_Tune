@@ -103,15 +103,15 @@ button {
   }
 
   .github:hover {
-    filter: drop-shadow(0 0 20rem orange);
+    filter: drop-shadow(0 0 20rem rgb(255, 206, 114));
   }
 
   .linkdenin {
-    color: darkblue;
+    color: #646cff;
   }
 
   .linkdenin:hover {
-    filter: drop-shadow(0 0 20rem blue);
+    filter: drop-shadow(0 0 20rem rgb(90, 90, 255));
   }
 
 }
