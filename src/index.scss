@@ -21,13 +21,14 @@
   -webkit-text-size-adjust: 100%;
 }
 
-// body {
-//   margin: 0;
-//   display: flex;
-//   place-items: center;
-//   min-width: 320px;
-//   min-height: 100vh;
-// }
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 
 h1 {
   font-size: 3.2rem;
@@ -113,5 +114,4 @@ button {
   .linkdenin:hover {
     filter: drop-shadow(0 0 20rem rgb(90, 90, 255));
   }
-
 }

@@ -37,18 +37,21 @@ const SongButton = (props: SongButtonProps) => {
                     <FontAwesomeIcon icon={faPause} />
                 </button>
             }
-            <button
-                className={`${song.played === true ? "playedsong" : ""} song songbutton`}
-                onClick={() => setPoints(song, null, count)}
-            >
-                <FontAwesomeIcon icon={faBan} />
-            </button>
-            <button
-                className={`${song.played !== true ? "playedsong" : ""} song songbutton`}
-                onClick={() => resetSong(song)}
-            >
-                <FontAwesomeIcon icon={faRotateLeft} />
-            </button>
+            {song.played !== true ?
+                <button
+                    className={`song songbutton`}
+                    onClick={() => setPoints(song, null, count)}
+                >
+                    <FontAwesomeIcon icon={faBan} />
+                </button>
+                :
+                <button
+                    className={`song songbutton`}
+                    onClick={() => resetSong(song)}
+                >
+                    <FontAwesomeIcon icon={faRotateLeft} />
+                </button>
+            }
         </div>
     )
 };

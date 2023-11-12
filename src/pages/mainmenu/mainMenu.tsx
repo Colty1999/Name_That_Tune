@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 
+
 const MainMenu = () => {
 
     return (
@@ -39,7 +40,7 @@ const MainMenu = () => {
                     <FontAwesomeIcon className='linkedin' icon={faLinkedin} />
                 </Link> | <Link to="https://github.com/Colty1999" target='_blank'>
                     <FontAwesomeIcon className="github" icon={faGithub} />
-                </Link>
+                </Link> |
             </p>
         </div>
     );

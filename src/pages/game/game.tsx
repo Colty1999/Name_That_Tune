@@ -17,9 +17,9 @@ const Game = () => {
 
 
     useEffect(() => {
-      setLoading(false);
+      if (songsLoaded.store === "true") setLoading(false);
     }, [songsLoaded]);
-    
+
     if (loading) return <div>Loading...</div>;
     return (
         <div className='gamestyle'>
