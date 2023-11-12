@@ -1,0 +1,25 @@
+.footer {
+    color: #888;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0.3rem auto;
+    max-width: 20rem;
+  
+    .github {
+      color: darkorange;
+    }
+  
+    .github:hover {
+      filter: drop-shadow(0 0 20rem rgb(255, 206, 114));
+    }
+  
+    .linkdenin {
+      color: #646cff;
+    }
+  
+    .linkdenin:hover {
+      filter: drop-shadow(0 0 20rem rgb(90, 90, 255));
+    }
+  }
