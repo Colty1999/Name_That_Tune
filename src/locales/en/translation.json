@@ -1,0 +1,10 @@
+{
+  "mainmenu": {
+    "title": "Name That Tune",
+    "start": "Start Game",
+    "config": "Configuration",
+    "instruction": "Instruction"
+  },
+  "notimplemented": "Not implemented yet",
+  "notfound": "Not found"
+}

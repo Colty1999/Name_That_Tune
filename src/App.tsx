@@ -4,7 +4,7 @@ import Game from './pages/game/game';
 import NotFound from './pages/notfound/notFound';
 import GameMaster from './pages/gamemaster/gameMaster';
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
-import NotImplemented from './notimplemented/notImplemented';
+import NotImplemented from './pages/notimplemented/notImplemented';
 // export const UserContext = createContext<{number:number, setNumber: React.Dispatch<React.SetStateAction<boolean>> | Function}>({number: 0, setNumber:() => { }});
 
 function App() {

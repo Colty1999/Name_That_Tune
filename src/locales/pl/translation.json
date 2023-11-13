@@ -1,0 +1,10 @@
+{
+    "mainmenu": {
+        "title": "Jaka to melodia?",
+        "start": "Rozpocznij",
+        "config": "Konfiguracja",
+        "instruction": "Instrukcja"
+    },
+    "notimplemented": "Funkcja nie jest jeszcze zaimplementowana",
+    "notfound": "Nie znaleziono strony"
+}

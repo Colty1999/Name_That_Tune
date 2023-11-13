@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import Flag from 'react-world-flags'
 
 const Footer = () => {
-    const { t, i18n } = useTranslation();
+    const { i18n } = useTranslation();
 
     return (
         <div className="footer">
@@ -18,13 +18,14 @@ const Footer = () => {
             </Link> | <Select
                 // menuIsOpen={true}
                 styles={{
-                    menu: (provided, state) => ({
+                    // (provided, state)
+                    menu: (provided) => ({
                         ...provided,
                         backgroundColor: '#1a1a1a',
                         color: 'white',
                         padding: 0,
                     }),
-                    option: (provided, state) => ({
+                    option: (provided) => ({
                         ...provided,
                         backgroundColor: '#1a1a1a',
                         color: 'white',
@@ -32,7 +33,7 @@ const Footer = () => {
                         margin: 0,
                         //   color: state.isSelected ? 'red' : 'blue',
                     }),
-                    control: (provided, state) => ({
+                    control: (provided) => ({
                         ...provided,
                         backgroundColor: '#1a1a1a',
                         color: 'white',
@@ -53,12 +54,12 @@ const Footer = () => {
                       return { ...provided, opacity, transition };
                     }
                 }}
-                defaultValue={{value: i18n.language, label: <Flag code={i18n.language === 'GB' ? 'EN' : 'PL'} width='30px'/>}}
+                defaultValue={{value: i18n.language, label: <Flag code={i18n.language === 'en' ? 'GB' : 'PL'} width='30px'/>}}
                 options={[
-                    { value: 'EN', label: <Flag code="GB"  width='30px'/> },
-                    { value: 'PL', label: <Flag code="PL"  width='30px'/> },
+                    { value: 'en', label: <Flag code="GB"  width='30px'/> },
+                    { value: 'pl', label: <Flag code="PL"  width='30px'/> },
                 ]}
-                onChange={(e) => i18n.changeLanguage(e?.value ?? 'EN')}
+                onChange={(e) => i18n.changeLanguage(e?.value ?? 'en')}
                 components={{IndicatorSeparator:() => null }}
                 //DropdownIndicator:() => null,
             />
