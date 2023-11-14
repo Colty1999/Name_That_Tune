@@ -3,18 +3,20 @@ import "./header.scss";
 import { useTranslation } from 'react-i18next';
 import Flag from 'react-world-flags';
 import { googleLogo } from '../../assets/common';
+import { useLocation } from 'react-router-dom';
 
 function Header() {
     const { i18n } = useTranslation();
+    let location = useLocation();
 
     return (
         <header className="header">
-            <div className='userbutton' onClick={() => alert("Not Implemented")}>
+            {location.pathname === "/" ? <div className='userbutton' onClick={() => alert("Not Implemented")}>
                 <img src={googleLogo} alt="user" className="userimg" />
                 <span style={{ marginTop: "-0.25rem" }}>
                     | &nbsp;&nbsp; Login &nbsp;
                 </span>
-            </div>
+            </div> : <div/>}
             <Select
                 // menuIsOpen={true}
                 styles={{
@@ -51,6 +53,11 @@ function Header() {
                         height: '2rem', // Adjust the height as needed
                         marginTop: '0.25rem',
                         boxShadow: "0 0 0 1px rgba(90, 90, 255, 0.1),0 4px 11px rgba(90, 90, 255, 0.1)",
+                        transition: "all 0.2s ease-in-out",
+                        "&:hover": {
+                            backgroundColor: "white",
+                            color: "#1a1a1a",
+                        },
                     }),
                     // valueContainer: (provided, state) => ({
                     //     ...provided,

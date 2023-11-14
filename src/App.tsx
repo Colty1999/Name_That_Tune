@@ -13,8 +13,8 @@ function App() {
 
   return (
     <Container fluid="true">
-      <Header />
       <HashRouter >
+      <Header />
         <Routes>
           <Route path="/" Component={MainMenu} />
           <Route path="/game" Component={Game} />
@@ -28,8 +28,8 @@ function App() {
             element={<Navigate to="/404" replace />}
           />
         </Routes>
+        <Footer />
       </HashRouter >
-      <Footer />
     </Container>
   )
 }
