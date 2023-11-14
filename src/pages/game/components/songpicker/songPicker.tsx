@@ -1,5 +1,6 @@
 import "./songPicker.scss";
-import { Song, StateType } from "../../assets/common";
+import { Song, StateType } from "../../../../assets/common";
+import { useTranslation } from "react-i18next";
 
 interface SongPickerProps {
     songs: Song[];
@@ -8,6 +9,7 @@ interface SongPickerProps {
 
 const SongPicker = (props: SongPickerProps) => {
     const { songs, category } = props;
+    const [t] = useTranslation();
 
     return (
         <div className="songpickerstyle" >
@@ -17,7 +19,7 @@ const SongPicker = (props: SongPickerProps) => {
                 key={song.id}
                 >
                     <h3>{song.clue}</h3>
-                    <h3>{song.points}pkt</h3>
+                    <h3>{song.points}{t("pt")}</h3>
                 </div>
             ))}
         </div>

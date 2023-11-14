@@ -10,7 +10,7 @@ const Footer = () => {
     const { i18n } = useTranslation();
 
     return (
-        <div className="footer">
+        <footer className="footer">
             Mateusz Gietka 2023 | <Link to="https://www.linkedin.com/in/mateusz-gietka-50032b210/" target='_blank'>
                 <FontAwesomeIcon className='linkedin' icon={faLinkedin} />
             </Link> | <Link to="https://github.com/Colty1999" target='_blank'>
@@ -63,7 +63,7 @@ const Footer = () => {
                 components={{IndicatorSeparator:() => null }}
                 //DropdownIndicator:() => null,
             />
-        </div>
+        </footer>
     );
 }
 

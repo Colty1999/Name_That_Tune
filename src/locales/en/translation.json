@@ -5,6 +5,17 @@
     "config": "Configuration",
     "instruction": "Instruction"
   },
+  "game": {},
+  "gamemaster": {
+    "masterpanel": "Master Panel",
+    "nextset": "Next Set",
+    "prevset": "Previous Set",
+    "resetpoints": "Reset Points"
+  },
   "notimplemented": "Not implemented yet",
-  "notfound": "Not found"
+  "notfound": "Not found",
+  "loading": "Loading...",
+  "points": "Points",
+  "pt": "pt",
+  "team": "Team"
 }

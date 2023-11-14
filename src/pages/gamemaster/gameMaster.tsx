@@ -2,13 +2,15 @@ import { useCallback, useEffect, useState } from 'react';
 import { Song, StateType } from '../../assets/common';
 import "./gameMaster.scss";
 import { useStorageState } from '../../hooks/useStorageState';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquareCaretLeft, faSquareCaretRight } from '@fortawesome/free-solid-svg-icons';
 import SongTable from './components/songTable';
 import { TeamPoints } from './components/teamPoints';
+import { useTranslation } from 'react-i18next';
+import TopPanel from './components/topPanel';
+import BottomPanel from './components/bottomPanel';
 
 
 const GameMaster = () => {
+    const [t] = useTranslation();
     const [, updateState] = useState<{}>();
     const forceUpdate = useCallback(() => updateState({}), []);
     //-----------------
@@ -56,9 +58,6 @@ const GameMaster = () => {
                 songsLoaded.setStorageState("true");
                 //function to parse the json file with audio data
             });
-    }, []);
-
-    useEffect(() => {
         pageStorage.setStorageState("0");
         category.setStorageState("");
         count.setStorageState("0");
@@ -98,18 +97,32 @@ const GameMaster = () => {
 
     //starts playing song
     const startPlaying = (song: Song) => {
-        if (!currentSong) {
-            count.setStorageState((song.points).toString());
-            forceUpdate();
+        switch (true) {
+            case (!currentSong):
+                count.setStorageState((song.points).toString());
+                forceUpdate();
+                break;
+            case (currentSong && currentSong.songName !== song.songName):
+                currentSong.songAudio!.pause();
+                currentSong.songAudio!.currentTime = 0;
+                count.setStorageState((song.points).toString());
+                break;
+            default:
+                count.setStorageState((Number(count.store)).toString());
+                break;
         }
-        else if (currentSong && currentSong.songName !== song.songName) {
-            currentSong.songAudio!.pause();
-            currentSong.songAudio!.currentTime = 0;
-            count.setStorageState((song.points).toString());
-        }
-        else {
-            count.setStorageState((Number(count.store)).toString());
-        }
+        // if (!currentSong) {
+        //     count.setStorageState((song.points).toString());
+        //     forceUpdate();
+        // }
+        // else if (currentSong && currentSong.songName !== song.songName) {
+        //     currentSong.songAudio!.pause();
+        //     currentSong.songAudio!.currentTime = 0;
+        //     count.setStorageState((song.points).toString());
+        // }
+        // else {
+        //     count.setStorageState((Number(count.store)).toString());
+        // }
         category.setStorageState(song.songName);
         song.songAudio!.play();
         setCurrentSong(song);
@@ -144,25 +157,11 @@ const GameMaster = () => {
     if (!songs) return <div>Loading...</div>;
     return (
         <div className="gamemasterstyle" >
-            <div style={{ display: "flex", justifyContent: "space-between", padding: "0 0.5rem", marginBottom: "1rem" }}>
-                <div>
-                    <h1>Master Panel</h1>
-                    <div style={{ display: "flex", justifyContent: "left", gap: "0.2rem" }}>
-                        {(Number(pageStorage.store) !== 0) && <button onClick={() => { pageStorage.setStorageState((Number(pageStorage.store) - 1).toString()) }} className='setbuttom'>
-                            <FontAwesomeIcon icon={faSquareCaretLeft} /> Previous Set
-                        </button>}
-                        {(Number(pageStorage.store) < songs.length - 1) && <button onClick={() => { pageStorage.setStorageState((Number(pageStorage.store) + 1).toString()); }} className='setbuttom'>
-                            Next Set <FontAwesomeIcon icon={faSquareCaretRight} />
-                        </button>}
-                    </div>
-                </div>
-                <div style={{ margin: "auto 0 0 0" }}>
-                    <h3>Punkty</h3>
-                    <div className="punctationbutton song" style={{ margin: 0 }}>
-                        <h4>{count.store}pkt</h4>
-                    </div>
-                </div>
-            </div>
+            <TopPanel
+                pageStorage={pageStorage}
+                count={count}
+                songs={songs}
+            />
             {songs.map((song: Song[], key: number) => (
                 < div key={key} className={`${key === currentPage ? 'visible' : 'hidden'}`}>
                     <SongTable
@@ -184,19 +183,11 @@ const GameMaster = () => {
                 count={count}
                 setPoints={setPoints}
             />
-            <div style={{ display: "flex", justifyContent: "center", gap: "0.2rem" }}>
-                <button
-                    onClick={() => {
-                        team1Points.setStorageState("0");
-                        team2Points.setStorageState("0");
-                        team3Points.setStorageState("0");
-                    }
-                    }
-                    className="punctationbutton"
-                >
-                    Resetuj punkty
-                </button>
-            </div>
+            <BottomPanel
+                team1Points={team1Points}
+                team2Points={team2Points}
+                team3Points={team3Points}
+            />
         </div >
     );
 };

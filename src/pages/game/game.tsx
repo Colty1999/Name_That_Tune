@@ -1,12 +1,14 @@
 import './game.scss'
-import SongPicker from '../../components/songpicker/songPicker';
+import SongPicker from './components/songpicker/songPicker';
 import { Song, gameLogo } from '../../assets/common';
 import { useStorageState } from '../../hooks/useStorageState';
-import PointsScreen from '../../components/points/pointsScreen';
+import PointsScreen from './components/points/pointsScreen';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 
 const Game = () => {
+    const [t] = useTranslation();
     let count = useStorageState({ state: "count" });
     let category = useStorageState({ state: "category" })
     let songStorage = useStorageState({ state: "songs" });
@@ -20,14 +22,14 @@ const Game = () => {
       if (songsLoaded.store === "true") setLoading(false);
     }, [songsLoaded]);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <div>{t("loading")}</div>;
     return (
         <div className='gamestyle'>
             <div style={{ paddingBottom: "1rem" }}>
                 <div>
-                    <h2>Punkty</h2>
+                    <h2>{t("points")}</h2>
                     <div className="teampoints">
-                        <h3>{count.store}pkt</h3>
+                        <h3>{count.store}{t("pt")}</h3>
                     </div>
                 </div>
             </div>

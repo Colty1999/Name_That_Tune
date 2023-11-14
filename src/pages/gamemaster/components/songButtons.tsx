@@ -1,6 +1,7 @@
 import { faPlay, faPause, faBan, faRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Song, StateType } from "../../../assets/common";
+import { useTranslation } from "react-i18next";
 
 interface SongButtonProps {
     song: Song;
@@ -14,11 +15,13 @@ interface SongButtonProps {
 
 const SongButton = (props: SongButtonProps) => {
     const { song, category, count, startPlaying, pausePlaying, setPoints, resetSong } = props;
+    const [t] = useTranslation();
+    
     return (
         <div key={song.id} className="horizontalpanel">
             <div className={`${category.store === song.songName ? "active" : ""} ${song.played === true ? "playedsong" : ""} song`} style={{ width: "100%" }}>
                 <h4>{song.songName}</h4>
-                <h4>{song.points}pkt</h4>
+                <h4>{song.points}{t("pt")}</h4>
             </div>
             {song.songAudio?.paused ?
                 <button
