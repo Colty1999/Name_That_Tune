@@ -5,12 +5,15 @@ import NotFound from './pages/notfound/notFound';
 import GameMaster from './pages/gamemaster/gameMaster';
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import NotImplemented from './pages/notimplemented/notImplemented';
+import Header from './components/header/header';
+import Footer from './components/footer/footer';
 // export const UserContext = createContext<{number:number, setNumber: React.Dispatch<React.SetStateAction<boolean>> | Function}>({number: 0, setNumber:() => { }});
 
 function App() {
 
   return (
     <Container fluid="true">
+      <Header />
       <HashRouter >
         <Routes>
           <Route path="/" Component={MainMenu} />
@@ -26,6 +29,7 @@ function App() {
           />
         </Routes>
       </HashRouter >
+      <Footer />
     </Container>
   )
 }
