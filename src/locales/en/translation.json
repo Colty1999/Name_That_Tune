@@ -10,7 +10,8 @@
     "masterpanel": "Master Panel",
     "nextset": "Next Set",
     "prevset": "Previous Set",
-    "resetpoints": "Reset Points"
+    "resetpoints": "Reset Points",
+    "opennewgamewindow": "Open New Game Window"
   },
   "notimplemented": "Not implemented yet",
   "notfound": "Not found",

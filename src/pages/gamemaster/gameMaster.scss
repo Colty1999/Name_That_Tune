@@ -1,6 +1,6 @@
 .gamemasterstyle {
-    max-width: 1280px;
-    margin: auto;
+    // max-width: 1280px;
+    padding: 2rem;
 
     h3 {
         font-size: 1.8rem;
@@ -46,7 +46,7 @@
 
     .punctationbutton {
         display: inline-block;
-        min-width: 20rem;
+        min-width: 15rem;
     }
 
     .playedsong {
@@ -72,5 +72,13 @@
         transition: visibility 0.2s, opacity 0.5s linear;
         height: 0;
         overflow: hidden;
+    }
+
+    .teampoints {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5rem;
+        padding-bottom: 2rem;
     }
 }

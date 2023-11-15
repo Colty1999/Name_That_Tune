@@ -17,7 +17,7 @@ export const TeamPoints = (props: TeamPointsProps) => {
   const [t] = useTranslation();
 
   return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5rem", paddingBottom: "2rem" }}>
+    <div className="teampoints">
                 <div>
                     <h3>{t("team")} 1</h3>
                     <div style={{ display: "flex" }}>
