@@ -81,4 +81,24 @@
         gap: 5rem;
         padding-bottom: 2rem;
     }
+
+    .team {
+        border: 0.1rem solid #494848;
+        border-radius: 1rem;
+        margin: 1rem 0 0 0;
+
+        .teamnames {
+            margin-bottom: 0.25rem;
+            border-radius: 1rem;
+            background-color: #1a1a1a;
+
+            input {
+                text-align: center;
+                font-size: 1.5rem;
+                border: none;
+                padding: 1rem 0;
+                background-color: transparent;
+            }
+        }
+    }
 }

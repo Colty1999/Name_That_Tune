@@ -18,13 +18,13 @@ const PointsScreen = () => {
                 </div>
             </div>
             <div>
-                <h3>{JSON.parse(team1.store!).name}</h3>
+                <h3>{JSON.parse(team2.store!).name}</h3>
                 <div className="teampoints">
                     <h3>{JSON.parse(team2.store!).points}{t("pt")}</h3>
                 </div>
             </div>
             <div>
-                <h3>{JSON.parse(team1.store!).name}</h3>
+                <h3>{JSON.parse(team3.store!).name}</h3>
                 <div className="teampoints">
 
                     <h3>{JSON.parse(team3.store!).points}{t("pt")}</h3>

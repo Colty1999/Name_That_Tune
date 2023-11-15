@@ -65,17 +65,16 @@ const GameMaster = () => {
         pageStorage.setStorageState("0");
         category.setStorageState("");
         count.setStorageState("0");
-        if (!team1.store) team1.setStorageState(JSON.stringify({ name: "Team1", points: 0 }));
-        if (!team2.store) team2.setStorageState(JSON.stringify({ name: "Team2", points: 0 }));
-        if (!team3.store) team3.setStorageState(JSON.stringify({ name: "Team3", points: 0 }));
-        console.log(team1);
+        team1.setStorageState(JSON.stringify({ name: "Team1", points: 0 }));
+        team2.setStorageState(JSON.stringify({ name: "Team2", points: 0 }));
+        team3.setStorageState(JSON.stringify({ name: "Team3", points: 0 }));
     }, []);
 
     window.addEventListener("beforeunload", () => {
         category.setStorageState("");
-        team1.setStorageState(JSON.stringify({name: JSON.parse(team1.store!).name, points: 0}));
-        team2.setStorageState(JSON.stringify({name: JSON.parse(team2.store!).name, points: 0}));
-        team3.setStorageState(JSON.stringify({name: JSON.parse(team3.store!).name, points: 0}));
+        team1.setStorageState(JSON.stringify({name: "Team1", points: 0}));
+        team2.setStorageState(JSON.stringify({name: "Team2", points: 0}));
+        team3.setStorageState(JSON.stringify({name: "Team3", points: 0}));
         count.setStorageState("0");
     });
 

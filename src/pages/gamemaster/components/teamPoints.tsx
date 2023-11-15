@@ -18,10 +18,16 @@ export const TeamPoints = (props: TeamPointsProps) => {
 
     function TeamView (props: {team: StateType}) {
         const { team } = props;
-
+// team1.setStorageState(JSON.stringify({name: "Team1", points: 0}))
         return (
-            <div>
-                <h3>{JSON.parse(team.store!).name}</h3>
+            <div className="team">
+                <div className="teamnames">
+                    {/* {JSON.parse(team.store!).name} */}
+                    <input
+                        defaultValue={JSON.parse(team.store!).name}
+                        onBlur={(e) => team.setStorageState(JSON.stringify({ name: e.target.value, points: JSON.parse(team.store!).points }))}
+                    />
+                </div>
                 <div style={{ display: "flex" }}>
                     <button onClick={() => setPoints(currentSong, team, count)} className="punctationbutton">
                         <h4>{JSON.parse(team.store!).points}{t("pt")}</h4>
