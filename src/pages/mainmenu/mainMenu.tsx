@@ -15,9 +15,9 @@ const MainMenu = () => {
             </div>
             <h1>{t("mainmenu.title")}</h1>
             <div className="card">
-                <Link to="/game">
+                <Link to="/gamemaster">
                     <button
-                        onClick={() => { window.open(`${window.location.origin}${window.location.pathname}#/gamemaster`, "_blank", "popup") }}
+                        // onClick={() => { window.open(`${window.location.origin}${window.location.pathname}#/gamemaster`, "_blank", "popup") }}
                         className='button'
                     >
                         {t("mainmenu.start")}

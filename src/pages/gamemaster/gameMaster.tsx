@@ -1,16 +1,15 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Song, StateType } from '../../assets/common';
 import "./gameMaster.scss";
 import { useStorageState } from '../../hooks/useStorageState';
 import SongTable from './components/songTable';
 import { TeamPoints } from './components/teamPoints';
-import { useTranslation } from 'react-i18next';
 import TopPanel from './components/topPanel';
 import BottomPanel from './components/bottomPanel';
+import Loader from '../../components/loader/loader';
 
 
 const GameMaster = () => {
-    const [t] = useTranslation();
     const [, updateState] = useState<{}>();
     const forceUpdate = useCallback(() => updateState({}), []);
     //-----------------
@@ -28,8 +27,9 @@ const GameMaster = () => {
     //-----------------
     const [currentSong, setCurrentSong] = useState<Song | null>(null);
     //-----------------
-    let songsLoaded = useStorageState({ state: "songsLoaded" });
 
+
+    const initialized = useRef(false); // used to prevent the useEffect from running twice in strict mode
     useEffect(() => {
         fetch('songsList.json',
             {
@@ -55,7 +55,11 @@ const GameMaster = () => {
                 }
                 setSongs(splitArrays);
                 songStorage.setStorageState(JSON.stringify(splitArrays));
-                songsLoaded.setStorageState("true");
+
+                if (!initialized.current) {
+                    initialized.current = true
+                    window.open(`${window.location.origin}${window.location.pathname}#/game`, "_blank", "popup")
+                }
                 //function to parse the json file with audio data
             });
         pageStorage.setStorageState("0");
@@ -154,7 +158,7 @@ const GameMaster = () => {
 
     //-----------------
 
-    if (!songs) return <div>Loading...</div>;
+    if (!songs) return <Loader/>;
     return (
         <div className="gamemasterstyle" >
             <TopPanel

@@ -3,7 +3,6 @@ import SongPicker from './components/songpicker/songPicker';
 import { Song, gameLogo } from '../../assets/common';
 import { useStorageState } from '../../hooks/useStorageState';
 import PointsScreen from './components/points/pointsScreen';
-import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 
@@ -14,15 +13,7 @@ const Game = () => {
     let songStorage = useStorageState({ state: "songs" });
     let pageStorage = useStorageState({ state: "currentPage" });
     let currentPage: number = Number(pageStorage.store ?? 0);
-    let songsLoaded = useStorageState({ state: "songsLoaded" });
-    const [loading, setLoading] = useState<boolean>(true);
 
-
-    useEffect(() => {
-      if (songsLoaded.store === "true") setLoading(false);
-    }, [songsLoaded]);
-
-    if (loading) return <div>{t("loading")}</div>;
     return (
         <div className='gamestyle'>
             <div style={{ paddingBottom: "1rem" }}>
