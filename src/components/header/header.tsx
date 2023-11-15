@@ -4,10 +4,24 @@ import { useTranslation } from 'react-i18next';
 import Flag from 'react-world-flags';
 import { googleLogo } from '../../assets/common';
 import { useLocation } from 'react-router-dom';
+import { useStorageState } from '../../hooks/useStorageState';
+import { useEffect, useState } from 'react';
 
 function Header() {
     const { i18n } = useTranslation();
     let location = useLocation();
+    let language = useStorageState({ state: "language" });
+    const [isLoadingLanguage, setLoadingLanguage] = useState(false);
+
+    useEffect(() => {   
+        if (!isLoadingLanguage && language.store && language.store !== i18n.language) {
+            const load = async () => {
+              setLoadingLanguage(true);
+              await i18n.changeLanguage(language.store!).then(() => setLoadingLanguage(false));
+            };
+            load();
+          }
+    }, [language]);
 
     return (
         <header className="header">
@@ -75,7 +89,7 @@ function Header() {
                     { value: 'en', label: <Flag code="GB" width='30px' /> },
                     { value: 'pl', label: <Flag code="PL" width='30px' /> },
                 ]}
-                onChange={(e) => i18n.changeLanguage(e?.value ?? 'en')}
+                onChange={(e) => {language.setStorageState(e?.value ?? 'en');}}
                 components={{ IndicatorSeparator: () => null }}
             //DropdownIndicator:() => null,
             />
