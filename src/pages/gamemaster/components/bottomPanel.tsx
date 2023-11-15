@@ -1,24 +1,22 @@
-import { faSquareCaretLeft, faSquareCaretRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTranslation } from "react-i18next";
-import { StateType, Song } from "../../../assets/common";
+import { StateType } from "../../../assets/common";
 
 interface BottomPanelProps {
-    team1Points: StateType;
-    team2Points: StateType;
-    team3Points: StateType;
+    team1: StateType;
+    team2: StateType;
+    team3: StateType;
 }
 
 const BottomPanel = (props: BottomPanelProps) => {
-    const { team1Points, team2Points, team3Points } = props;
+    const { team1, team2, team3 } = props;
     const [t] = useTranslation();
     return (
         <div style={{ display: "flex", justifyContent: "center", gap: "0.2rem" }}>
             <button
                 onClick={() => {
-                    team1Points.setStorageState("0");
-                    team2Points.setStorageState("0");
-                    team3Points.setStorageState("0");
+                    team1.setStorageState(JSON.stringify({name: JSON.parse(team1.store!).name, points: 0}));
+                    team2.setStorageState(JSON.stringify({name: JSON.parse(team2.store!).name, points: 0}));
+                    team3.setStorageState(JSON.stringify({name: JSON.parse(team3.store!).name, points: 0}));
                 }
                 }
                 className="punctationbutton"

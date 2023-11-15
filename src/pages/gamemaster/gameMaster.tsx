@@ -13,9 +13,9 @@ const GameMaster = () => {
     const [, updateState] = useState<{}>();
     const forceUpdate = useCallback(() => updateState({}), []);
     //-----------------
-    let team1Points = useStorageState({ state: "team1Points" });
-    let team2Points = useStorageState({ state: "team2Points" });
-    let team3Points = useStorageState({ state: "team3Points" });
+    let team1 = useStorageState({ state: "team1" });
+    let team2 = useStorageState({ state: "team2" });
+    let team3 = useStorageState({ state: "team3" });
     let category = useStorageState({ state: "category" });
     let count = useStorageState({ state: "count" });
     //-----------------
@@ -65,16 +65,17 @@ const GameMaster = () => {
         pageStorage.setStorageState("0");
         category.setStorageState("");
         count.setStorageState("0");
-        if (!team1Points.store) team1Points.setStorageState('0');
-        if (!team2Points.store) team2Points.setStorageState('0');
-        if (!team3Points.store) team3Points.setStorageState('0');
+        if (!team1.store) team1.setStorageState(JSON.stringify({ name: "Team1", points: 0 }));
+        if (!team2.store) team2.setStorageState(JSON.stringify({ name: "Team2", points: 0 }));
+        if (!team3.store) team3.setStorageState(JSON.stringify({ name: "Team3", points: 0 }));
+        console.log(team1);
     }, []);
 
     window.addEventListener("beforeunload", () => {
         category.setStorageState("");
-        team1Points.setStorageState("0");
-        team2Points.setStorageState("0");
-        team3Points.setStorageState("0");
+        team1.setStorageState(JSON.stringify({name: JSON.parse(team1.store!).name, points: 0}));
+        team2.setStorageState(JSON.stringify({name: JSON.parse(team2.store!).name, points: 0}));
+        team3.setStorageState(JSON.stringify({name: JSON.parse(team3.store!).name, points: 0}));
         count.setStorageState("0");
     });
 
@@ -140,13 +141,13 @@ const GameMaster = () => {
     };
 
     //adds points to team and resets count
-    const setPoints = (song: Song | null, teamPoints: StateType | null, count: StateType) => {
+    const setPoints = (song: Song | null, team: StateType | null, count: StateType) => {
         if (song) song.played = true;
         songStorage.setStorageState(JSON.stringify(songs));
         category.setStorageState("");
         if (currentSong) currentSong.songAudio!.pause();
         if (currentSong) currentSong.songAudio!.currentTime = 0;
-        if (teamPoints) teamPoints.setStorageState((Number(teamPoints.store!) + Number(count.store)).toString());
+        if (team) team.setStorageState(JSON.stringify({name: JSON.parse(team.store!).name, points: JSON.parse(team.store!).points + Number(count.store)}));
         count.setStorageState("0");
     };
 
@@ -180,17 +181,17 @@ const GameMaster = () => {
                 </div>
             ))}
             <TeamPoints
-                team1Points={team1Points}
-                team2Points={team2Points}
-                team3Points={team3Points}
+                team1={team1}
+                team2={team2}
+                team3={team3}
                 currentSong={currentSong!}
                 count={count}
                 setPoints={setPoints}
             />
             <BottomPanel
-                team1Points={team1Points}
-                team2Points={team2Points}
-                team3Points={team3Points}
+                team1={team1}
+                team2={team2}
+                team3={team3}
             />
         </div >
     );
