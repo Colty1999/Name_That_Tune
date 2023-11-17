@@ -11,7 +11,7 @@ const BottomPanel = (props: BottomPanelProps) => {
     const { team1, team2, team3 } = props;
     const [t] = useTranslation();
     return (
-        <div style={{ display: "flex", justifyContent: "center", gap: "0.2rem" }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: "0.2rem", marginTop: "2rem" }}>
             <button
                 onClick={() => {
                     team1.setStorageState(JSON.stringify({name: JSON.parse(team1.store!).name, points: 0}));

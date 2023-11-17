@@ -14,19 +14,18 @@ export interface SongTableProps {
 const SongTable = (props: SongTableProps) => {
     const { songs, category, count, startPlaying, pausePlaying, setPoints, resetSong } = props;
     return (
-        <div>
+        <div className="songtable">
             {songs.map((song: Song) => (
-                <div key={song.id}>
-                    <SongButton
-                        song={song}
-                        category={category}
-                        count={count}
-                        startPlaying={startPlaying}
-                        pausePlaying={pausePlaying}
-                        setPoints={setPoints}
-                        resetSong={resetSong}
-                    />
-                </div>
+                <SongButton
+                    song={song}
+                    category={category}
+                    count={count}
+                    startPlaying={startPlaying}
+                    pausePlaying={pausePlaying}
+                    setPoints={setPoints}
+                    resetSong={resetSong}
+                    key={song.id}
+                />
             ))}
         </div>
     );

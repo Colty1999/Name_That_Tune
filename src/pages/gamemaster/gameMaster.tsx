@@ -72,9 +72,9 @@ const GameMaster = () => {
 
     window.addEventListener("beforeunload", () => {
         category.setStorageState("");
-        team1.setStorageState(JSON.stringify({name: "Team1", points: 0}));
-        team2.setStorageState(JSON.stringify({name: "Team2", points: 0}));
-        team3.setStorageState(JSON.stringify({name: "Team3", points: 0}));
+        team1.setStorageState(JSON.stringify({ name: "Team1", points: 0 }));
+        team2.setStorageState(JSON.stringify({ name: "Team2", points: 0 }));
+        team3.setStorageState(JSON.stringify({ name: "Team3", points: 0 }));
         count.setStorageState("0");
     });
 
@@ -146,7 +146,7 @@ const GameMaster = () => {
         category.setStorageState("");
         if (currentSong) currentSong.songAudio!.pause();
         if (currentSong) currentSong.songAudio!.currentTime = 0;
-        if (team) team.setStorageState(JSON.stringify({name: JSON.parse(team.store!).name, points: JSON.parse(team.store!).points + Number(count.store)}));
+        if (team) team.setStorageState(JSON.stringify({ name: JSON.parse(team.store!).name, points: JSON.parse(team.store!).points + Number(count.store) }));
         count.setStorageState("0");
     };
 
@@ -158,13 +158,21 @@ const GameMaster = () => {
 
     //-----------------
 
-    if (!songs) return <Loader/>;
+    if (!songs) return <Loader />;
     return (
         <div className="gamemasterstyle" >
             <TopPanel
                 pageStorage={pageStorage}
                 count={count}
                 songs={songs}
+            />
+            <TeamPoints
+                team1={team1}
+                team2={team2}
+                team3={team3}
+                currentSong={currentSong!}
+                count={count}
+                setPoints={setPoints}
             />
             {songs.map((song: Song[], key: number) => (
                 < div key={key} className={`${key === currentPage ? 'visible' : 'hidden'}`}>
@@ -179,14 +187,6 @@ const GameMaster = () => {
                     />
                 </div>
             ))}
-            <TeamPoints
-                team1={team1}
-                team2={team2}
-                team3={team3}
-                currentSong={currentSong!}
-                count={count}
-                setPoints={setPoints}
-            />
             <BottomPanel
                 team1={team1}
                 team2={team2}

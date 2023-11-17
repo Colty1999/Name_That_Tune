@@ -14,7 +14,7 @@ const TopPanel = (props: TopPanelProps) => {
     const { pageStorage, count, songs } = props;
     const [t] = useTranslation();
     return (
-        <div style={{ display: "flex", justifyContent: "space-between", padding: "0 0.5rem", marginBottom: "1rem" }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>
                 <h1>{t("gamemaster.masterpanel")}</h1>
                 <div style={{ display: "flex", justifyContent: "left", gap: "0.2rem" }}>

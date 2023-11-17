@@ -16,9 +16,9 @@ export const TeamPoints = (props: TeamPointsProps) => {
     const { team1, team2, team3, currentSong, count, setPoints } = props;
     const [t] = useTranslation();
 
-    function TeamView (props: {team: StateType}) {
+    function TeamView(props: { team: StateType }) {
         const { team } = props;
-// team1.setStorageState(JSON.stringify({name: "Team1", points: 0}))
+        // team1.setStorageState(JSON.stringify({name: "Team1", points: 0}))
         return (
             <div className="team">
                 <div className="teamnames">
@@ -28,18 +28,18 @@ export const TeamPoints = (props: TeamPointsProps) => {
                         onBlur={(e) => team.setStorageState(JSON.stringify({ name: e.target.value, points: JSON.parse(team.store!).points }))}
                     />
                 </div>
-                <div style={{ display: "flex" }}>
+                <div style={{ display: "flex", gap: "0.25rem" }}>
+                    <button onClick={() => team.setStorageState(JSON.stringify({ name: JSON.parse(team.store!).name, points: JSON.parse(team.store!).points - 10 }))}>
+                        <FontAwesomeIcon icon={faMinus} />
+                    </button>
                     <button onClick={() => setPoints(currentSong, team, count)} className="punctationbutton">
                         <h4>{JSON.parse(team.store!).points}{t("pt")}</h4>
                     </button>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                        <button onClick={() => team.setStorageState(JSON.stringify({ name: JSON.parse(team.store!).name, points: JSON.parse(team.store!).points + 10 }))}>
-                            <FontAwesomeIcon icon={faPlus} />
-                        </button>
-                        <button onClick={() => team.setStorageState(JSON.stringify({ name: JSON.parse(team.store!).name, points: JSON.parse(team.store!).points - 10 }))}>
-                            <FontAwesomeIcon icon={faMinus} />
-                        </button>
-                    </div>
+                    <button onClick={() => team.setStorageState(JSON.stringify({ name: JSON.parse(team.store!).name, points: JSON.parse(team.store!).points + 10 }))}>
+                        <FontAwesomeIcon icon={faPlus} />
+                    </button>
+                    {/* <div style={{ display: "flex", flexDirection: "column" }}>
+                    </div> */}
                 </div>
             </div>
         );
