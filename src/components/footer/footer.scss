@@ -12,18 +12,18 @@
     transform: translateX(-50%);
   
     .github {
-      color: darkorange;
+      color: var(--githubColor);
     }
   
     .github:hover {
-      filter: drop-shadow(0 0 20rem rgb(255, 206, 114));
+      filter: drop-shadow(0 0 20rem var(--githubHoverColor));
     }
   
     .linkdenin {
-      color: #646cff;
+      color: var(--linkedinColor);
     }
   
     .linkdenin:hover {
-      filter: drop-shadow(0 0 20rem rgb(90, 90, 255));
+      filter: drop-shadow(0 0 20rem var(--linkedinHoverColor));
     }
   }

@@ -1,5 +1,4 @@
-import "./songPicker.scss";
-import { Song, StateType } from "../../../../assets/common";
+import { Song, StateType } from "../../../assets/common";
 import { useTranslation } from "react-i18next";
 
 interface SongPickerProps {

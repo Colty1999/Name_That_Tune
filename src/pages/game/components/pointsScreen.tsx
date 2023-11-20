@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useStorageState } from "../../../../hooks/useStorageState";
-import "./pointsScreen.scss";
+import { useStorageState } from "../../../hooks/useStorageState";
 
 const PointsScreen = () => {
     const [t] = useTranslation();

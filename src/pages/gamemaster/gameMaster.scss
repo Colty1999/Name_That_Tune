@@ -24,7 +24,7 @@
         align-items: center;
         padding: 0 3rem 0 3rem;
         border: 0.1rem solid transparent;
-        background-color: #1a1a1a;
+        background-color: var(--buttonPrimaryColor);
         border-radius: 1rem;
         transition: all 0.2s ease-in-out;
         // &:hover {
@@ -39,9 +39,9 @@
     }
 
     .active {
-        background-color: rgba(255, 255, 255, 0.87);
-        color: #1a1a1a;
-        filter: drop-shadow(0 0 2rem #646cffaa);
+        background-color: var(--secondaryColor);
+        color: var(--primaryTextColor);
+        filter: drop-shadow(0 0 2rem var(--dropShadowColor));
     }
 
     .punctationbutton {
@@ -52,7 +52,7 @@
     .playedsong {
         opacity: 0.5;
         color: #888;
-        background-color: #494848;
+        background-color: var(--buttonInactiveColor);
         filter: none;
     }
 
@@ -87,7 +87,7 @@
     }
 
     .team {
-        border: 0.1rem solid #494848;
+        border: 0.1rem solid var(--teamColor);
         border-radius: 1rem;
         margin: 1rem 0 0 0;
         padding: 0.5rem;
@@ -95,7 +95,7 @@
         .teamnames {
             margin-bottom: 0.25rem;
             border-radius: 1rem;
-            background-color: #1a1a1a;
+            background-color: var(--buttonPrimaryColor);
 
             input {
                 text-align: center;
@@ -110,7 +110,7 @@
     }
 
     .songtable {
-        border: 0.1rem solid #494848;
+        border: 0.1rem solid var(--teamColor);
         border-radius: 1rem;
         display: flex;
         flex-direction: column;

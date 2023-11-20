@@ -1,17 +1,25 @@
 :root {
-    --primaryColor: #FAF0E4;
-    --secondaryColor: #DBE2EF;
-    --tertiaryColor: #3F72AF;
-    --quaternaryColor: #112D4E;
+    --primaryColor: #1a1a1a;
+    --secondaryColor: white;
 
-    --primaryTextColor: #242424;
-    --secondaryTextColor: #fff;
-    --tertiaryTextColor: #3F72AF;
-    --quaternaryTextColor: #184272;
-
-    --linkColor: #3F72AF;
-    --linkHoverColor: #112D4E;
+    --primaryTextColor: #1a1a1a;
+    --secondaryTextColor: white;
+    --textInactiveColor: #888;
 
     --backgroundColor: #242424;
+
     --buttonPrimaryColor: #1a1a1a;
+    --buttonHoverColor: #646cffaa;
+    --buttonInactiveColor: #494848;
+
+    --linkColor: #646cff;
+    --linkHoverColor: #535bf2;
+    --dropShadowColor: #646cffaa;
+
+    --teamColor: #494848;
+
+    --linkedinColor: #646cff;
+    --linkedinHoverColor: rgb(90, 90, 255);
+    --githubColor: darkorange;
+    --githubHoverColor: rgb(233, 105, 0);
 }

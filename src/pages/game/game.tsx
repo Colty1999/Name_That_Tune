@@ -1,8 +1,8 @@
 import './game.scss'
-import SongPicker from './components/songpicker/songPicker';
+import SongPicker from './components/songPicker';
 import { Song, gameLogo } from '../../assets/common';
 import { useStorageState } from '../../hooks/useStorageState';
-import PointsScreen from './components/points/pointsScreen';
+import PointsScreen from './components/pointsScreen';
 import { useTranslation } from 'react-i18next';
 
 
