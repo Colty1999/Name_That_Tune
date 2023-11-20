@@ -14,7 +14,26 @@
   }
 
   .card {
-    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    .button{
+      min-width: 20rem;
+      margin: -1rem;
+    }
+    .spotifybutton {
+      border-color: var(--spotifyColor);
+      background-color: var(--spotifyColor);
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        color: var(--primaryTextColor);
+        background-color: var(--secondaryColor);
+        border-color: var(--buttonHoverColor);
+        filter: drop-shadow(0 0 1rem var(--buttonHoverColor));
+      }
+    }
   }
 
   a {
@@ -25,9 +44,6 @@
   a:hover {
     color: var(--linkHoverColor);
   }
-  .button{
-    min-width: 20rem;
-    margin: -1rem;
-  }
+
 
 }

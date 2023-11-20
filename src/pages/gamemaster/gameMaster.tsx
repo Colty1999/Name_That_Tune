@@ -115,18 +115,6 @@ const GameMaster = () => {
                 count.setStorageState((Number(count.store)).toString());
                 break;
         }
-        // if (!currentSong) {
-        //     count.setStorageState((song.points).toString());
-        //     forceUpdate();
-        // }
-        // else if (currentSong && currentSong.songName !== song.songName) {
-        //     currentSong.songAudio!.pause();
-        //     currentSong.songAudio!.currentTime = 0;
-        //     count.setStorageState((song.points).toString());
-        // }
-        // else {
-        //     count.setStorageState((Number(count.store)).toString());
-        // }
         category.setStorageState(song.songName);
         song.songAudio!.play();
         setCurrentSong(song);
