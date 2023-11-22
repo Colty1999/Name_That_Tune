@@ -2,6 +2,8 @@ import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useStorageState } from "../../../hooks/useStorageState";
+import { useContext } from "react";
+import { LoadingContext } from "../../../App";
 
 const SpotifyLogin = () => {
     const CLIENT_ID = '226da25afbe64537a2574c7155cbc643';
@@ -10,6 +12,16 @@ const SpotifyLogin = () => {
     const RESPONSE_TYPE = 'token';
 
     let token = useStorageState({ state: "token" });
+    const setLoading = useContext(LoadingContext);
+
+
+    function logout () {
+        setLoading(true);
+        setTimeout(() => {
+            token.setStorageState("");
+            setLoading(false);
+        }, 1000);
+    }
 
     return (
         <>
@@ -19,7 +31,7 @@ const SpotifyLogin = () => {
                 </Link>
                 :
                 <a>
-                    <button className='button spotifybutton' onClick={() => { token.setStorageState(""); console.log(token.store === "") }}><FontAwesomeIcon icon={faSpotify} /> | Logout</button>
+                    <button className='button spotifybutton' onClick={logout}><FontAwesomeIcon icon={faSpotify} /> | Logout</button>
                 </a>
             }
         </>
