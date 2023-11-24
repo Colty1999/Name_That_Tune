@@ -1,9 +1,9 @@
 import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import { useStorageState } from "../../../hooks/useStorageState";
+import { useStorageState } from "../hooks/useStorageState";
 import { useContext } from "react";
-import { LoadingContext } from "../../../App";
+import { LoadingContext } from "../App";
 
 const SpotifyLogin = () => {
     const CLIENT_ID = '226da25afbe64537a2574c7155cbc643';

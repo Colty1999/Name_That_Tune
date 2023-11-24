@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import './mainMenu.scss'
 import { gameLogo } from '../../assets/common';
 import { useTranslation } from 'react-i18next';
-import SpotifyLogin from './components/spotifyLogin';
+import SpotifyLogin from '../../components/spotifyLogin';
 
 
 
@@ -25,7 +25,7 @@ const MainMenu = () => {
                         {t("mainmenu.start")}
                     </button>
                 </Link>
-                <Link to="/notimplemented">
+                <Link to="/gameconfiguration">
                     <button onClick={() => { }} className='button'>
                         {t("mainmenu.config")}
                     </button>

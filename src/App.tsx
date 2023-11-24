@@ -8,8 +8,9 @@ import NotImplemented from './pages/notimplemented/notImplemented';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
 import { createContext, useEffect, useState } from 'react';
-import { useStorageState } from './hooks/useStorageState';
 import Loader from './components/loader/loader';
+import GameConfiguration from './pages/gameconfiguration/gameConfiguration';
+import { useStorageState } from './hooks/useStorageState';
 
 
 export const LoadingContext = createContext<React.Dispatch<React.SetStateAction<boolean>> | Function>(() => { });
@@ -39,6 +40,7 @@ function App() {
             <Route path="/" Component={MainMenu} />
             <Route path="/game" Component={Game} />
             <Route path="/gamemaster" Component={GameMaster} />
+            <Route path="/gameconfiguration" Component={GameConfiguration} />
             {/* <Route path="/game" Component={GalleryYearView} />
             <Route path="/archive/:year/:folder" Component={GalleryFolderView} />*/}
             <Route path='/notimplemented' Component={NotImplemented} />
