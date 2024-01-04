@@ -6,10 +6,13 @@ import { useContext } from "react";
 import { LoadingContext } from "../App";
 
 const SpotifyLogin = () => {
-    const CLIENT_ID = '226da25afbe64537a2574c7155cbc643';
-    const REDIRECT_URL = 'http://localhost:5173';
-    const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
-    const RESPONSE_TYPE = 'token';
+    const clientId = '226da25afbe64537a2574c7155cbc643';
+    const redirectUri = 'http://localhost:5173';
+    const authEndpoint = 'https://accounts.spotify.com/authorize';
+    const scope = ["streaming, user-read-email, user-read-private, user-library-read, user-library-modify, user-read-playback-state, user-modify-playback-state"].join("%20")
+    const responseType = 'code';
+
+    const authorizationLink = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
 
     let token = useStorageState({ state: "token" });
     const setLoading = useContext(LoadingContext);
@@ -26,7 +29,7 @@ const SpotifyLogin = () => {
     return (
         <>
             {token.store === "" || token.store === null ?
-                <Link to={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=${RESPONSE_TYPE}`}>
+                <Link to={authorizationLink}>
                     <button className='button spotifybutton'><FontAwesomeIcon icon={faSpotify} /> | Login to Spotify</button>
                 </Link>
                 :

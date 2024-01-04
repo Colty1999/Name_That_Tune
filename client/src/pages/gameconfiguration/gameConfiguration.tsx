@@ -7,7 +7,7 @@ const GameConfiguration = () => {
     let token = useStorageState({ state: "token" });
 
 
-    if(token.store === null) return <SpotifyLogin/>
+    if(token.store === null || token.store === "") return <SpotifyLogin/>
     return (
         <WebPlayback token={token}/>
     );
