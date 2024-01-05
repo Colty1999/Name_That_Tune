@@ -1,4 +1,4 @@
-import React from "react";
+import { useSyncExternalStore } from "react";
 
 export function useStorageState(props: { state: string }) {
   const { state } = props;
@@ -14,7 +14,7 @@ export function useStorageState(props: { state: string }) {
     return () => void window.removeEventListener("storage", listener);
   };
 
-  const store = React.useSyncExternalStore(subscribe, getSnapshot);
+  const store = useSyncExternalStore(subscribe, getSnapshot);
 
   return {store, setStorageState} as const;
 }

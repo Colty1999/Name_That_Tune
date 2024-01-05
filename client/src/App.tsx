@@ -7,28 +7,25 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import NotImplemented from './pages/notimplemented/notImplemented';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 import Loader from './components/loader/loader';
 import GameConfiguration from './pages/gameconfiguration/gameConfiguration';
-import { useStorageState } from './hooks/useStorageState';
 
 
 export const LoadingContext = createContext<React.Dispatch<React.SetStateAction<boolean>> | Function>(() => { });
 
 function App() {
-  let token = useStorageState({ state: "token" });
   const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    let urlParams = new URLSearchParams(window.location.hash.replace("#", "?"));
+  // let token = useStorageState({ state: "token" });
+  // useEffect(() => {
+  //   const code = new URLSearchParams(window.location.search).get('code');
 
-    let _token = urlParams.get('access_token');
-
-    if (_token) {
-      window.location.hash = '';
-      token.setStorageState(_token);
-    }
-  }, []); // get token from spotify url
+  //   if (code) {
+  //     window.location.search = '';
+  //     token.setStorageState(code);
+  //   }
+  // }, []); // get token from spotify url
 
   return (
     <Container fluid="true">
