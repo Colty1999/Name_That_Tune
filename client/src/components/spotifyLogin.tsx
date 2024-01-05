@@ -1,7 +1,7 @@
 import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { LoadingContext } from "../App";
 import useAuth from "../hooks/useAuth";
 
@@ -9,7 +9,7 @@ import useAuth from "../hooks/useAuth";
 const SpotifyLogin = () => {
     const setLoading = useContext(LoadingContext);
 
-    const token = new URLSearchParams(window.location.search).get('code');
+    const [token, setToken] = useState<string | null>(new URLSearchParams(window.location.search).get('code'));
 
     const authEndpoint = 'https://accounts.spotify.com/authorize',
         clientId = '226da25afbe64537a2574c7155cbc643',
@@ -20,10 +20,10 @@ const SpotifyLogin = () => {
 
 
 
-    if (token) {
-        const accessToken = useAuth(token);
-        console.log(accessToken);
-    }
+    // if (token) {
+    const accessToken = useAuth(token);
+    //     console.log(accessToken);
+    // }
 
 
 
@@ -32,8 +32,9 @@ const SpotifyLogin = () => {
         setLoading(true);
         setTimeout(() => {
             // token.setStorageState("");
+            setToken(null);
             setLoading(false);
-        }, 1000);
+        }, 300);
     }
 
     return (
