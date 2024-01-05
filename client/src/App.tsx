@@ -28,7 +28,7 @@ function App() {
   // }, []); // get token from spotify url
 
   return (
-    <Container fluid="true">
+    <Container fluid="true" className='container'>
       <HashRouter >
         <LoadingContext.Provider value={setLoading}>
           {loading && <Loader />}

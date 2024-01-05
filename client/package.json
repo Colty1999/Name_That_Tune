@@ -17,6 +17,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@types/axios": "^0.14.0",
     "@types/react-select": "^5.0.1",
+    "@types/spotify-web-api-node": "^5.0.11",
     "axios": "^1.6.4",
     "bootstrap": "^5.3.2",
     "i18next-browser-languagedetector": "^7.2.0",
@@ -30,7 +31,8 @@
     "react-select": "^5.8.0",
     "react-spotify-web-playback": "^0.14.2",
     "react-world-flags": "^1.6.0",
-    "sass": "^1.69.5"
+    "sass": "^1.69.5",
+    "spotify-web-api-node": "^5.0.2"
   },
   "devDependencies": {
     "@types/node": "^17.0.41",

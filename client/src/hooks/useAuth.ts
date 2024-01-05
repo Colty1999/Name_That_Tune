@@ -4,8 +4,9 @@ import { useStorageState } from "./useStorageState";
 
 export default function useAuth(code: string | null) {
   let loggedIn = useStorageState({ state: "loggedIn" });
-  
-  const [accessToken, setAccessToken] = useState<string | null>(null);
+
+  let accessToken = useStorageState({state: "accessToken"})
+  // const [accessToken, setAccessToken] = useState<string | null>(null);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);
   const [expiresIn, setExpiresIn] = useState<number | null>(null);
 
@@ -21,7 +22,8 @@ export default function useAuth(code: string | null) {
           code,
         })
         .then((res) => {
-          setAccessToken(res.data.accessToken);
+          accessToken.setStorageState(res.data.accessToken);
+          // setAccessToken(res.data.accessToken);
           setRefreshToken(res.data.refreshToken);
           setExpiresIn(res.data.expiresIn);
           window.history.pushState({}, "", "/");
@@ -47,7 +49,8 @@ export default function useAuth(code: string | null) {
             refreshToken,
           })
           .then((res) => {
-            setAccessToken(res.data.accessToken);
+            accessToken.setStorageState(res.data.accessToken);
+            // setAccessToken(res.data.accessToken);
             setExpiresIn(res.data.expiresIn);
             // window.history.pushState({}, "", "/");
           })

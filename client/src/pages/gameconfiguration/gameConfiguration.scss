@@ -1,0 +1,46 @@
+.gameConfigurationContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    width: 100%;
+
+
+    .form {
+        // display: flex;
+        // flex-direction: column;
+        width: 75%;
+        margin: 2rem;
+        .searchBar {
+            width: 100%;
+            padding: 0.5rem 3rem;
+            border: 0.1rem solid transparent;
+            background-color: var(--buttonPrimaryColor);
+            border-radius: 2rem;
+            font-size: 1.5rem;
+        }
+
+        .searchContent {
+            // display: flex;
+            // flex-direction: column;
+            flex-grow: 1;
+            overflow-y: auto;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 1rem 0;
+            // border: 0.1rem solid transparent;
+            // background-color: var(--buttonPrimaryColor);
+            border-radius: 2rem;
+            font-size: 1.5rem;
+        }
+    }
+}
+
+.spotifyLoginPrompt {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

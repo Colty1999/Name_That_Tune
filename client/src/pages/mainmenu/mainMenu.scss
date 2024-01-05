@@ -2,7 +2,10 @@
   padding: 2rem;
   
   .logo {
-    height: 25rem;
+    // height: 25rem;
+    width: 70vw;
+    height: auto;
+    aspect-ratio: 3.33/1;
     padding: 1.5em;
     will-change: filter;
     transition: filter 300ms;
@@ -23,17 +26,17 @@
       min-width: 20rem;
       margin: -1rem;
     }
-    .spotifybutton {
-      border-color: var(--spotifyColor);
-      background-color: var(--spotifyColor);
-      transition: all 0.2s ease-in-out;
-      &:hover {
-        color: var(--primaryTextColor);
-        background-color: var(--secondaryColor);
-        border-color: var(--buttonHoverColor);
-        filter: drop-shadow(0 0 1rem var(--buttonHoverColor));
-      }
-    }
+    // .spotifybutton {
+    //   border-color: var(--spotifyColor);
+    //   background-color: var(--spotifyColor);
+    //   transition: all 0.2s ease-in-out;
+    //   &:hover {
+    //     color: var(--primaryTextColor);
+    //     background-color: var(--secondaryColor);
+    //     border-color: var(--buttonHoverColor);
+    //     filter: drop-shadow(0 0 1rem var(--buttonHoverColor));
+    //   }
+    // }
   }
 
   a {

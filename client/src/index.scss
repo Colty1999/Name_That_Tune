@@ -1,5 +1,4 @@
 #root {
-  // max-width: 1280px;
   margin: 0 auto;
   padding: 0;
   text-align: center;
@@ -81,3 +80,11 @@ button {
   transition: border-color 0.25s;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  // padding: 2rem;
+}
