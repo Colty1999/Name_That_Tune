@@ -1,0 +1,26 @@
+.trackSearchResult {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    // width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.1rem 2rem;
+    border: 1px solid #ccc;
+    border-radius: 2rem;
+    // background-color: #fff;
+    // box-shadow: 0 2px 3px #ccc;
+    cursor: pointer;
+    // transition: all 0.3s ease-out;
+
+    .songData {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        justify-items: start;   
+    }
+
+    h3, h4 {
+        margin: 1rem;
+    }
+}

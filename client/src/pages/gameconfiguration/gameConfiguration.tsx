@@ -4,16 +4,17 @@ import "./gameConfiguration.scss";
 import SpotifyWebApi from "spotify-web-api-node";
 import { useStorageState } from "../../hooks/useStorageState";
 import SpotifyLogin from "../../components/spotifyLogin/spotifyLogin";
+import TrackSearchResult from "./components/trackSearchResult/trackSearchResult";
 
 
 const GameConfiguration = () => {
-    let accessToken = useStorageState({state: "accessToken"})
+    let accessToken = useStorageState({ state: "accessToken" })
     const [search, setSearch] = useState("");
     const [searchResults, setSearchResults] = useState<any[]>([]);
 
     const spotifyApi = new SpotifyWebApi({
         clientId: "226da25afbe64537a2574c7155cbc643",
-      });
+    });
 
     // useEffect(() => {
     //     if (!localStorage.getItem("accessToken")) return;
@@ -25,17 +26,35 @@ const GameConfiguration = () => {
     useEffect(() => {
         if (!search) return setSearchResults([]);
         if (!accessToken!.store) return;
+        let cancel = false;
         spotifyApi.setAccessToken(accessToken!.store);
         spotifyApi.searchTracks(search) //, { limit: 50, offset: 1 }
             .then((res) => {
-                // console.log(data.body.tracks.items);
-                console.log(spotifyApi.getAccessToken());
-                console.log(res);
+                if (cancel) return;
+                setSearchResults(res.body.tracks!.items.map((track: any) => {
+
+                    const smallestAlbumImage = track.album.images.reduce((smallest: any, image: any) => {
+                        if (image.height < smallest.height) return image;
+                        return smallest;
+                    }, track.album.images[0]);
+
+                    return {
+                        artist: track.artists[0].name,
+                        title: track.name,
+                        uri: track.uri,
+                        albumUrl: smallestAlbumImage.url,
+                    };
+
+                })
+                );
+                // console.log(spotifyApi.getAccessToken());
+                // console.log(res);
             })
             .catch((err) => {
-                console.log(spotifyApi.getAccessToken());
+                // console.log(spotifyApi.getAccessToken());
                 console.error(err);
-            });
+            })
+        return () => { cancel = true };
     }, [search, accessToken.store]);
 
     if (!accessToken!.store) return <div className="spotifyLoginPrompt"><SpotifyLogin /></div>;
@@ -50,7 +69,9 @@ const GameConfiguration = () => {
                     className="searchBar"
                 />
                 <div className="searchContent">
-                    Songs
+                    {searchResults.map((track: any) => (
+                        <TrackSearchResult track={track} key={track.uri} />
+                    ))}
                 </div>
             </div>
         </div>

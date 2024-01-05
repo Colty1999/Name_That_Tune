@@ -2,9 +2,9 @@
     display: flex;
     flex-direction: column;
     justify-content: start;
-    align-items: start;
-    width: 100%;
-
+    align-items: center;
+    width: 100vw;
+    overflow-y:scroll;
 
     .form {
         // display: flex;
@@ -24,15 +24,16 @@
             // display: flex;
             // flex-direction: column;
             flex-grow: 1;
-            overflow-y: auto;
-            justify-content: space-between;
-            align-items: center;
+            // overflow-y: scroll;
+            // justify-content: space-between;
+            // align-items: center;
             width: 100%;
             padding: 1rem 0;
             // border: 0.1rem solid transparent;
             // background-color: var(--buttonPrimaryColor);
-            border-radius: 2rem;
+            // border-radius: 2rem;
             font-size: 1.5rem;
+            height: 80vh;
         }
     }
 }
