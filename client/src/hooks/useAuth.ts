@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { useStorageState } from "./useStorageState";
 
 export default function useAuth(code: string | null) {
+  let loggedIn = useStorageState({ state: "loggedIn" });
+  
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);
   const [expiresIn, setExpiresIn] = useState<number | null>(null);
@@ -22,6 +25,7 @@ export default function useAuth(code: string | null) {
           setRefreshToken(res.data.refreshToken);
           setExpiresIn(res.data.expiresIn);
           window.history.pushState({}, "", "/");
+          loggedIn.setStorageState("true");
         })
         .catch((err) => {
           console.log(err);

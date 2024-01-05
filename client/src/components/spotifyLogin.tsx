@@ -4,9 +4,12 @@ import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { LoadingContext } from "../App";
 import useAuth from "../hooks/useAuth";
+import { useStorageState } from "../hooks/useStorageState";
 
 
 const SpotifyLogin = () => {
+    let loggedIn = useStorageState({ state: "loggedIn" });
+    console.log(loggedIn.store);
     const setLoading = useContext(LoadingContext);
 
     const [token, setToken] = useState<string | null>(new URLSearchParams(window.location.search).get('code'));
@@ -23,13 +26,14 @@ const SpotifyLogin = () => {
         setLoading(true);
         setTimeout(() => {
             setToken(null);
+            loggedIn.setStorageState("false");
             setLoading(false);
         }, 300);
     }
 
     return (
         <>
-            {token ?
+            {(token || (JSON.parse(localStorage.getItem("loggedIn") ? loggedIn.store! : "false") === true) ) ?
                 <a>
                     <button className='button spotifybutton' onClick={logout}><FontAwesomeIcon icon={faSpotify} /> | Logout</button>
                 </a>
