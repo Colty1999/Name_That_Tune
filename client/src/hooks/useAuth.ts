@@ -9,8 +9,9 @@ export default function useAuth(code: string | null) {
   const isMounted = useRef(false);
 
   useEffect(() => {
-    if (code === null) return;
+    if (code === null) return; //return if logging out (code is null)
     if (isMounted.current) {
+      //useStrict double rendering countermeasure
       axios
         .post("http://localhost:3000/login", {
           code,
@@ -19,12 +20,10 @@ export default function useAuth(code: string | null) {
           setAccessToken(res.data.accessToken);
           setRefreshToken(res.data.refreshToken);
           setExpiresIn(res.data.expiresIn);
-          // window.history.pushState({}, "", "/")
+          window.history.pushState({}, "", "/");
         })
         .catch((err) => {
           console.log(err);
-          // window.location.href = "/";
-          // window.history.pushState({}, "", "/")
         });
     } else {
       isMounted.current = true;
@@ -32,23 +31,25 @@ export default function useAuth(code: string | null) {
   }, [code]);
 
   useEffect(() => {
-    if (code === null) return;
-    if (!refreshToken || !expiresIn) return;
+    if (code === null) return; //return if logging out (code is null)
+    if (!refreshToken || !expiresIn) return; //return if no refresh token or expiresIn (prevent call just after login)
     if (isMounted.current) {
-      axios
-        .post("http://localhost:3000/refresh", {
-          refreshToken,
-        })
-        .then((res) => {
-          setAccessToken(res.data.accessToken);
-          setExpiresIn(res.data.expiresIn);
-          window.history.pushState({}, "", "/")
-        })
-        .catch((err) => {
-          console.log(err);
-          // window.location.href = "/";
-          // window.history.pushState({}, "", "/")
-        });
+      //useStrict double rendering countermeasure
+      const timeout = setTimeout(() => {
+        axios
+          .post("http://localhost:3000/refresh", {
+            refreshToken,
+          })
+          .then((res) => {
+            setAccessToken(res.data.accessToken);
+            setExpiresIn(res.data.expiresIn);
+            window.history.pushState({}, "", "/");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }, (expiresIn - 60) * 1000);
+      return () => {clearTimeout(timeout)};
     } else {
       isMounted.current = true;
     }
