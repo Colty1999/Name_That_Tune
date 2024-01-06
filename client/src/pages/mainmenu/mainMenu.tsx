@@ -3,6 +3,7 @@ import './mainMenu.scss'
 import { gameLogo } from '../../assets/common';
 import { useTranslation } from 'react-i18next';
 import SpotifyLogin from '../../components/spotifyLogin/spotifyLogin';
+import Footer from '../../components/footer/footer';
 
 
 
@@ -36,6 +37,7 @@ const MainMenu = () => {
                     </button>
                 </Link>
             </div>
+            <Footer />
         </div>
     );
 };

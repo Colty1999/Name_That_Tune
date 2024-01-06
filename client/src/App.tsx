@@ -6,7 +6,6 @@ import GameMaster from './pages/gamemaster/gameMaster';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import NotImplemented from './pages/notimplemented/notImplemented';
 import Header from './components/header/header';
-import Footer from './components/footer/footer';
 import { createContext, useState } from 'react';
 import Loader from './components/loader/loader';
 import GameConfiguration from './pages/gameconfiguration/gameConfiguration';
@@ -47,7 +46,6 @@ function App() {
             element={<Navigate to="/404" replace />}
           /> */}
           </Routes>
-          <Footer />
         </LoadingContext.Provider>
       </HashRouter >
     </Container>
