@@ -5,10 +5,12 @@ import SpotifyWebApi from "spotify-web-api-node";
 import { useStorageState } from "../../hooks/useStorageState";
 import SpotifyLogin from "../../components/spotifyLogin/spotifyLogin";
 import TrackSearchResult from "./components/trackSearchResult/trackSearchResult";
+import Player from "../../components/player/player";
 
 
 const GameConfiguration = () => {
-    let accessToken = useStorageState({ state: "accessToken" })
+    let accessToken = useStorageState({ state: "accessToken" });
+    let currentSongUri = useStorageState({ state: "currentSongUri" });
     const [search, setSearch] = useState("");
     const [searchResults, setSearchResults] = useState<any[]>([]);
 
@@ -74,6 +76,7 @@ const GameConfiguration = () => {
                     ))}
                 </div>
             </div>
+            <Player uri={currentSongUri.store ? currentSongUri.store : ""} />
         </div>
     )
 };
