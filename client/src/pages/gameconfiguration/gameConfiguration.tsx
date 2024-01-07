@@ -31,25 +31,26 @@ const GameConfiguration = () => {
         if (!accessToken!.store) return;
         let cancel = false;
         spotifyApi.setAccessToken(accessToken!.store);
-        spotifyApi.searchTracks(search) //, { limit: 50, offset: 1 }
+        spotifyApi.searchPlaylists(search) //, { limit: 50, offset: 1 }
             .then((res) => {
                 if (cancel) return;
-                setSearchResults(res.body.tracks!.items.map((track: any) => {
+                setSearchResults(res.body.playlists!.items.map((playlist: any) => {
 
-                    const smallestAlbumImage = track.album.images.reduce((smallest: any, image: any) => {
+                    const smallestAlbumImage = playlist.images.reduce((smallest: any, image: any) => {
                         if (image.height < smallest.height) return image;
                         return smallest;
-                    }, track.album.images[0]);
+                    }, playlist.images[0]);
 
                     return {
-                        artist: track.artists[0].name,
-                        title: track.name,
-                        uri: track.uri,
+                        title: playlist.name,
+                        description: playlist.description,
+                        uri: playlist.uri,
                         albumUrl: smallestAlbumImage.url,
                     };
 
                 })
                 );
+                console.log(res.body);
             })
             .catch((err) => {
                 console.error(err);
@@ -63,7 +64,7 @@ const GameConfiguration = () => {
             <div className="form">
                 <Form.Control
                     type="search"
-                    placeholder="Search Songs/Playlists"
+                    placeholder="Search Playlists"
                     value={search}
                     onChange={e => setSearch(e.target.value)}
                     className="searchBar"
