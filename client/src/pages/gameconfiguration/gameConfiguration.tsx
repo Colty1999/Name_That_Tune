@@ -74,6 +74,9 @@ const GameConfiguration = () => {
                     {searchResults.map((track: any) => (
                         <TrackSearchResult track={track} key={track.uri} />
                     ))}
+                    {searchResults.length === 0 && (
+                        <div className="noResults">No Results</div>
+                    )}
                 </div>
             </div>
             <Player uri={currentSongUri.store ? currentSongUri.store : ""} />

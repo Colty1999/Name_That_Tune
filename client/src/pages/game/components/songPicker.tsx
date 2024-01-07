@@ -17,7 +17,7 @@ const SongPicker = (props: SongPickerProps) => {
                 className={`${category.store === song.songName ? "active" : ""} ${song.played === true ? "playedsong" : ""} song`} 
                 key={song.id}
                 >
-                    <h3>{song.clue}</h3>
+                    <h3>{song.clue ?? "missing clue"}</h3>
                     <h3>{song.points}{t("pt")}</h3>
                 </div>
             ))}

@@ -2,21 +2,16 @@ import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
-import { LoadingContext } from "../../App";
-import useAuth from "../../hooks/useAuth";
+import { AppContext } from "../../App";
 import { useStorageState } from "../../hooks/useStorageState";
 import "./spotifyLogin.scss";
 
 
 const SpotifyLogin = () => {
+    
     let loggedIn = useStorageState({ state: "loggedIn" });
     let accessToken = useStorageState({state: "accessToken"})
-
-    console.log(loggedIn.store);
-    const setLoading = useContext(LoadingContext);
-
-    const [token, setToken] = useState<string | null>(new URLSearchParams(window.location.search).get('code'));
-    const accessTokenInit = useAuth(token);
+    const {setLoading, token, setToken} = useContext(AppContext);
 
     const authEndpoint = 'https://accounts.spotify.com/authorize',
         clientId = '226da25afbe64537a2574c7155cbc643',

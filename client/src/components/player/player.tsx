@@ -1,6 +1,8 @@
 import { useStorageState } from '../../hooks/useStorageState';
 import SpotifyPlayer from 'react-spotify-web-playback';
 import './player.scss';
+import { useContext } from 'react';
+import { AppContext } from '../../App';
 
 interface PlayerProps {
     uri: string;
@@ -8,6 +10,8 @@ interface PlayerProps {
 
 const Player = ({ uri }: PlayerProps) => {
     let accessToken = useStorageState({ state: "accessToken" })
+    const { songPlaying, setSongPlaying } = useContext(AppContext);
+
 
     const styles = {
         // activeColor: '#fff',
@@ -26,10 +30,10 @@ const Player = ({ uri }: PlayerProps) => {
                 token={accessToken.store}
                 uris={uri}
                 // autoPlay={true}
-                // play={true}
-                // callback={state => {
-                //     console.log(state);
-                // }}
+                play={songPlaying}
+                callback={state => {
+                    if (!state.isPlaying) setSongPlaying(false);
+                }}
                 styles={styles}
             />
         </div>

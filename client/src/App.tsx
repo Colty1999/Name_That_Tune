@@ -9,27 +9,28 @@ import Header from './components/header/header';
 import { createContext, useState } from 'react';
 import Loader from './components/loader/loader';
 import GameConfiguration from './pages/gameconfiguration/gameConfiguration';
+import useAuth from './hooks/useAuth';
 
 
-export const LoadingContext = createContext<React.Dispatch<React.SetStateAction<boolean>> | Function>(() => { });
+export const AppContext = createContext<{
+  setLoading: (React.Dispatch<React.SetStateAction<boolean>> | Function), 
+  token: (string | null),
+  setToken: (React.Dispatch<React.SetStateAction<string | null>> | Function),
+  songPlaying: boolean,
+  setSongPlaying: (React.Dispatch<React.SetStateAction<boolean>> | Function), 
+}>({setLoading: () => { }, token: null, setToken: () => { }, songPlaying: false, setSongPlaying: () => { }});
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
+  const [token, setToken] = useState<string | null>(new URLSearchParams(window.location.search).get('code'));
+  const [songPlaying, setSongPlaying] = useState<boolean>(false);
 
-  // let token = useStorageState({ state: "token" });
-  // useEffect(() => {
-  //   const code = new URLSearchParams(window.location.search).get('code');
-
-  //   if (code) {
-  //     window.location.search = '';
-  //     token.setStorageState(code);
-  //   }
-  // }, []); // get token from spotify url
+  const accessTokenInit = useAuth(token);
 
   return (
     <Container fluid="true" className='container'>
       <HashRouter >
-        <LoadingContext.Provider value={setLoading}>
+        <AppContext.Provider value={{setLoading, token, setToken, songPlaying, setSongPlaying}}>
           {loading && <Loader />}
           <Header />
           <Routes>
@@ -46,7 +47,7 @@ function App() {
             element={<Navigate to="/404" replace />}
           /> */}
           </Routes>
-        </LoadingContext.Provider>
+        </AppContext.Provider>
       </HashRouter >
     </Container>
   )

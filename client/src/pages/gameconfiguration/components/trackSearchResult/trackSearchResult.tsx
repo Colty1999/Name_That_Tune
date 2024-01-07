@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./trackSearchResult.scss";
 import { useStorageState } from "../../../../hooks/useStorageState";
+import { AppContext } from "../../../../App";
 
 interface TrackSearchResultProps {
     track: {
@@ -14,24 +15,28 @@ interface TrackSearchResultProps {
 const TrackSearchResult = ({ track }: TrackSearchResultProps) => {
     const { artist, title, uri, albumUrl } = track;
     let currentSongUri = useStorageState({ state: "currentSongUri" });
-    const [isPlaying, setIsPlaying] = useState(false);
+    let { songPlaying, setSongPlaying } = useContext(AppContext);
+    const [songActive, setSongActive] = useState<boolean>(false);
 
     const onClick = () => {
         currentSongUri.setStorageState(uri);
-        setIsPlaying(true);
+        setSongPlaying(true);
+        setSongActive(true);
     }
 
     useEffect(() => {
         if (currentSongUri.store === uri) {
-            setIsPlaying(true);
+            setSongPlaying(true);
+            setSongActive(true);
         } else {
-            setIsPlaying(false);
+            setSongPlaying(false);
+            setSongActive(false);
         }
     }, [currentSongUri.store, uri]);
 
     return (
         <div className="trackSearchResult">
-            <div className={`trackElement ${isPlaying ? "active" : ""}`} onClick={() => onClick()}>
+            <div className={`trackElement ${songActive ? "active" : ""}`} onClick={() => onClick()}>
                 <img src={albumUrl} alt={track.title} />
                 <div className="songData">
                     <h3>{title}</h3>

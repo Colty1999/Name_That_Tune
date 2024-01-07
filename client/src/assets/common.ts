@@ -5,7 +5,7 @@ export interface Song {
   id: number;
   songName: string;
   songPath: string;
-  clue: string;
+  clue?: string;
   points: number;
   songAudio?: HTMLAudioElement;
   played?: boolean;
