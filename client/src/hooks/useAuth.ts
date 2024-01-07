@@ -38,31 +38,25 @@ export default function useAuth(code: string | null) {
   }, [code]);
 
   useEffect(() => {
-    if (code === null) return; //return if logging out (code is null)
-    if (!refreshToken || !expiresIn) return; //return if no refresh token or expiresIn (prevent call just after login)
+    if (!refreshToken || !expiresIn) return
     const interval = setInterval(() => {
-      if (isRefreshMounted.current) {
-        //useStrict double rendering countermeasure
+      // console.log("useEffect refresh");
+      axios
+        .post("http://localhost:3000/refresh", {
+          refreshToken,
+        })
+        .then(res => {
+          accessToken.setStorageState(res.data.accessToken);
+          setExpiresIn(res.data.expiresIn);
+        })
+        .catch((err) => {
+          history.replaceState({}, "", "/");
+          console.log(err);
+        })
+    }, (expiresIn - 60) * 1000)
 
-        axios
-          .post("http://localhost:3000/refresh", {
-            refreshToken,
-          })
-          .then((res) => {
-            accessToken.setStorageState(res.data.accessToken);
-            // setAccessToken(res.data.accessToken);
-            setExpiresIn(res.data.expiresIn);
-            // window.history.pushState({}, "", "/");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      } else {
-        isRefreshMounted.current = true;
-      }
-    }, (expiresIn - 60) * 1000);
-    return () => clearInterval(interval);
-  }, [refreshToken, expiresIn]);
+    return () => clearInterval(interval)
+  }, [refreshToken, expiresIn])
 
-  return accessToken;
+  return;
 }

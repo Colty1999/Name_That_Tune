@@ -1,17 +1,17 @@
 import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AppContext } from "../../App";
 import { useStorageState } from "../../hooks/useStorageState";
 import "./spotifyLogin.scss";
 
 
 const SpotifyLogin = () => {
-    
+
     let loggedIn = useStorageState({ state: "loggedIn" });
     let accessToken = useStorageState({state: "accessToken"})
-    const {setLoading, token, setToken} = useContext(AppContext);
+    const {setLoading} = useContext(AppContext);
 
     const authEndpoint = 'https://accounts.spotify.com/authorize',
         clientId = '226da25afbe64537a2574c7155cbc643',
@@ -23,16 +23,15 @@ const SpotifyLogin = () => {
     function logout() {
         setLoading(true);
         setTimeout(() => {
-            setToken(null);
-            loggedIn.setStorageState("false");
             accessToken.setStorageState("");
+            loggedIn.setStorageState("false");
             setLoading(false);
         }, 300);
     }
 
     return (
         <div className="spotifyLogin">
-            {(token || (JSON.parse(localStorage.getItem("loggedIn") ? loggedIn.store! : "false") === true) ) ?
+            {(accessToken.store || (JSON.parse(localStorage.getItem("loggedIn") ? loggedIn.store! : "false") === true) ) ?
                 <a>
                     <button className='button' onClick={logout}><FontAwesomeIcon icon={faSpotify} /> | Logout</button>
                 </a>

@@ -9,6 +9,7 @@ import Player from "../../components/player/player";
 
 
 const GameConfiguration = () => {
+    // let token = useStorageState({ state: "token" });
     let accessToken = useStorageState({ state: "accessToken" });
     let currentSongUri = useStorageState({ state: "currentSongUri" });
     const [search, setSearch] = useState("");
@@ -49,11 +50,8 @@ const GameConfiguration = () => {
 
                 })
                 );
-                // console.log(spotifyApi.getAccessToken());
-                // console.log(res);
             })
             .catch((err) => {
-                // console.log(spotifyApi.getAccessToken());
                 console.error(err);
             })
         return () => { cancel = true };

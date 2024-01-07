@@ -25,7 +25,7 @@ function App() {
   const [token, setToken] = useState<string | null>(new URLSearchParams(window.location.search).get('code'));
   const [songPlaying, setSongPlaying] = useState<boolean>(false);
 
-  const accessTokenInit = useAuth(token);
+  useAuth(token);
 
   return (
     <Container fluid="true" className='container'>
