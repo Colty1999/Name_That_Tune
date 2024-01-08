@@ -6,10 +6,12 @@ import { useStorageState } from "../../hooks/useStorageState";
 import SpotifyLogin from "../../components/spotifyLogin/spotifyLogin";
 import TrackSearchResult from "./components/trackSearchResult/trackSearchResult";
 import Player from "../../components/player/player";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 
 const GameConfiguration = () => {
-    // let token = useStorageState({ state: "token" });
+    let loggedIn = useStorageState({ state: "loggedIn" });
     let accessToken = useStorageState({ state: "accessToken" });
     let currentSongUri = useStorageState({ state: "currentSongUri" });
     const [search, setSearch] = useState("");
@@ -18,13 +20,6 @@ const GameConfiguration = () => {
     const spotifyApi = new SpotifyWebApi({
         clientId: "226da25afbe64537a2574c7155cbc643",
     });
-
-    // useEffect(() => {
-    //     if (!localStorage.getItem("accessToken")) return;
-    //     if (!accessToken!.store) return;
-    //     spotifyApi.setAccessToken(accessToken!.store);
-    //     console.log(spotifyApi.getAccessToken());
-    // }, [accessToken.store]);
 
     useEffect(() => {
         if (!search) return setSearchResults([]);
@@ -58,10 +53,12 @@ const GameConfiguration = () => {
         return () => { cancel = true };
     }, [search, accessToken.store]);
 
-    if (!accessToken!.store) return <div className="spotifyLoginPrompt"><SpotifyLogin /></div>;
+    if (!accessToken!.store || (loggedIn ? loggedIn.store! : "false") !== "true") return <div className="spotifyLoginPrompt"><SpotifyLogin /></div>;
     return (
         <div className="gameConfigurationContainer">
+            <div className="gameSettings">lalala</div>
             <div className="form">
+                <div className={`searchContainer ${searchResults.length === 0 ? "" : "searchContainerActive"}`}>
                 <Form.Control
                     type="search"
                     placeholder="Search Playlists"
@@ -69,11 +66,13 @@ const GameConfiguration = () => {
                     onChange={e => setSearch(e.target.value)}
                     className="searchBar"
                 />
+                <FontAwesomeIcon icon={faSearch} />
+                </div>
                 <div className="searchContent">
                     {searchResults.map((track: any) => (
                         <TrackSearchResult track={track} key={track.uri} />
                     ))}
-                    {searchResults.length === 0 && (
+                    {(search && searchResults.length === 0) && (
                         <div className="noResults">No Results</div>
                     )}
                 </div>

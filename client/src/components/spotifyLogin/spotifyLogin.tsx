@@ -31,7 +31,7 @@ const SpotifyLogin = () => {
 
     return (
         <div className="spotifyLogin">
-            {(accessToken.store || (JSON.parse(localStorage.getItem("loggedIn") ? loggedIn.store! : "false") === true) ) ?
+            {(accessToken.store || (JSON.parse(loggedIn ? loggedIn.store! : "false") === true) ) ?
                 <a>
                     <button className='button' onClick={logout}><FontAwesomeIcon icon={faSpotify} /> | Logout</button>
                 </a>

@@ -4,14 +4,12 @@ import { useStorageState } from "./useStorageState";
 
 export default function useAuth(code: string | null) {
   let loggedIn = useStorageState({ state: "loggedIn" });
-
-  let accessToken = useStorageState({state: "accessToken"})
-  // const [accessToken, setAccessToken] = useState<string | null>(null);
+  let accessToken = useStorageState({state: "accessToken"});
+  
   const [refreshToken, setRefreshToken] = useState<string | null>(null);
   const [expiresIn, setExpiresIn] = useState<number | null>(null);
 
   const isLoginMounted = useRef(false);
-  const isRefreshMounted = useRef(false);
 
   useEffect(() => {
     if (code === null) return; //return if logging out (code is null)
@@ -30,6 +28,7 @@ export default function useAuth(code: string | null) {
           loggedIn.setStorageState("true");
         })
         .catch((err) => {
+          loggedIn.setStorageState("false");
           console.log(err);
         });
     } else {
@@ -51,6 +50,7 @@ export default function useAuth(code: string | null) {
         })
         .catch((err) => {
           history.replaceState({}, "", "/");
+          loggedIn.setStorageState("false");
           console.log(err);
         })
     }, (expiresIn - 60) * 1000)

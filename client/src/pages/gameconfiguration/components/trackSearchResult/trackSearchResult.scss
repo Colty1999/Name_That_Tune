@@ -1,25 +1,39 @@
-.trackSearchResult {
-    .trackElement {
+.playlistSearchResult {
+    .playlistElement {
+        position: relative;
         display: flex;
         flex-direction: row;
         justify-content: start;
         align-items: center;
         // width: 100%;
-        margin-bottom: 1rem;
+        // margin-bottom: 1rem;
         padding: 0.1rem 2.5rem;
         // border: 1px solid #ccc;
-        border-radius: 2rem;
+        // border-radius: 2rem;
         background-color: var(--buttonPrimaryColor);
         // box-shadow: 0 2px 3px #ccc;
         cursor: pointer;
         transition: all 0.2s ease-in-out;
+        border: solid var(--secondaryColor);
+        border-width: 0 0 0.1rem 0;
+        opacity: 0;
 
 
-        .songData {
+        .playlistData {
+            width: calc(100% - 8rem);
             display: grid;
             grid-template-columns: 1fr;
             grid-template-rows: 1fr 1fr;
             justify-items: start;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .playIcon {
+            position: absolute;
+            right: 0;
+            margin: 2.5rem;
         }
 
         h3,
@@ -31,11 +45,18 @@
             width: 64px;
             height: 64px;
         }
+
     }
 
     .active {
         background-color: var(--secondaryColor);
         color: var(--primaryTextColor);
         filter: drop-shadow(0 0 2rem var(--dropShadowColor));
+        border-bottom: 0.1rem solid var(--buttonPrimaryColor);
+
+    }
+
+    .loaded {
+        opacity: 1;
     }
 }

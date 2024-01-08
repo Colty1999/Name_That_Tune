@@ -1,39 +1,94 @@
 .gameConfigurationContainer {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: start;
-    align-items: center;
-    width: 100vw;
-    overflow-y:scroll;
+    align-items: start;
+    width: 100%;
+    // overflow-y: auto;
+
+    .gameSettings {
+        // display: flex;
+        // flex-direction: column;
+        width: calc(40% - 3rem);
+        height: calc(100vh - 7rem);
+        margin: 2rem 1rem 2rem 2rem;
+        border: 0.1rem solid transparent;
+        background-color: var(--buttonPrimaryColor);
+        border-radius: 1.5rem;
+        font-size: 2rem;
+        outline: none;
+        transition: all 0.2s ease-in-out;
+    }
 
     .form {
         // display: flex;
         // flex-direction: column;
-        width: 75%;
-        margin: 2rem;
-        .searchBar {
-            width: 100%;
-            padding: 0.5rem 3rem;
+        width: calc(60% - 10rem);
+        height: calc(100vh - 7rem);
+        overflow: hidden;
+        margin: 2rem 2rem 2rem 1rem;
+
+        .searchContainer {
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+            align-items: center;
+            // width: 100%;
+            // height: 3.75rem;
+            padding: 0.5rem 2rem;
             border: 0.1rem solid transparent;
             background-color: var(--buttonPrimaryColor);
-            border-radius: 2rem;
-            font-size: 1.5rem;
+            border-radius: 1.5rem;
+            font-size: 2rem;
+            outline: none;
+            transition: all 0.2s ease-in-out;
+
+            .searchBar {
+                width: 100%;
+                // padding: 0.5rem 3rem;
+                border: 0.1rem solid transparent;
+                background-color: inherit;
+                // border-radius: 1.5rem;
+                font-size: 2rem;
+                outline: none;
+                transition: all 0.2s ease-in-out;
+            }
+        }
+
+        .searchContainerActive {
+            border-bottom: 0.1rem solid var(--secondaryColor);
+            border-radius: 1.5rem 1.5rem 0 0;
         }
 
         .searchContent {
-            // display: flex;
-            // flex-direction: column;
-            flex-grow: 1;
-            // overflow-y: scroll;
-            // justify-content: space-between;
-            // align-items: center;
+            // flex-grow: 1;
             width: 100%;
-            padding: 1rem 0;
-            // border: 0.1rem solid transparent;
-            // background-color: var(--buttonPrimaryColor);
-            // border-radius: 2rem;
+            height: calc(100% - 3.75rem);
+            // padding: 1rem 0;
             font-size: 1.5rem;
-            height: 80vh;
+            // height: auto;
+            padding: 0 0 3rem 0;
+            // display: block;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+
+            &::-webkit-scrollbar {
+                display: none;
+                /* Hide the scrollbar for Chrome/Safari/Webkit */
+            }
+
+            .noResults {
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: start;
+                // height: 10rem;
+                width: 100%;
+                font-size: 2rem;
+                padding: 1rem 0 0 3rem;
+                // overflow-y: hidden;
+            }
         }
     }
 }

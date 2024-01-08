@@ -26,7 +26,14 @@ body {
   place-items: center;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow: hidden auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+
+body::-webkit-scrollbar {
+  width: 0; /* Hide the scrollbar for Chrome/Safari/Webkit */
 }
 
 h1 {
@@ -86,5 +93,4 @@ button {
   justify-content: center;
   align-items: center;
   width: 100vw;
-  // padding: 2rem;
 }

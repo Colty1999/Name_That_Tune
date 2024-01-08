@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import "./trackSearchResult.scss";
 import { useStorageState } from "../../../../hooks/useStorageState";
 import { AppContext } from "../../../../App";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 
 interface TrackSearchResultProps {
     track: {
@@ -16,19 +18,19 @@ interface TrackSearchResultProps {
 const TrackSearchResult = ({ track }: TrackSearchResultProps) => {
     const { title, description, uri, albumUrl } = track;
     let currentSongUri = useStorageState({ state: "currentSongUri" });
-    let { songPlaying, setSongPlaying } = useContext(AppContext);
+    let { setSongPlaying } = useContext(AppContext);
     const [songActive, setSongActive] = useState<boolean>(false);
 
-    const truncateString = (str: string, maxLength: number) => {
-        if (str.length <= maxLength) {
-            return str;
-        } else {
-            const lastSpaceIndex = str.lastIndexOf(' ', maxLength);
-            return lastSpaceIndex !== -1 ? str.substring(0, lastSpaceIndex) + '...' : str.substring(0, maxLength) + '...';
-        }
-    };
-    const maxLength = 90;
-    const truncatedString = truncateString(description, maxLength);
+    // const truncateString = (str: string, maxLength: number) => {
+    //     if (str.length <= maxLength) {
+    //         return str;
+    //     } else {
+    //         const lastSpaceIndex = str.lastIndexOf(' ', maxLength);
+    //         return lastSpaceIndex !== -1 ? str.substring(0, lastSpaceIndex) + '...' : str.substring(0, maxLength) + '...';
+    //     }
+    // };
+    // const maxLength = 90;
+    // const truncatedString = truncateString(description, maxLength);
 
     const onClick = () => {
         currentSongUri.setStorageState(uri);
@@ -46,14 +48,21 @@ const TrackSearchResult = ({ track }: TrackSearchResultProps) => {
         }
     }, [currentSongUri.store, uri]);
 
+    const [loadedClassName, setLoadedClassName] = useState<string>("");
+    useEffect(() => {
+        setLoadedClassName("loaded");
+    }, []);
+
+
     return (
-        <div className="trackSearchResult">
-            <div className={`trackElement ${songActive ? "active" : ""}`} onClick={() => onClick()}>
+        <div className="playlistSearchResult">
+            <div className={`playlistElement ${songActive ? "active" : ""} ${loadedClassName}`} onClick={() => onClick()}>
                 <img src={albumUrl} alt={track.title} />
-                <div className="songData">
-                    <h3>{title}</h3>
-                    <h4>{truncatedString}</h4>
+                <div className="playlistData">
+                    <h3 className="playlistTitle">{title}</h3>
+                    <h4 className="playlistDescription">{description}</h4>
                 </div>
+                <FontAwesomeIcon icon={songActive ? faPause : faPlay} className="playIcon" />
             </div>
         </div>
     );

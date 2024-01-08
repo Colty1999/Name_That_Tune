@@ -18,19 +18,22 @@ export const AppContext = createContext<{
   setToken: (React.Dispatch<React.SetStateAction<string | null>> | Function),
   songPlaying: boolean,
   setSongPlaying: (React.Dispatch<React.SetStateAction<boolean>> | Function), 
-}>({setLoading: () => { }, token: null, setToken: () => { }, songPlaying: false, setSongPlaying: () => { }});
+  loggedIn: boolean,
+  setLoggedIn: (React.Dispatch<React.SetStateAction<boolean>> | Function),
+}>({setLoading: () => { }, token: null, setToken: () => { }, songPlaying: false, setSongPlaying: () => { }, loggedIn: false, setLoggedIn: () => { }});
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
   const [token, setToken] = useState<string | null>(new URLSearchParams(window.location.search).get('code'));
   const [songPlaying, setSongPlaying] = useState<boolean>(false);
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
   useAuth(token);
 
   return (
     <Container fluid="true" className='container'>
       <HashRouter >
-        <AppContext.Provider value={{setLoading, token, setToken, songPlaying, setSongPlaying}}>
+        <AppContext.Provider value={{setLoading, token, setToken, songPlaying, setSongPlaying, loggedIn, setLoggedIn}}>
           {loading && <Loader />}
           <Header />
           <Routes>
