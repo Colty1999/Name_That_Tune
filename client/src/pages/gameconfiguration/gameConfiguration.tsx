@@ -94,7 +94,7 @@ const GameConfiguration = () => {
                 <div className="gameSettingsContainer">
                     {(tracks.store && tracks.store.length > 0) && JSON.parse(tracks.store).map((track: any, key: number) => <TrackResult track={track.track} id={key} key={key} />)}
                 </div>
-                <button className="gameSettingsButton">Start Game</button>
+                <div className="gameSettingsButtonContainer"><button className="gameSettingsButton">Start Game</button></div>
             </div>
             <Player uri={currentSongUri.store ? currentSongUri.store : ""} />
         </div>
