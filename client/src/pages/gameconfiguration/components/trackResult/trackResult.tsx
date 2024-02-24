@@ -33,13 +33,40 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
     const [points, setPoints] = useState<number>(100);
 
     let currentPlaylistUri = useStorageState({ state: "currentPlaylistUri" });
+
+    const updateClue = (clue: string) => {
+        if (!tracks.store) return;
+        setClue(clue);
+        let newTracks = JSON.parse(tracks.store);
+        newTracks[id].clue = clue;
+        tracks.setStorageState(JSON.stringify(newTracks));
+        // console.log(newTracks);
+        // console.log(JSON.parse(tracks.store));
+    };
+
+    const updatePoints = (points: number) => {
+        if (!tracks.store) return;
+        setPoints(points);
+        let newTracks = JSON.parse(tracks.store);
+        newTracks[id].points = points;
+        tracks.setStorageState(JSON.stringify(newTracks));
+    };
+
+    useEffect(() => {
+        if (!tracks.store || tracks.store.length === 0) return;
+        let newTracks = JSON.parse(tracks.store);
+        newTracks[id].points = points;
+        tracks.setStorageState(JSON.stringify(newTracks));
+    }, []); // set points on load
+
     useEffect(() => {
         setClue("");
         setPoints(100);
-    }, [currentPlaylistUri.store]);
+    }, [currentPlaylistUri.store]); // Reset clue and points when playlist changes
+
     useEffect(() => {
         if (currentSongUri.store !== track.uri) stopPlaying();
-    }, [currentSongUri.store]);
+    }, [currentSongUri.store]); // Stop playing if another song is selected
 
     const smallestImage = track.album.images.reduce((smallest: any, image: any) => {
         if (image.height < smallest.height) return image;
@@ -57,12 +84,10 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
         setTrackSelect(false);
     }
 
-    if (tracks.store) console.log(JSON.parse(tracks.store));
-
     const [loadedClassName, setLoadedClassName] = useState<string>("");
     useEffect(() => {
         setLoadedClassName("loaded");
-    }, []);
+    }, []); // Add loaded class when component is mounted
 
     return (
         <div className="trackResult">
@@ -80,7 +105,7 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
                             <input
                                 type="text"
                                 value={clue}
-                                onChange={(e) => setClue(e.target.value)}
+                                onChange={(e) => updateClue(e.target.value)}
                             />
                         </div>
                         <div className="pointsForm">
@@ -88,7 +113,7 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
                             <input
                                 type="number"
                                 value={points}
-                                onChange={(e) => setPoints(Number(e.target.value))}
+                                onChange={(e) => updatePoints(Number(e.target.value))}
                             />
                         </div>
                     </div>

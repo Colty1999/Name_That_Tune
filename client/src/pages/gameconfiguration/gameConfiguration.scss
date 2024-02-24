@@ -39,22 +39,28 @@
             border-bottom: 0.1rem solid var(--secondaryColor);
         }
 
-        .gameSettingsButtonContainer {
+        .gameButtonContainer {
             width: auto;
             border-top: 0.1rem solid var(--secondaryColor);
             padding: 0.5rem 0;
-            .gameSettingsButton {
-                min-width: 15rem;
-                border-color: var(--spotifyColor);
-                background-color: var(--spotifyColor);
+
+            button {
+                width: 45%;
+                border-color: var(--buttonHoverColor);     
                 transition: all 0.2s ease-in-out;
-        
                 &:hover {
                     color: var(--primaryTextColor);
                     background-color: var(--secondaryColor);
                     border-color: var(--buttonHoverColor);
                     filter: drop-shadow(0 0 1rem var(--buttonHoverColor));
-                }
+                }   
+            }
+
+            .gameSettingsButton {
+                // min-width: 15rem;
+                border-color: var(--spotifyColor);
+                background-color: var(--spotifyColor);
+                margin-left: 1rem;
             }
         }
 

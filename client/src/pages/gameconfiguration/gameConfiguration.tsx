@@ -11,6 +11,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import TrackResult from "./components/trackResult/trackResult";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import ConfigurationModal from "./components/configurationModal/configurationModal";
 
 
 const GameConfiguration = () => {
@@ -20,14 +21,11 @@ const GameConfiguration = () => {
     let tracks = useStorageState({ state: "tracks" });
     const [search, setSearch] = useState("");
     const [searchResults, setSearchResults] = useState<any[]>([]);
+    const [showModal, setShowModal] = useState(false);
 
     const spotifyApi = new SpotifyWebApi({
         clientId: "226da25afbe64537a2574c7155cbc643",
     });
-
-    useEffect(() => {
-        if (tracks.store) console.log(JSON.parse(tracks.store));
-    }, [tracks.store]);
 
     useEffect(() => {
         if (!search) return setSearchResults([]);
@@ -68,6 +66,7 @@ const GameConfiguration = () => {
     if (!accessToken || (loggedIn ? loggedIn.store! : "false") !== "true") return <div className="spotifyLoginPrompt"><SpotifyLogin /></div>;
     return (
         <div className="gameConfigurationContainer">
+            <ConfigurationModal show={showModal} handleClose={() => setShowModal(false)} />
             {/* playlist search */}
             <div className="form">
                 <div className={`searchContainer ${searchResults.length === 0 ? "" : "searchContainerActive"}`}>
@@ -96,7 +95,10 @@ const GameConfiguration = () => {
                 <div className="gameSettingsContainer">
                     {(tracks.store && tracks.store.length > 0) && JSON.parse(tracks.store).map((track: any, key: number) => <TrackResult track={track.track} id={key} key={key} />)}
                 </div>
-                <div className="gameSettingsButtonContainer"><Link to="/spotifygamemaster"><button className="gameSettingsButton">Start Game</button></Link></div>
+                <div className="gameButtonContainer">
+                    <button className="" onClick={() => setShowModal(true)}>Download configuration</button>
+                    <Link to="/spotifygamemaster"><button className="gameSettingsButton">Start Game</button></Link>
+                </div>
             </div>
             <Player uri={currentSongUri.store ? currentSongUri.store : ""} />
         </div>
