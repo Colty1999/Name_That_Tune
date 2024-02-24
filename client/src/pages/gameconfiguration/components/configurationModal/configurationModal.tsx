@@ -1,5 +1,7 @@
 import { useStorageState } from '../../../../hooks/useStorageState';
 import Modal from 'react-modal';
+import './configurationModal.scss';
+import { useRef } from 'react';
 
 interface ConfigurationModalProps {
     show: boolean;
@@ -7,28 +9,66 @@ interface ConfigurationModalProps {
 }
 
 function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
+    Modal.setAppElement('#root');
     let tracks = useStorageState({ state: "tracks" });
+
+    const downloadTxtFile = () => {
+        const element = document.createElement("a");
+        const file = new Blob([tracks.store ? tracks.store : ""], { type: 'text/plain' });
+        element.href = URL.createObjectURL(file);
+        element.download = "NameThatTuneSettings.txt";
+        document.body.appendChild(element); // Required for this to work in FireFox
+        element.click();
+    }
+
+    const uploadFile = async (e: any) => {
+        e.preventDefault();
+        const reader = new FileReader()
+        reader.onload = async (e) => {
+            if (!e.target) return;
+            const text = (e.target.result);
+            console.log(text);
+            if (typeof(text) === 'string') tracks.setStorageState(text);
+        };
+        reader.readAsText(e.target.files[0])
+    }
+
+    const hiddenFileInput = useRef<HTMLInputElement>(null);
+
+    // Programatically click the hidden file input element
+    // when the Button component is clicked
+    const handleClick = () => {
+        if (!hiddenFileInput.current) return;
+        hiddenFileInput.current.click();
+    };
 
     return (
         <Modal
-        isOpen={show}
-        // onAfterOpen={afterOpenModal}
-        onRequestClose={handleClose}
-        // style={customStyles}
-        contentLabel="Example Modal"
-        className="modal"
-      >
-        <h2>Hello</h2>
-        <button onClick={handleClose}>close</button>
-        <div>I am a modal</div>
-        <form>
-          <input />
-          <button>tab navigation</button>
-          <button>stays</button>
-          <button>inside</button>
-          <button>the modal</button>
-        </form>
-      </Modal>
+            isOpen={show}
+            // onAfterOpen={afterOpenModal}
+            onRequestClose={handleClose}
+            // style={customStyles}
+            contentLabel="Example Modal"
+            className="modalContainer"
+            overlayClassName="overlayContainer"
+        >
+            <div className="modalHeader">Settings</div>
+            <div className="modalBody">
+                <button onClick={downloadTxtFile} >Download configuration</button>
+                <div> - Download current game configuration with song, clues and points.</div>
+                <button onClick={handleClick}>Upload configuration</button>
+                <div> - Upload previous game configuration.</div>
+                <input
+                    type="file"
+                    name="myFile"
+                    ref={hiddenFileInput}
+                    style={{ display: 'none' }}
+                    onChange={uploadFile} />
+            </div>
+            <div className="modalFooter">
+                <button onClick={handleClose}>Close settings</button>
+            </div>
+        </Modal>
     );
 }
 

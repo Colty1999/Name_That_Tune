@@ -63,7 +63,7 @@ const GameConfiguration = () => {
         tracks.setStorageState("");
     }, []);
 
-    if (!accessToken || (loggedIn ? loggedIn.store! : "false") !== "true") return <div className="spotifyLoginPrompt"><SpotifyLogin /></div>;
+    if (!accessToken || (loggedIn ? loggedIn.store! : "false") !== "true") return <div className="spotifyLoginPrompt"><div style={{paddingBottom: "1rem"}}>Your session has expired</div><SpotifyLogin /></div>;
     return (
         <div className="gameConfigurationContainer">
             <ConfigurationModal show={showModal} handleClose={() => setShowModal(false)} />
@@ -91,12 +91,12 @@ const GameConfiguration = () => {
             </div>
             {/* game settings */}
             <div className="gameSettings" style={(tracks.store && tracks.store.length > 0) ? {} : { display: 'none' }}>
-                <div className="gameSettingsTitle">Game Settings</div>
+                <div className="gameSettingsTitle">Game Summary</div>
                 <div className="gameSettingsContainer">
                     {(tracks.store && tracks.store.length > 0) && JSON.parse(tracks.store).map((track: any, key: number) => <TrackResult track={track.track} id={key} key={key} />)}
                 </div>
                 <div className="gameButtonContainer">
-                    <button className="" onClick={() => setShowModal(true)}>Download configuration</button>
+                    <button className="" onClick={() => setShowModal(true)}>Settings</button>
                     <Link to="/spotifygamemaster"><button className="gameSettingsButton">Start Game</button></Link>
                 </div>
             </div>
