@@ -1,5 +1,5 @@
-export const gameLogo = "gameLogo.png";
-export const googleLogo = "googleLogo.png";
+export const gameLogo = "./gameLogo.png";
+export const googleLogo = "./googleLogo.png";
 
 export interface Song {
   id: number;

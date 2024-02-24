@@ -11,8 +11,6 @@ import GameConfiguration from './pages/gameconfiguration/gameConfiguration';
 import useAuth from './hooks/useAuth';
 import DemoGameMaster from './pages/demogamemaster/demoGameMaster';
 import SpotifyGameMaster from './pages/spotifygamemaster/spotifyGameMaster';
-import Cookies from 'js-cookie';
-
 
 export const AppContext = createContext<{
   setLoading: (React.Dispatch<React.SetStateAction<boolean>> | Function),
