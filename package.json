@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "frontend": "npm run --prefix ./client dev",
+    "frontend": "npm run --prefix ./client host",
     "backend": "npm run --prefix ./server dev",
     "start": "concurrently \"npm run frontend\" \"npm run backend\""
   },

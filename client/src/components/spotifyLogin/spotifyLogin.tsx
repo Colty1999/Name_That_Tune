@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { AppContext } from "../../App";
 import { useStorageState } from "../../hooks/useStorageState";
 import "./spotifyLogin.scss";
+import { frontend } from "../../assets/common";
 
 
 const SpotifyLogin = () => {
@@ -16,7 +17,7 @@ const SpotifyLogin = () => {
     const authEndpoint = 'https://accounts.spotify.com/authorize',
         clientId = '226da25afbe64537a2574c7155cbc643',
         responseType = 'code',
-        redirectUri = 'http://localhost:5173',
+        redirectUri = frontend,
         scope = ["streaming, user-read-email, user-read-private, user-library-read, user-library-modify, user-read-playback-state, user-modify-playback-state"].join("%20"),
         authorizationLink = `${authEndpoint}?client_id=${clientId}&response_type=${responseType}&redirect_uri=${redirectUri}&scope=${scope}`;
 

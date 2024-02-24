@@ -7,7 +7,7 @@
         align-items: center;
         // width: 100%;
         // margin-bottom: 1rem;
-        padding: 0.1rem 2.5rem;
+        padding: 0.1rem 1rem;
         // border: 1px solid #ccc;
         // border-radius: 2rem;
         background-color: var(--buttonPrimaryColor);
@@ -20,7 +20,7 @@
 
 
         .playlistData {
-            width: calc(100% - 8rem);
+            width: 100%;
             display: grid;
             grid-template-columns: 1fr;
             grid-template-rows: 1fr 1fr;

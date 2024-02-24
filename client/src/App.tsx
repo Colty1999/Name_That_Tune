@@ -13,16 +13,17 @@ import useAuth from './hooks/useAuth';
 
 
 export const AppContext = createContext<{
-  setLoading: (React.Dispatch<React.SetStateAction<boolean>> | Function), 
+  setLoading: (React.Dispatch<React.SetStateAction<boolean>> | Function),
   token: (string | null),
   setToken: (React.Dispatch<React.SetStateAction<string | null>> | Function),
   songPlaying: boolean,
-  setSongPlaying: (React.Dispatch<React.SetStateAction<boolean>> | Function), 
+  setSongPlaying: (React.Dispatch<React.SetStateAction<boolean>> | Function),
   loggedIn: boolean,
   setLoggedIn: (React.Dispatch<React.SetStateAction<boolean>> | Function),
-}>({setLoading: () => { }, token: null, setToken: () => { }, songPlaying: false, setSongPlaying: () => { }, loggedIn: false, setLoggedIn: () => { }});
+}>({ setLoading: () => { }, token: null, setToken: () => { }, songPlaying: false, setSongPlaying: () => { }, loggedIn: false, setLoggedIn: () => { } });
 
 function App() {
+
   const [loading, setLoading] = useState<boolean>(false);
   const [token, setToken] = useState<string | null>(new URLSearchParams(window.location.search).get('code'));
   const [songPlaying, setSongPlaying] = useState<boolean>(false);
@@ -33,7 +34,7 @@ function App() {
   return (
     <Container fluid="true" className='container'>
       <HashRouter >
-        <AppContext.Provider value={{setLoading, token, setToken, songPlaying, setSongPlaying, loggedIn, setLoggedIn}}>
+        <AppContext.Provider value={{ setLoading, token, setToken, songPlaying, setSongPlaying, loggedIn, setLoggedIn }}>
           {loading && <Loader />}
           <Header />
           <Routes>

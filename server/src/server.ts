@@ -3,6 +3,8 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import SpotifyWebApi from "spotify-web-api-node";
 
+const frontend = 'http://192.168.50.6:5173';
+
 const app: Express = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -11,7 +13,7 @@ const port = 3000;
 app.post("/login", (req, res) => {
   const code = req.body.code;
   const spotifyApi = new SpotifyWebApi({
-    redirectUri: "http://localhost:5173",
+    redirectUri: frontend,
     clientId: "226da25afbe64537a2574c7155cbc643",
     clientSecret: "275eb241ad47431693fa8ada554c28cb",
   });
@@ -33,7 +35,7 @@ app.post("/login", (req, res) => {
 app.post("/refresh", (req, res) => {
   const refreshToken = req.body.refreshToken;
   const spotifyApi = new SpotifyWebApi({
-    redirectUri: "http://localhost:5173",
+    redirectUri: frontend,
     clientId: "226da25afbe64537a2574c7155cbc643",
     clientSecret: "275eb241ad47431693fa8ada554c28cb",
     refreshToken,
