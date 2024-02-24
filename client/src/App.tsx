@@ -2,7 +2,6 @@ import MainMenu from './pages/mainmenu/mainMenu'
 import Container from 'react-bootstrap/esm/Container';
 import Game from './pages/game/game';
 import NotFound from './pages/notfound/notFound';
-import GameMaster from './pages/gamemaster/gameMaster';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import NotImplemented from './pages/notimplemented/notImplemented';
 import Header from './components/header/header';
@@ -10,6 +9,9 @@ import { createContext, useState } from 'react';
 import Loader from './components/loader/loader';
 import GameConfiguration from './pages/gameconfiguration/gameConfiguration';
 import useAuth from './hooks/useAuth';
+import DemoGameMaster from './pages/demogamemaster/demoGameMaster';
+import SpotifyGameMaster from './pages/spotifygamemaster/spotifyGameMaster';
+import Cookies from 'js-cookie';
 
 
 export const AppContext = createContext<{
@@ -23,7 +25,6 @@ export const AppContext = createContext<{
 }>({ setLoading: () => { }, token: null, setToken: () => { }, songPlaying: false, setSongPlaying: () => { }, loggedIn: false, setLoggedIn: () => { } });
 
 function App() {
-
   const [loading, setLoading] = useState<boolean>(false);
   const [token, setToken] = useState<string | null>(new URLSearchParams(window.location.search).get('code'));
   const [songPlaying, setSongPlaying] = useState<boolean>(false);
@@ -40,7 +41,8 @@ function App() {
           <Routes>
             <Route path="/" Component={MainMenu} />
             <Route path="/game" Component={Game} />
-            <Route path="/gamemaster" Component={GameMaster} />
+            <Route path="/demogamemaster" Component={DemoGameMaster} />
+            <Route path="/spotifygamemaster" Component={SpotifyGameMaster} />
             <Route path="/gameconfiguration" Component={GameConfiguration} />
             {/* <Route path="/game" Component={GalleryYearView} />
             <Route path="/archive/:year/:folder" Component={GalleryFolderView} />*/}

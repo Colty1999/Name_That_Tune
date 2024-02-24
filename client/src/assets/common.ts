@@ -19,3 +19,8 @@ export interface StateType {
 export const backend = "http://192.168.50.6:3000";
 export const frontend = "http://192.168.50.6:5173";
 
+export const cookieOptions = {
+  sameSite: "lax",
+  // secure: true,
+  path: "/",
+} as const;

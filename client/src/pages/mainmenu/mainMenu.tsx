@@ -18,7 +18,7 @@ const MainMenu = () => {
             <h1>{t("mainmenu.title")}</h1>
             <div className="card">
                 <SpotifyLogin/>
-                <Link to="/gamemaster">
+                <Link to="/demogamemaster">
                     <button
                         // onClick={() => { window.open(`${window.location.origin}${window.location.pathname}#/gamemaster`, "_blank", "popup") }}
                         className='button'

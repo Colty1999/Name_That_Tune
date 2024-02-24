@@ -6,12 +6,14 @@ import { AppContext } from "../../App";
 import { useStorageState } from "../../hooks/useStorageState";
 import "./spotifyLogin.scss";
 import { frontend } from "../../assets/common";
+import Cookies from "js-cookie";
 
 
 const SpotifyLogin = () => {
 
     let loggedIn = useStorageState({ state: "loggedIn" });
-    let accessToken = useStorageState({state: "accessToken"})
+    let accessToken = Cookies.get("accessToken");
+
     const {setLoading} = useContext(AppContext);
 
     const authEndpoint = 'https://accounts.spotify.com/authorize',
@@ -24,7 +26,8 @@ const SpotifyLogin = () => {
     function logout() {
         setLoading(true);
         setTimeout(() => {
-            accessToken.setStorageState("");
+            Cookies.remove("accessToken");
+            Cookies.remove("refreshToken");
             loggedIn.setStorageState("false");
             setLoading(false);
         }, 300);
@@ -32,7 +35,7 @@ const SpotifyLogin = () => {
 
     return (
         <div className="spotifyLogin">
-            {(accessToken.store || (JSON.parse(loggedIn ? loggedIn.store! : "false") === true) ) ?
+            {(accessToken || (JSON.parse(loggedIn ? loggedIn.store! : "false") === true) ) ?
                 <a>
                     <button className='button' onClick={logout}><FontAwesomeIcon icon={faSpotify} /> | Logout</button>
                 </a>

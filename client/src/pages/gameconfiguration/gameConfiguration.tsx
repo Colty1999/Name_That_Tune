@@ -9,11 +9,13 @@ import Player from "../../components/player/player";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import TrackResult from "./components/trackResult/trackResult";
+import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 
 const GameConfiguration = () => {
     let loggedIn = useStorageState({ state: "loggedIn" });
-    let accessToken = useStorageState({ state: "accessToken" });
+    let accessToken = Cookies.get("accessToken");
     let currentSongUri = useStorageState({ state: "currentSongUri" });
     let tracks = useStorageState({ state: "tracks" });
     const [search, setSearch] = useState("");
@@ -29,9 +31,9 @@ const GameConfiguration = () => {
 
     useEffect(() => {
         if (!search) return setSearchResults([]);
-        if (!accessToken!.store) return;
+        if (!accessToken) return;
         let cancel = false;
-        spotifyApi.setAccessToken(accessToken!.store);
+        spotifyApi.setAccessToken(accessToken);
         spotifyApi.searchPlaylists(search) //, { limit: 50, offset: 1 }
             .then((res) => {
                 if (cancel) return;
@@ -57,13 +59,13 @@ const GameConfiguration = () => {
                 console.error(err);
             })
         return () => { cancel = true };
-    }, [search, accessToken.store]);
+    }, [search, accessToken]);
 
     useEffect(() => {
         tracks.setStorageState("");
     }, []);
 
-    if (!accessToken!.store || (loggedIn ? loggedIn.store! : "false") !== "true") return <div className="spotifyLoginPrompt"><SpotifyLogin /></div>;
+    if (!accessToken || (loggedIn ? loggedIn.store! : "false") !== "true") return <div className="spotifyLoginPrompt"><SpotifyLogin /></div>;
     return (
         <div className="gameConfigurationContainer">
             {/* playlist search */}
@@ -94,7 +96,7 @@ const GameConfiguration = () => {
                 <div className="gameSettingsContainer">
                     {(tracks.store && tracks.store.length > 0) && JSON.parse(tracks.store).map((track: any, key: number) => <TrackResult track={track.track} id={key} key={key} />)}
                 </div>
-                <div className="gameSettingsButtonContainer"><button className="gameSettingsButton">Start Game</button></div>
+                <div className="gameSettingsButtonContainer"><Link to="/spotifygamemaster"><button className="gameSettingsButton">Start Game</button></Link></div>
             </div>
             <Player uri={currentSongUri.store ? currentSongUri.store : ""} />
         </div>

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Song, StateType } from '../../assets/common';
-import "./gameMaster.scss";
+import "./spotifyGameMaster.scss";
 import { useStorageState } from '../../hooks/useStorageState';
 import SongTable from './components/songTable';
 import { TeamPoints } from './components/teamPoints';
@@ -9,7 +9,7 @@ import BottomPanel from './components/bottomPanel';
 import Loader from '../../components/loader/loader';
 
 
-const GameMaster = () => {
+const SpotifyGameMaster = () => {
     const [, updateState] = useState<{}>();
     const forceUpdate = useCallback(() => updateState({}), []);
     //-----------------
@@ -68,15 +68,23 @@ const GameMaster = () => {
         team1.setStorageState(JSON.stringify({ name: "Team1", points: 0 }));
         team2.setStorageState(JSON.stringify({ name: "Team2", points: 0 }));
         team3.setStorageState(JSON.stringify({ name: "Team3", points: 0 }));
+        return () => {
+            if (currentSong) currentSong.songAudio!.pause();
+            category.setStorageState("");
+            team1.setStorageState(JSON.stringify({ name: "Team1", points: 0 }));
+            team2.setStorageState(JSON.stringify({ name: "Team2", points: 0 }));
+            team3.setStorageState(JSON.stringify({ name: "Team3", points: 0 }));
+            count.setStorageState("0");
+        }
     }, []);
 
-    window.addEventListener("beforeunload", () => {
-        category.setStorageState("");
-        team1.setStorageState(JSON.stringify({ name: "Team1", points: 0 }));
-        team2.setStorageState(JSON.stringify({ name: "Team2", points: 0 }));
-        team3.setStorageState(JSON.stringify({ name: "Team3", points: 0 }));
-        count.setStorageState("0");
-    });
+    // window.addEventListener("beforeunload", () => {
+    //     category.setStorageState("");
+    //     team1.setStorageState(JSON.stringify({ name: "Team1", points: 0 }));
+    //     team2.setStorageState(JSON.stringify({ name: "Team2", points: 0 }));
+    //     team3.setStorageState(JSON.stringify({ name: "Team3", points: 0 }));
+    //     count.setStorageState("0");
+    // });
 
     //-----------------
 
@@ -184,4 +192,4 @@ const GameMaster = () => {
     );
 };
 
-export default GameMaster;
+export default SpotifyGameMaster;

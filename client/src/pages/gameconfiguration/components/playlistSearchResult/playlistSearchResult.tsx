@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./playlistSearchResult.scss";
 import { useStorageState } from "../../../../hooks/useStorageState";
 import SpotifyWebApi from "spotify-web-api-node";
+import Cookies from "js-cookie";
 
 interface PlaylistSearchResultProps {
     playlist: {
@@ -14,7 +15,8 @@ interface PlaylistSearchResultProps {
 
 const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
     const { title, description, uri, albumUrl } = playlist;
-    let accessToken = useStorageState({ state: "accessToken" });
+    let accessToken = Cookies.get("accessToken");
+
 
     let tracks = useStorageState({ state: "tracks" });
     const spotifyApi = new SpotifyWebApi({
@@ -28,9 +30,9 @@ const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
     const selectPlaylist = () => {
         setPlaylistSelect(true);
         currentPlaylistUri.setStorageState(uri);
-        if (!accessToken!.store) return;
+        if (!accessToken) return;
         let cancel = false;
-        spotifyApi.setAccessToken(accessToken!.store);
+        spotifyApi.setAccessToken(accessToken);
         spotifyApi.getPlaylistTracks(playlist.uri.replace("spotify:playlist:", "")) //, { limit: 50, offset: 1 }
             .then((res) => {
                 if (cancel) return;
