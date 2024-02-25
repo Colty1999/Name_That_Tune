@@ -37,7 +37,11 @@ const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
             .then((res) => {
                 if (cancel) return;
                 // console.log(res.body.items);
-                tracks.setStorageState(JSON.stringify(res.body.items));
+                let response = res.body.items;
+                response.forEach((track: any) => {
+                    track.points = 100;
+                });
+                tracks.setStorageState(JSON.stringify(response));
             })
             .catch((err) => {
                 console.error(err);

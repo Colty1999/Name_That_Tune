@@ -11,6 +11,27 @@ export interface Song {
   played?: boolean;
 }
 
+export interface Track {
+  id: string;
+  uri: string;
+  track: {
+    album: {
+      images: {
+        height: number;
+        width: number;
+        url: string;
+      }[];
+    };
+    artists: {
+      name: string;
+    }[];
+    name: string;
+  };
+  points: number;
+  clue?: string;
+  played?: boolean;
+}
+
 export interface StateType {
   readonly store: string | null;
   readonly setStorageState: (newValue: string) => void;

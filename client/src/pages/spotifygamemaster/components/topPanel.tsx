@@ -1,17 +1,17 @@
 import { faSquareCaretLeft, faSquareCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTranslation } from "react-i18next";
-import { StateType, Song } from "../../../assets/common";
+import { StateType, Track } from "../../../assets/common";
 
 interface TopPanelProps {
     pageStorage: StateType;
     count: StateType;
-    songs: Song[][];
+    tracks: Track[][];
 
 }
 
 const TopPanel = (props: TopPanelProps) => {
-    const { pageStorage, count, songs } = props;
+    const { pageStorage, count, tracks } = props;
     const [t] = useTranslation();
     return (
         <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -28,7 +28,7 @@ const TopPanel = (props: TopPanelProps) => {
                     <button
                         onClick={() => { pageStorage.setStorageState((Number(pageStorage.store) + 1).toString()); }}
                         className='setbuttom'
-                        disabled={Number(pageStorage.store) >= songs.length - 1}
+                        disabled={Number(pageStorage.store) >= tracks.length - 1}
                     >
                         {t("gamemaster.nextset")} <FontAwesomeIcon icon={faSquareCaretRight} />
                     </button>

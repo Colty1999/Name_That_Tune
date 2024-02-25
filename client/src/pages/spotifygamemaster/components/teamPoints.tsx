@@ -1,19 +1,19 @@
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Song, StateType } from "../../../assets/common";
+import { StateType, Track } from "../../../assets/common";
 import { useTranslation } from "react-i18next";
 
 interface TeamPointsProps {
     team1: StateType;
     team2: StateType;
     team3: StateType;
-    currentSong: Song;
+    currentTrack: Track;
     count: StateType;
-    setPoints: (song: Song | null, teamPoints: StateType | null, count: StateType) => void;
+    setPoints: (track: Track | null, teamPoints: StateType | null, count: StateType) => void;
 }
 
 export const TeamPoints = (props: TeamPointsProps) => {
-    const { team1, team2, team3, currentSong, count, setPoints } = props;
+    const { team1, team2, team3, currentTrack, count, setPoints } = props;
     const [t] = useTranslation();
 
     function TeamView(props: { team: StateType }) {
@@ -32,7 +32,7 @@ export const TeamPoints = (props: TeamPointsProps) => {
                     <button onClick={() => team.setStorageState(JSON.stringify({ name: JSON.parse(team.store!).name, points: JSON.parse(team.store!).points - 10 }))}>
                         <FontAwesomeIcon icon={faMinus} />
                     </button>
-                    <button onClick={() => setPoints(currentSong, team, count)} className="punctationbutton">
+                    <button onClick={() => setPoints(currentTrack, team, count)} className="punctationbutton">
                         <h4>{JSON.parse(team.store!).points}{t("pt")}</h4>
                     </button>
                     <button onClick={() => team.setStorageState(JSON.stringify({ name: JSON.parse(team.store!).name, points: JSON.parse(team.store!).points + 10 }))}>

@@ -1,30 +1,30 @@
-import { Song, StateType } from "../../../assets/common";
+import { StateType, Track } from "../../../assets/common";
 import SongButton from "./songButtons";
 
 export interface SongTableProps {
-    songs: Song[];
+    tracks: Track[];
     category: StateType;
     count: StateType;
-    startPlaying: (song: Song) => void;
-    pausePlaying: (song: Song) => void;
-    setPoints: (song: Song | null, teamPoints: StateType | null, count: StateType) => void;
-    resetSong: (song: Song) => void;
+    startPlaying: (track: Track) => void;
+    pausePlaying: (track: Track) => void;
+    setPoints: (track: Track | null, teamPoints: StateType | null, count: StateType) => void;
+    resetTrack: (track: Track) => void;
 }
 
 const SongTable = (props: SongTableProps) => {
-    const { songs, category, count, startPlaying, pausePlaying, setPoints, resetSong } = props;
+    const { tracks, category, count, startPlaying, pausePlaying, setPoints, resetTrack } = props;
     return (
         <div className="songtable">
-            {songs.map((song: Song) => (
+            {tracks.map((track: Track, id: number) => (
                 <SongButton
-                    song={song}
+                    track={track}
                     category={category}
                     count={count}
                     startPlaying={startPlaying}
                     pausePlaying={pausePlaying}
                     setPoints={setPoints}
-                    resetSong={resetSong}
-                    key={song.id}
+                    resetTrack={resetTrack}
+                    key={id}
                 />
             ))}
         </div>

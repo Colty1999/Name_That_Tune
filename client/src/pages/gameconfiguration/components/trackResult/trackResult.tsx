@@ -59,16 +59,16 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
         if (newTracks[id].points) setPoints(newTracks[id].points);
     }, [tracks]); // set clue and points on load
 
-    useEffect(() => {
-        if (!tracks.store || tracks.store.length === 0) return;
-        let newTracks = JSON.parse(tracks.store);
-        newTracks[id].points = points;
-        tracks.setStorageState(JSON.stringify(newTracks));
-    }, []); // set points on load
+    // useEffect(() => {
+    //     if (!tracks.store || tracks.store.length === 0) return;
+    //     let newTracks = JSON.parse(tracks.store!);
+    //     newTracks[id].points = points;
+    //     tracks.setStorageState(JSON.stringify(newTracks));
+    // }, []); // set points on load
 
     useEffect(() => {
         setClue("");
-        setPoints(100);
+        // setPoints(100);
     }, [currentPlaylistUri.store]); // Reset clue and points when playlist changes
 
     useEffect(() => {
