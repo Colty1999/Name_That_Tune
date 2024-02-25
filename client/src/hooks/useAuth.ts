@@ -19,7 +19,7 @@ export default function useAuth(code: string | null) {
   const isRefreshed = useRef(false);
 
   useEffect(() => {
-    if (!accessToken || accessToken.length === 0) return;
+    if (!accessToken || accessToken.length === 0) {loggedIn.setStorageState("false"); return};
     if (isRefreshed.current) return;
     const spotifyApi = new SpotifyWebApi({
       clientId: "226da25afbe64537a2574c7155cbc643",

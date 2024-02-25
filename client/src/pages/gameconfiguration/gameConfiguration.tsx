@@ -102,7 +102,7 @@ const GameConfiguration = () => {
                     <Link to="/spotifygamemaster"><button className="gameSettingsButton">Start Game</button></Link>
                 </div>
             </div>
-            <Player uri={currentSongUri.store ? currentSongUri.store : ""} />
+            {/* <Player uri={currentSongUri.store ? currentSongUri.store : ""} /> */}
         </div>
     )
 };

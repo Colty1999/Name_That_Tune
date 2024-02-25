@@ -11,6 +11,8 @@ import GameConfiguration from './pages/gameconfiguration/gameConfiguration';
 import useAuth from './hooks/useAuth';
 import DemoGameMaster from './pages/demogamemaster/demoGameMaster';
 import SpotifyGameMaster from './pages/spotifygamemaster/spotifyGameMaster';
+import Player from './components/player/player';
+import { useStorageState } from './hooks/useStorageState';
 
 export const AppContext = createContext<{
   setLoading: (React.Dispatch<React.SetStateAction<boolean>> | Function),
@@ -27,8 +29,10 @@ function App() {
   const [token, setToken] = useState<string | null>(new URLSearchParams(window.location.search).get('code'));
   const [songPlaying, setSongPlaying] = useState<boolean>(false);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
-
   useAuth(token);
+
+  let currentSongUri = useStorageState({ state: "currentSongUri" });
+
 
   return (
     <Container fluid="true" className='container'>
@@ -51,6 +55,7 @@ function App() {
             element={<Navigate to="/404" replace />}
           /> */}
           </Routes>
+          <Player uri={currentSongUri.store ? currentSongUri.store : ""} />
         </AppContext.Provider>
       </HashRouter >
     </Container>

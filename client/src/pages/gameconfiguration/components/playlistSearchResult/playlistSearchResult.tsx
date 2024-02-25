@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./playlistSearchResult.scss";
 import { useStorageState } from "../../../../hooks/useStorageState";
 import SpotifyWebApi from "spotify-web-api-node";
 import Cookies from "js-cookie";
+import { AppContext } from "../../../../App";
 
 interface PlaylistSearchResultProps {
     playlist: {
@@ -17,6 +18,8 @@ const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
     const { title, description, uri, albumUrl } = playlist;
     let accessToken = Cookies.get("accessToken");
     let tracks = useStorageState({ state: "tracks" });
+    let { setSongPlaying } = useContext(AppContext);
+
     const spotifyApi = new SpotifyWebApi({
         clientId: "226da25afbe64537a2574c7155cbc643",
     });
@@ -38,6 +41,7 @@ const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
                 let response = res.body.items;
                 response.forEach((track: any) => {
                     track.points = 100;
+                    track.played = false;
                 });
                 tracks.setStorageState(JSON.stringify(response));
                 console.log(response);
@@ -60,6 +64,7 @@ const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
     const [loadedClassName, setLoadedClassName] = useState<string>("");
     useEffect(() => {
         setLoadedClassName("loaded");
+        setSongPlaying(false); //stop music if playing
     }, []);
 
 

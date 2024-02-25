@@ -8,9 +8,14 @@ import TopPanel from './components/topPanel';
 import BottomPanel from './components/bottomPanel';
 import Loader from '../../components/loader/loader';
 import { AppContext } from '../../App';
+import Player from '../../components/player/player';
+import SpotifyLogin from '../../components/spotifyLogin/spotifyLogin';
+import Cookies from "js-cookie";
 
 
 const SpotifyGameMaster = () => {
+    const [, updateState] = useState<{}>();
+    const forceUpdate = useCallback(() => updateState({}), []);
     //-----------------
     let team1 = useStorageState({ state: "team1" });
     let team2 = useStorageState({ state: "team2" });
@@ -24,6 +29,8 @@ const SpotifyGameMaster = () => {
     //-----------------
     //new
     const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
+    let loggedIn = useStorageState({ state: "loggedIn" });
+    let accessToken = Cookies.get("accessToken");
     // let trackStorage = useStorageState({ state: "trackStorage" });
 
     //-----------------
@@ -38,6 +45,7 @@ const SpotifyGameMaster = () => {
 
     // const initialized = useRef(false); // used to prevent the useEffect from running twice in strict mode
     useEffect(() => {
+        setSongPlaying(false); //stop music if playing
         if (!tracks.store) return;
         const chunkSize = 5;
         const splitArrays: Track[][] = [];
@@ -82,6 +90,7 @@ const SpotifyGameMaster = () => {
                 //     break
                 case (Number(count.store) < 400):
                     count.setStorageState((Number(count.store) + 10).toString());
+                    forceUpdate();
                     break;
                 default:
                     break;
@@ -94,34 +103,34 @@ const SpotifyGameMaster = () => {
 
     //starts playing song
     const startPlaying = (track: Track) => {
-        currentSongUri.setStorageState(track.uri);
-        count.setStorageState((track.points).toString());
         setSongPlaying(true);
-        // switch (true) {
-        //     case (!currentTrack):
-        //         count.setStorageState((song.points).toString());
-        //         forceUpdate();
-        //         break;
-        //     case (currentTrack && currentTrack.name !== song.songName):
-        //         setSongPlaying(false);
-        //         // currentSong.songAudio!.pause();
-        //         // currentSong.songAudio!.currentTime = 0; //TODO reset time
-        //         count.setStorageState((currentTrack.points).toString());
-        //         break;
-        //     default:
-        //         count.setStorageState((Number(count.store)).toString());
-        //         break;
-        // }
+        currentSongUri.setStorageState(track.track.uri);
         category.setStorageState(track.track.name);
-        // song.songAudio!.play();
         setCurrentTrack(track);
+        switch (true) {
+            case (!currentTrack || currentTrack.track.name !== track.track.name):
+                count.setStorageState((track.points).toString());
+                break;
+            // case (currentTrack && currentTrack.track.name !== track.track.name):
+            //     console.log(currentTrack.track.name, track.track.name)
+            //     // setSongPlaying(false);
+            //     // currentSong.songAudio!.pause();
+            //     // currentSong.songAudio!.currentTime = 0; //TODO reset time
+            //     count.setStorageState((track.points).toString());
+            //     break;
+            default:
+                count.setStorageState((Number(count.store)).toString());
+                break;
+        }
+        forceUpdate();
     };
 
     //pauses song
     const pausePlaying = () => {
         setSongPlaying(false);
+        // category.setStorageState("");
         // song.songAudio!.pause();
-        // forceUpdate();
+        forceUpdate();
     };
 
     //adds points to team and resets count
@@ -151,6 +160,7 @@ const SpotifyGameMaster = () => {
 
     //-----------------
 
+    if (!accessToken || (loggedIn ? loggedIn.store! : "false") !== "true") return <div className="spotifyLoginPrompt"><div style={{ paddingBottom: "1rem" }}>Your session has expired</div><SpotifyLogin /></div>;
     if (!compiledTracks) return <Loader />;
     return (
         <div className="gamemasterstyle" >
@@ -185,6 +195,9 @@ const SpotifyGameMaster = () => {
                 team2={team2}
                 team3={team3}
             />
+            {/* <div style={{display: "none"}}> */}
+                {/* <Player uri={currentSongUri.store ? currentSongUri.store : ""} /> */}
+                {/* </div> */}
         </div >
     );
 };

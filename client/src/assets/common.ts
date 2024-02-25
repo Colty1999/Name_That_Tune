@@ -12,9 +12,9 @@ export interface Song {
 }
 
 export interface Track {
-  id: string;
-  uri: string;
   track: {
+    id: string;
+    uri: string;
     album: {
       images: {
         height: number;

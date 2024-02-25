@@ -59,7 +59,7 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
     }, [currentPlaylistUri.store]); // Reset clue and points when playlist changes
 
     useEffect(() => {
-        if (currentSongUri.store !== track.uri) stopPlaying();
+        if (currentSongUri.store !== track.track.uri) stopPlaying();
     }, [currentSongUri.store]); // Stop playing if another song is selected
 
     const smallestImage = track.track.album.images.reduce((smallest: any, image: any) => {
@@ -68,7 +68,7 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
     }, track.track.album.images[0]);
 
     const startPlaying = () => {
-        currentSongUri.setStorageState(track.uri);
+        currentSongUri.setStorageState(track.track.uri);
         setSongPlaying(true);
         setTrackSelect(true);
     }
