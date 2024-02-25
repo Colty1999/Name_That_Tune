@@ -4,22 +4,10 @@ import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../../../App";
 import "./trackResult.scss";
 import { useStorageState } from "../../../../hooks/useStorageState";
+import { Track } from "../../../../assets/common";
 
 interface TrackResultProps {
-    track: {
-        name: string,
-        album: {
-            images: {
-                height: number,
-                width: number,
-                url: string,
-            }[],
-        },
-        artists: {
-            name: string,
-        }[],
-        uri: string,
-    },
+    track: Track;
     id: number,
 }
 
@@ -27,6 +15,7 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
     let { setSongPlaying } = useContext(AppContext);
     let currentSongUri = useStorageState({ state: "currentSongUri" });
     let tracks = useStorageState({ state: "tracks" });
+    console.log(track);
 
     const [trackSelect, setTrackSelect] = useState<boolean>(false);
     const [clue, setClue] = useState<string>("");
@@ -40,8 +29,6 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
         let newTracks = JSON.parse(tracks.store);
         newTracks[id].clue = clue;
         tracks.setStorageState(JSON.stringify(newTracks));
-        // console.log(newTracks);
-        // console.log(JSON.parse(tracks.store));
     };
 
     const updatePoints = (points: number) => {
@@ -75,10 +62,10 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
         if (currentSongUri.store !== track.uri) stopPlaying();
     }, [currentSongUri.store]); // Stop playing if another song is selected
 
-    const smallestImage = track.album.images.reduce((smallest: any, image: any) => {
+    const smallestImage = track.track.album.images.reduce((smallest: any, image: any) => {
         if (image.height < smallest.height) return image;
         return smallest;
-    }, track.album.images[0]);
+    }, track.track.album.images[0]);
 
     const startPlaying = () => {
         currentSongUri.setStorageState(track.uri);
@@ -100,11 +87,11 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
         <div className="trackResult">
             <div className={`trackElement ${trackSelect ? "active" : ""} ${loadedClassName}`}>
                 <h4 className="trackId">{id + 1}</h4>
-                <img src={smallestImage.url} alt={track.name} />
+                <img src={smallestImage.url} alt={track.track.name} />
                 <div className="trackData">
                     <div className="trackTitleAndArtist">
-                        <h4 className="trackTitle">{track.name}</h4>
-                        <div className="trackArtist">({track.artists[0].name})</div>
+                        <h4 className="trackTitle">{track.track.name}</h4>
+                        <div className="trackArtist">({track.track.artists[0].name})</div>
                     </div>
                     <div className="trackForm">
                         <div className="clueForm">

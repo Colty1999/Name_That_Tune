@@ -16,8 +16,6 @@ interface PlaylistSearchResultProps {
 const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
     const { title, description, uri, albumUrl } = playlist;
     let accessToken = Cookies.get("accessToken");
-
-
     let tracks = useStorageState({ state: "tracks" });
     const spotifyApi = new SpotifyWebApi({
         clientId: "226da25afbe64537a2574c7155cbc643",
@@ -42,6 +40,7 @@ const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
                     track.points = 100;
                 });
                 tracks.setStorageState(JSON.stringify(response));
+                console.log(response);
             })
             .catch((err) => {
                 console.error(err);

@@ -11,13 +11,11 @@ import { AppContext } from '../../App';
 
 
 const SpotifyGameMaster = () => {
-    const [, updateState] = useState<{}>();
-    const forceUpdate = useCallback(() => updateState({}), []);
     //-----------------
     let team1 = useStorageState({ state: "team1" });
     let team2 = useStorageState({ state: "team2" });
     let team3 = useStorageState({ state: "team3" });
-    let category = useStorageState({ state: "category" });
+    let category = useStorageState({ state: "category" }); //compares if the song name matches to determine styling (stupid)
     let count = useStorageState({ state: "count" });
     //-----------------
     //-----------------
@@ -26,7 +24,7 @@ const SpotifyGameMaster = () => {
     //-----------------
     //new
     const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
-    let trackStorage = useStorageState({ state: "trackStorage" });
+    // let trackStorage = useStorageState({ state: "trackStorage" });
 
     //-----------------
     //new
@@ -129,7 +127,11 @@ const SpotifyGameMaster = () => {
     //adds points to team and resets count
     const setPoints = (track: Track | null, team: StateType | null, count: StateType) => {
         if (track) track.played = true;
-        trackStorage.setStorageState(JSON.stringify(tracks));
+        console.log(compiledTracks)
+        if (compiledTracks) tracks.setStorageState(JSON.stringify(compiledTracks.reduce((accumulator, currentArray) => {
+            return accumulator.concat(currentArray);
+        }, [])
+        ));
         category.setStorageState("");
         // if (currentTrack) currentTrack.songAudio!.pause();
         setSongPlaying(false);
@@ -141,7 +143,10 @@ const SpotifyGameMaster = () => {
     //resets disabled song
     const resetTrack = (track: Track) => {
         track.played = false;
-        trackStorage.setStorageState(JSON.stringify(tracks))
+        if (compiledTracks) tracks.setStorageState(JSON.stringify(compiledTracks.reduce((accumulator, currentArray) => {
+            return accumulator.concat(currentArray);
+        }, [])
+        ))
     };
 
     //-----------------
