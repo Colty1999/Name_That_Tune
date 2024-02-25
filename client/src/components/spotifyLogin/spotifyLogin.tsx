@@ -11,7 +11,6 @@ import Cookies from "js-cookie";
 
 const SpotifyLogin = () => {
 
-    let loggedIn = useStorageState({ state: "loggedIn" });
     let accessToken = Cookies.get("accessToken");
 
     const {setLoading} = useContext(AppContext);
@@ -28,14 +27,13 @@ const SpotifyLogin = () => {
         setTimeout(() => {
             Cookies.remove("accessToken");
             Cookies.remove("refreshToken");
-            loggedIn.setStorageState("false");
             setLoading(false);
         }, 300);
     }
 
     return (
         <div className="spotifyLogin">
-            {(accessToken || (JSON.parse(loggedIn ? loggedIn.store! : "false") === true) ) ?
+            {accessToken ?
                 <a>
                     <button className='button' onClick={logout}><FontAwesomeIcon icon={faSpotify} /> | Logout</button>
                 </a>

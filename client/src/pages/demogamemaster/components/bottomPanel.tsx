@@ -24,7 +24,7 @@ const BottomPanel = (props: BottomPanelProps) => {
                 {t("gamemaster.resetpoints")}
             </button>
             <button
-                onClick={() => {window.open(`${window.location.origin}${window.location.pathname}#/game`, "_blank", "popup")}}
+                onClick={() => {window.open(`${window.location.origin}${window.location.pathname}#/demogame`, "_blank", "popup")}}
                 className="punctationbutton"
             >
                 {t("gamemaster.opennewgamewindow")}

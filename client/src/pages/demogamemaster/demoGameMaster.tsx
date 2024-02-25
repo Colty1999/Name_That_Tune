@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Song, StateType } from '../../assets/common';
 import "./demoGameMaster.scss";
 import { useStorageState } from '../../hooks/useStorageState';
@@ -29,7 +29,6 @@ const DemoGameMaster = () => {
     //-----------------
 
 
-    const initialized = useRef(false); // used to prevent the useEffect from running twice in strict mode
     useEffect(() => {
         fetch('songsList.json',
             {
@@ -55,11 +54,6 @@ const DemoGameMaster = () => {
                 }
                 setSongs(splitArrays);
                 songStorage.setStorageState(JSON.stringify(splitArrays));
-
-                if (!initialized.current) {
-                    initialized.current = true
-                    window.open(`${window.location.origin}${window.location.pathname}#/game`, "_blank", "popup")
-                }
                 //function to parse the json file with audio data
             });
         pageStorage.setStorageState("0");

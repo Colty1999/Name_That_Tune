@@ -1,27 +1,36 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import "./gameConfiguration.scss";
 import SpotifyWebApi from "spotify-web-api-node";
 import { useStorageState } from "../../hooks/useStorageState";
 import SpotifyLogin from "../../components/spotifyLogin/spotifyLogin";
 import PlaylistSearchResult from "./components/playlistSearchResult/playlistSearchResult";
-import Player from "../../components/player/player";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import TrackResult from "./components/trackResult/trackResult";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import ConfigurationModal from "./components/configurationModal/configurationModal";
+import { AppContext } from "../../App";
 
 
 const GameConfiguration = () => {
-    let loggedIn = useStorageState({ state: "loggedIn" });
     let accessToken = Cookies.get("accessToken");
-    let currentSongUri = useStorageState({ state: "currentSongUri" });
     let tracks = useStorageState({ state: "tracks" });
+
     const [search, setSearch] = useState("");
     const [searchResults, setSearchResults] = useState<any[]>([]);
     const [showModal, setShowModal] = useState(false);
+
+    const { setSongPlaying, setLoadPlayer} = useContext(AppContext);
+    useEffect(() => {
+        setLoadPlayer(true);
+        return () => {
+            console.log("unmounting")
+            setLoadPlayer(false);
+            setSongPlaying(false);
+        };
+    }, []); //show player on load
 
     const spotifyApi = new SpotifyWebApi({
         clientId: "226da25afbe64537a2574c7155cbc643",
@@ -51,7 +60,6 @@ const GameConfiguration = () => {
 
                 })
                 );
-                // console.log(res.body);
             })
             .catch((err) => {
                 console.error(err);
@@ -59,13 +67,7 @@ const GameConfiguration = () => {
         return () => { cancel = true };
     }, [search, accessToken]);
 
-    // useEffect(() => {
-    //     tracks.setStorageState("");
-    // }, []);
-
-    console.log(JSON.parse(tracks.store!));
-
-    if (!accessToken || (loggedIn ? loggedIn.store! : "false") !== "true") return <div className="spotifyLoginPrompt"><div style={{ paddingBottom: "1rem" }}>Your session has expired</div><SpotifyLogin /></div>;
+    if (!accessToken) return <div className="spotifyLoginPrompt"><div style={{ paddingBottom: "1rem" }}>Your session has expired</div><SpotifyLogin /></div>;
     return (
         <div className="gameConfigurationContainer">
             <ConfigurationModal show={showModal} handleClose={() => setShowModal(false)} />

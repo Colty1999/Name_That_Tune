@@ -11,7 +11,7 @@ interface PlayerProps {
 const Player = ({ uri }: PlayerProps) => {
     // let accessToken = useStorageState({ state: "accessToken" });
     let accessToken = Cookies.get("accessToken");
-    const { songPlaying, setSongPlaying } = useContext(AppContext);
+    const { songPlaying, setPlayerLoaded } = useContext(AppContext);
 
 
     const styles = {
@@ -33,9 +33,14 @@ const Player = ({ uri }: PlayerProps) => {
                 // autoPlay={true}
                 play={songPlaying}
                 callback={state => {
-                    if (!state.isPlaying) setSongPlaying(false);
+                    // if (!state.isPlaying) setSongPlaying(false);
+                    if (state.status === "READY") setPlayerLoaded(true);
+                    else setPlayerLoaded(false);
                 }}
                 styles={styles}
+                // layout='compact'
+                hideAttribution={true}
+                hideCoverArt={true}
             />
         </div>
     );

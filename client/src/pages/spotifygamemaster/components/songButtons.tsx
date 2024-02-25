@@ -18,7 +18,7 @@ interface SongButtonProps {
 const SongButton = (props: SongButtonProps) => {
     const { track, category, count, startPlaying, pausePlaying, setPoints, resetTrack } = props;
     const [t] = useTranslation();
-    const { songPlaying } = useContext(AppContext);
+    const { songPlaying, playerLoaded } = useContext(AppContext);
 
     // console.log(track);
     return (
@@ -27,28 +27,11 @@ const SongButton = (props: SongButtonProps) => {
                 <h4>{track.track.name}</h4>
                 <h4>{track.points}{t("pt")}</h4>
             </div>
-            {/* {track.songAudio?.paused ?
-                <button
-                    className={`${track.played === true ? "playedsong" : ""} song songbutton`}
-                    onClick={() => startPlaying(track)}
-                    disabled={track.played || !track.songAudio?.paused}
-                >
-                    <FontAwesomeIcon icon={faPlay} />
-                </button>
-                :
-                <button
-                    className={`${track.played === true ? "playedsong" : ""} song songbutton`}
-                    onClick={() => pausePlaying(track)}
-                    disabled={track.played}
-                >
-                    <FontAwesomeIcon icon={faPause} />
-                </button>
-            } */}
             {!songPlaying || category.store !== track.track.name ?
                 <button
                     className={`${track.played === true ? "playedsong" : ""} song songbutton`}
                     onClick={() => startPlaying(track)}
-                    disabled={track.played}
+                    disabled={track.played || !playerLoaded}
                 >
                     <FontAwesomeIcon icon={faPlay} />
                 </button>
@@ -56,7 +39,7 @@ const SongButton = (props: SongButtonProps) => {
                 <button
                     className={`${track.played === true ? "playedsong" : ""} song songbutton`}
                     onClick={() => pausePlaying(track)}
-                    disabled={track.played}
+                    disabled={track.played || !playerLoaded}
                 >
                     <FontAwesomeIcon icon={faPause} />
                 </button>

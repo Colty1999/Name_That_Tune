@@ -1,25 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { useStorageState } from "./useStorageState";
 import { backend, cookieOptions } from "../assets/common";
 import SpotifyWebApi from "spotify-web-api-node";
 import Cookies from "js-cookie";
 
 export default function useAuth(code: string | null) {
-  let loggedIn = useStorageState({ state: "loggedIn" });
-  // let accessToken = useStorageState({ state: "accessToken" });
-  // let refreshToken = useStorageState({ state: "refreshToken" });
   let accessToken = Cookies.get("accessToken");
   let refreshToken = Cookies.get("refreshToken");
 
-  // const [refreshToken, setRefreshToken] = useState<string | null>(null);
   const [expiresIn, setExpiresIn] = useState<number | null>(null);
 
   const isLoginMounted = useRef(false);
   const isRefreshed = useRef(false);
 
   useEffect(() => {
-    if (!accessToken || accessToken.length === 0) {loggedIn.setStorageState("false"); return};
+    if (!accessToken || accessToken.length === 0) return;
     if (isRefreshed.current) return;
     const spotifyApi = new SpotifyWebApi({
       clientId: "226da25afbe64537a2574c7155cbc643",
@@ -39,14 +34,13 @@ export default function useAuth(code: string | null) {
           })
           .catch((err) => {
             history.replaceState({}, "", "/");
-            loggedIn.setStorageState("false");
+            Cookies.remove("accessToken");
             console.error(err.response);
           });
       })
       .catch((err) => {
         // accessToken.setStorageState("");
         Cookies.remove("accessToken");
-        loggedIn.setStorageState("false");
         console.error(err.response);
       });
     isRefreshed.current = true;
@@ -67,10 +61,9 @@ export default function useAuth(code: string | null) {
         Cookies.set("refreshToken", res.data.refreshToken, cookieOptions);
         setExpiresIn(res.data.expiresIn);
         window.history.pushState({}, "", "/");
-        loggedIn.setStorageState("true");
       })
       .catch((err) => {
-        loggedIn.setStorageState("false");
+        Cookies.remove("accessToken");
         console.error(err.response);
       });
     isLoginMounted.current = true;
@@ -90,7 +83,7 @@ export default function useAuth(code: string | null) {
         })
         .catch((err) => {
           history.replaceState({}, "", "/");
-          loggedIn.setStorageState("false");
+          Cookies.remove("accessToken");
           console.error(err.response);
         });
     }, (expiresIn - 59) * 1000);

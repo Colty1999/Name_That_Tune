@@ -1,0 +1,99 @@
+.gamestyle {
+    padding: 2rem;
+
+    .logo {
+        height: 5rem;
+        // padding: 1.5em;
+        will-change: filter;
+        transition: filter 300ms;
+        filter: drop-shadow(0 0 2em var(--dropShadowColor));
+    }
+
+    .teampoints {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0 3rem 0 3rem;
+        margin: 0.5rem;
+        border: 1px solid transparent;
+        background-color: #1a1a1a;
+        border-radius: 1rem;
+        transition: all 0.2s ease-in-out;
+        min-width: 15rem;
+        // &:hover {
+        //     background-color: #eee;
+        // }
+    }
+
+    transition: all 0.2s ease-in-out;
+
+    .visible {
+        visibility: visible;
+        opacity: 1;
+        transition: visibility 0.2s, opacity 0.5s linear;
+    }
+
+    .hidden {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0.2s, opacity 0.5s linear;
+        height: 0;
+        overflow: hidden;
+    }
+
+    .pointscreenstyle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 5rem;
+    
+        .teampoints {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 0 3rem 0 3rem;
+            margin: 0.5rem;
+            border: 1px solid transparent;
+            background-color: var(--buttonPrimaryColor);
+            border-radius: 1rem;
+            transition: all 0.2s ease-in-out;
+            min-width: 15rem;
+        }
+    }
+
+    .songpickerstyle {
+        // max-width: 1280px;
+        // margin: auto;
+        h3 {
+            font-size: 1.8rem;
+        }
+        .song {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 3rem 0 3rem;
+            margin: 1rem 0.5rem;
+            border: 1px solid transparent;
+            background-color: var(--buttonPrimaryColor);
+            border-radius: 1rem;
+            transition: all 0.2s ease-in-out;
+            // &:hover {
+            //     background-color: #eee;
+            // }
+        }
+        .active {
+            background-color: var(--secondaryColor);
+            color: var(--primaryTextColor);
+            filter: drop-shadow(0 0 2em var(--dropShadowColor));
+        }
+        .playedsong {
+            opacity: 0.5;
+            color: var(--textInactiveColor);
+            background-color: var(--buttonInactiveColor);
+            filter: none;
+        }
+    }
+}

@@ -44,7 +44,6 @@ const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
                     track.played = false;
                 });
                 tracks.setStorageState(JSON.stringify(response));
-                console.log(response);
             })
             .catch((err) => {
                 console.error(err);

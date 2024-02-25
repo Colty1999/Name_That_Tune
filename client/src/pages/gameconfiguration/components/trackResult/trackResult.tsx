@@ -15,7 +15,7 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
     let { setSongPlaying } = useContext(AppContext);
     let currentSongUri = useStorageState({ state: "currentSongUri" });
     let tracks = useStorageState({ state: "tracks" });
-    console.log(track);
+    const {playerLoaded} = useContext(AppContext);
 
     const [trackSelect, setTrackSelect] = useState<boolean>(false);
     const [clue, setClue] = useState<string>("");
@@ -112,7 +112,13 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
                         </div>
                     </div>
                 </div>
-                <FontAwesomeIcon onClick={() => trackSelect ? stopPlaying() : startPlaying()} icon={trackSelect ? faPause : faPlay} className="playIcon" />
+                <button
+                                onClick={() => trackSelect ? stopPlaying() : startPlaying()} 
+                                className="playIcon" 
+                                disabled={!playerLoaded}
+                >
+                <FontAwesomeIcon icon={trackSelect ? faPause : faPlay} />
+                </button>
             </div>
         </div >
 

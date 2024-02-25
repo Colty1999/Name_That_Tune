@@ -1,5 +1,5 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { Song, StateType, Track } from '../../assets/common';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import { StateType, Track } from '../../assets/common';
 import "./spotifyGameMaster.scss";
 import { useStorageState } from '../../hooks/useStorageState';
 import SongTable from './components/songTable';
@@ -8,7 +8,6 @@ import TopPanel from './components/topPanel';
 import BottomPanel from './components/bottomPanel';
 import Loader from '../../components/loader/loader';
 import { AppContext } from '../../App';
-import Player from '../../components/player/player';
 import SpotifyLogin from '../../components/spotifyLogin/spotifyLogin';
 import Cookies from "js-cookie";
 
@@ -23,29 +22,30 @@ const SpotifyGameMaster = () => {
     let category = useStorageState({ state: "category" }); //compares if the song name matches to determine styling (stupid)
     let count = useStorageState({ state: "count" });
     //-----------------
-    //-----------------
     let pageStorage = useStorageState({ state: "currentPage" });
     let currentPage: number = Number(pageStorage.store ?? 0);
     //-----------------
     //new
     const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
-    let loggedIn = useStorageState({ state: "loggedIn" });
     let accessToken = Cookies.get("accessToken");
-    // let trackStorage = useStorageState({ state: "trackStorage" });
-
     //-----------------
     //new
     let { songPlaying, setSongPlaying } = useContext(AppContext);
     let currentSongUri = useStorageState({ state: "currentSongUri" });
-
     let tracks = useStorageState({ state: "tracks" });
-    let currentTracksStorage = useStorageState({ state: "currentTracks" });
     const [compiledTracks, setCompiledTracks] = useState<Track[][] | null>(null);
     //-----------------
-
-    // const initialized = useRef(false); // used to prevent the useEffect from running twice in strict mode
+    const { setLoadPlayer } = useContext(AppContext);
     useEffect(() => {
-        setSongPlaying(false); //stop music if playing
+        setLoadPlayer(true);
+        return () => {
+            setLoadPlayer(false);
+        };
+    }, []); //show player on load
+
+    //-----------------
+    useEffect(() => { //stop music if playing
+        console.log(tracks.store);
         if (!tracks.store) return;
         const chunkSize = 5;
         const splitArrays: Track[][] = [];
@@ -54,14 +54,8 @@ const SpotifyGameMaster = () => {
             splitArrays.push(tracksFromJSON.slice(i, i + chunkSize));
         }
         setCompiledTracks(splitArrays);
-        currentTracksStorage.setStorageState(JSON.stringify(splitArrays));
-        // songStorage.setStorageState(JSON.stringify(splitArrays));
-
-        // if (!initialized.current) {
-        //     initialized.current = true
-        //     window.open(`${window.location.origin}${window.location.pathname}#/game`, "_blank", "popup")
-        // } //TODO uncomment this line when the game is ready to be played
-        //function to parse the json file with audio data
+        console.log(compiledTracks);
+        //-----------------
         pageStorage.setStorageState("0");
         category.setStorageState("");
         count.setStorageState("0");
@@ -76,6 +70,10 @@ const SpotifyGameMaster = () => {
             count.setStorageState("0");
         }
     }, []);
+
+    useEffect(() => {
+        forceUpdate();
+    }, [compiledTracks]);
 
     //-----------------
 
@@ -160,7 +158,7 @@ const SpotifyGameMaster = () => {
 
     //-----------------
 
-    if (!accessToken || (loggedIn ? loggedIn.store! : "false") !== "true") return <div className="spotifyLoginPrompt"><div style={{ paddingBottom: "1rem" }}>Your session has expired</div><SpotifyLogin /></div>;
+    if (!accessToken) return <div className="spotifyLoginPrompt"><div style={{ paddingBottom: "1rem" }}>Your session has expired</div><SpotifyLogin /></div>;
     if (!compiledTracks) return <Loader />;
     return (
         <div className="gamemasterstyle" >
@@ -196,8 +194,8 @@ const SpotifyGameMaster = () => {
                 team3={team3}
             />
             {/* <div style={{display: "none"}}> */}
-                {/* <Player uri={currentSongUri.store ? currentSongUri.store : ""} /> */}
-                {/* </div> */}
+            {/* <Player uri={currentSongUri.store ? currentSongUri.store : ""} /> */}
+            {/* </div> */}
         </div >
     );
 };
