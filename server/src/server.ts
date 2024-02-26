@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 // const dotenv = require('dotenv');
 dotenv.config();
 
-const frontend = "https://" + process.env.FRONTEND_URI;
+const frontend = process.env.FRONTEND_URI;
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 
