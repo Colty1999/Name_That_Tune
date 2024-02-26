@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { StateType } from "../../../assets/common";
+import { useState } from "react";
 
 interface BottomPanelProps {
     team1: StateType;
@@ -10,8 +11,11 @@ interface BottomPanelProps {
 const BottomPanel = (props: BottomPanelProps) => {
     const { team1, team2, team3 } = props;
     const [t] = useTranslation();
+
+    const [clicked, setClicked] = useState(false);
+
     return (
-        <div style={{ display: "flex", justifyContent: "center", gap: "0.2rem", marginTop: "2rem" }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: "0.2rem", marginTop: "2rem" }} className="gameMasterFooter">
             <button
                 onClick={() => {
                     team1.setStorageState(JSON.stringify({name: JSON.parse(team1.store!).name, points: 0}));
@@ -24,8 +28,8 @@ const BottomPanel = (props: BottomPanelProps) => {
                 {t("gamemaster.resetpoints")}
             </button>
             <button
-                onClick={() => {window.open(`${window.location.origin}${window.location.pathname}#/demogame`, "_blank", "popup")}}
-                className="punctationbutton"
+                onClick={() => {setClicked(true); window.open(`${window.location.origin}${window.location.pathname}#/demogame`, "_blank", "popup")}}
+                className={clicked ? 'punctationbutton gameSettingsButton clicked' : 'punctationbutton gameSettingsButton'}
             >
                 {t("gamemaster.opennewgamewindow")}
             </button>

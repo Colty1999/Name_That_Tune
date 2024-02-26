@@ -117,4 +117,33 @@
         gap: 1rem;
         padding: 0.5rem;
     }
+
+    .gameMasterFooter {
+        .gameSettingsButton {
+            animation: blink-animation 2s infinite;
+            /* Animation name, duration, and iteration count */
+        }
+
+        .clicked {
+            animation: none;
+            /* Remove animation when button is clicked */
+        }
+
+        @keyframes blink-animation {
+            0% {
+                background-color: var(--buttonPrimaryColor);
+                filter: none;
+            }
+
+            50% {
+                background-color: var(--spotifyColor);
+                filter: drop-shadow(0 0 1rem var(--buttonHoverColor));
+            }
+
+            100% {
+                background-color: var(--buttonPrimaryColor);
+                filter: none;
+            }
+        }
+    }
 }
