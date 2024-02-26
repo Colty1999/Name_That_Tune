@@ -37,8 +37,8 @@ export interface StateType {
   readonly setStorageState: (newValue: string) => void;
 }
 
-export const backend = "http://192.168.50.6:3000";
-export const frontend = "http://192.168.50.6:5173";
+export const backend = import.meta.env.VITE_BACKEND_URL;
+export const frontend = import.meta.env.VITE_FRONTEND_URL;
 
 export const cookieOptions = {
   sameSite: "lax",

@@ -32,7 +32,6 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
         reader.onload = async (e) => {
             if (!e.target) return;
             const text = (e.target.result);
-            console.log(text);
             if (typeof(text) === 'string') tracks.setStorageState(text);
         };
         reader.readAsText(e.target.files[0])

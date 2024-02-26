@@ -10,9 +10,12 @@ import Loader from '../../components/loader/loader';
 import { AppContext } from '../../App';
 import SpotifyLogin from '../../components/spotifyLogin/spotifyLogin';
 import Cookies from "js-cookie";
+import { useTranslation } from 'react-i18next';
 
 
 const SpotifyGameMaster = () => {
+    const [t] = useTranslation();
+
     const [, updateState] = useState<{}>();
     const forceUpdate = useCallback(() => updateState({}), []);
     //-----------------
@@ -45,7 +48,6 @@ const SpotifyGameMaster = () => {
 
     //-----------------
     useEffect(() => { //stop music if playing
-        console.log(tracks.store);
         if (!tracks.store) return;
         const chunkSize = 5;
         const splitArrays: Track[][] = [];
@@ -54,7 +56,6 @@ const SpotifyGameMaster = () => {
             splitArrays.push(tracksFromJSON.slice(i, i + chunkSize));
         }
         setCompiledTracks(splitArrays);
-        console.log(compiledTracks);
         //-----------------
         pageStorage.setStorageState("0");
         category.setStorageState("");
@@ -130,7 +131,6 @@ const SpotifyGameMaster = () => {
     //adds points to team and resets count
     const setPoints = (track: Track | null, team: StateType | null, count: StateType) => {
         if (track) track.played = true;
-        console.log(compiledTracks)
         if (compiledTracks) tracks.setStorageState(JSON.stringify(compiledTracks.reduce((accumulator, currentArray) => {
             return accumulator.concat(currentArray);
         }, [])
@@ -154,7 +154,7 @@ const SpotifyGameMaster = () => {
 
     //-----------------
 
-    if (!accessToken) return <div className="spotifyLoginPrompt"><div style={{ paddingBottom: "1rem" }}>Your session has expired</div><SpotifyLogin /></div>;
+    if (!accessToken) return <div className="spotifyLoginPrompt"><div style={{ paddingBottom: "1rem" }}>{t('sessionexpired')}</div><SpotifyLogin /></div>;
     if (!compiledTracks) return <Loader />;
     return (
         <div className="gamemasterstyle" >

@@ -6,10 +6,15 @@ import PointsScreen from './components/pointsScreen';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import Loader from '../../components/loader/loader';
+import Cookies from "js-cookie";
+import SpotifyLogin from '../../components/spotifyLogin/spotifyLogin';
 
 
 const SpotifyGame = () => {
     const [t] = useTranslation();
+
+    let accessToken = Cookies.get("accessToken");
+
     let count = useStorageState({ state: "count" });
     let category = useStorageState({ state: "category" })
     let tracks = useStorageState({ state: "tracks" });
@@ -28,6 +33,7 @@ const SpotifyGame = () => {
         setCompiledTracks(splitArrays);
     }, [tracks]);
     
+    if (!accessToken) return <div className="spotifyLoginPrompt"><div style={{ paddingBottom: "1rem" }}>{t('sessionexpired')}</div><SpotifyLogin /></div>;
     if (!compiledTracks) return <Loader />;
     return (
         <div className='gamestyle'>

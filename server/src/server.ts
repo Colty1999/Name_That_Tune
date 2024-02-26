@@ -2,20 +2,26 @@ import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import SpotifyWebApi from "spotify-web-api-node";
+import dotenv from "dotenv";
 
-const frontend = 'http://192.168.50.6:5173';
+// const dotenv = require('dotenv');
+dotenv.config();
+
+const frontend = process.env.FRONTEND_URI;
+const clientId = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET;
 
 const app: Express = express();
 app.use(cors());
 app.use(bodyParser.json());
-const port = 3000;
+const port = process.env.PORT;
 
 app.post("/login", (req, res) => {
   const code = req.body.code;
   const spotifyApi = new SpotifyWebApi({
     redirectUri: frontend,
-    clientId: "226da25afbe64537a2574c7155cbc643",
-    clientSecret: "275eb241ad47431693fa8ada554c28cb",
+    clientId: clientId,
+    clientSecret: clientSecret,
   });
   spotifyApi
     .authorizationCodeGrant(code)
@@ -36,8 +42,8 @@ app.post("/refresh", (req, res) => {
   const refreshToken = req.body.refreshToken;
   const spotifyApi = new SpotifyWebApi({
     redirectUri: frontend,
-    clientId: "226da25afbe64537a2574c7155cbc643",
-    clientSecret: "275eb241ad47431693fa8ada554c28cb",
+    clientId: clientId,
+    clientSecret: clientSecret,
     refreshToken,
   });
   spotifyApi

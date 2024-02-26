@@ -29,7 +29,6 @@ const GameConfiguration = () => {
     useEffect(() => {
         setLoadPlayer(true);
         return () => {
-            console.log("unmounting")
             setLoadPlayer(false);
             setSongPlaying(false);
         };
