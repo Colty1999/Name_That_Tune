@@ -7,6 +7,9 @@
 Game based on a popular TV music game show
 
 
+## Demo
+[https://namethattuneapp.netlify.app/](https://namethattuneapp.netlify.app/)
+
 
 ## Features
 
@@ -29,11 +32,6 @@ Game based on a popular TV music game show
 
 **Backend:** Spotify API, Node, Express.js
 
-
-
-
-## Demo
-[ https://colty1999.github.io/name_that_tune_release/](https://colty1999.github.io/name_that_tune_release/)
 
 
 ## Authors
