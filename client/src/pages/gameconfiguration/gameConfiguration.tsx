@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import "./gameConfiguration.scss";
 import SpotifyWebApi from "spotify-web-api-node";
@@ -11,7 +11,6 @@ import TrackResult from "./components/trackResult/trackResult";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import ConfigurationModal from "./components/configurationModal/configurationModal";
-import { AppContext } from "../../App";
 import { useTranslation } from "react-i18next";
 
 
@@ -25,14 +24,14 @@ const GameConfiguration = () => {
     const [searchResults, setSearchResults] = useState<any[]>([]);
     const [showModal, setShowModal] = useState(false);
 
-    const { setSongPlaying, setLoadPlayer} = useContext(AppContext);
-    useEffect(() => {
-        setLoadPlayer(true);
-        return () => {
-            setLoadPlayer(false);
-            setSongPlaying(false);
-        };
-    }, []); //show player on load
+    // const { setSongPlaying, setLoadPlayer} = useContext(AppContext);
+    // useEffect(() => {
+    //     setLoadPlayer(true);
+    //     return () => {
+    //         setLoadPlayer(false);
+    //         setSongPlaying(false);
+    //     };
+    // }, []); //show player on load
 
     const spotifyApi = new SpotifyWebApi({
         clientId: "226da25afbe64537a2574c7155cbc643",

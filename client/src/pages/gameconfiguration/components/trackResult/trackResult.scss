@@ -16,7 +16,8 @@
         opacity: 0;
 
         .trackData {
-            width: calc(100% - 8rem);
+            // width: calc(100% - 8rem);
+            width: 100%;
             display: flex;
             flex-direction: column;
             // justify-items: start;

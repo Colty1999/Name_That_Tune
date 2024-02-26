@@ -11,6 +11,7 @@ import { AppContext } from '../../App';
 import SpotifyLogin from '../../components/spotifyLogin/spotifyLogin';
 import Cookies from "js-cookie";
 import { useTranslation } from 'react-i18next';
+import Player from '../../components/player/player';
 
 
 const SpotifyGameMaster = () => {
@@ -37,14 +38,6 @@ const SpotifyGameMaster = () => {
     let currentSongUri = useStorageState({ state: "currentSongUri" });
     let tracks = useStorageState({ state: "tracks" });
     const [compiledTracks, setCompiledTracks] = useState<Track[][] | null>(null);
-    //-----------------
-    const { setLoadPlayer } = useContext(AppContext);
-    useEffect(() => {
-        setLoadPlayer(true);
-        return () => {
-            setLoadPlayer(false);
-        };
-    }, []); //show player on load
 
     //-----------------
     useEffect(() => { //stop music if playing
@@ -189,9 +182,7 @@ const SpotifyGameMaster = () => {
                 team2={team2}
                 team3={team3}
             />
-            {/* <div style={{display: "none"}}> */}
-            {/* <Player uri={currentSongUri.store ? currentSongUri.store : ""} /> */}
-            {/* </div> */}
+            <Player uri={currentSongUri.store ? currentSongUri.store : ""}/>
         </div >
     );
 };

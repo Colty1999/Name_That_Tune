@@ -21,26 +21,21 @@ export const AppContext = createContext<{
   setToken: (React.Dispatch<React.SetStateAction<string | null>> | Function),
   songPlaying: boolean,
   setSongPlaying: (React.Dispatch<React.SetStateAction<boolean>> | Function),
-  loadPlayer: boolean,
-  setLoadPlayer: (React.Dispatch<React.SetStateAction<boolean>> | Function),
   playerLoaded: boolean,
   setPlayerLoaded: (React.Dispatch<React.SetStateAction<boolean>> | Function),
-}>({ setLoading: () => { }, token: null, setToken: () => { }, songPlaying: false, setSongPlaying: () => { }, loadPlayer: false, setLoadPlayer: () => {}, playerLoaded: false, setPlayerLoaded: () => { }});
+}>({ setLoading: () => { }, token: null, setToken: () => { }, songPlaying: false, setSongPlaying: () => { }, playerLoaded: false, setPlayerLoaded: () => { }});
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
   const [token, setToken] = useState<string | null>(new URLSearchParams(window.location.search).get('code'));
   const [songPlaying, setSongPlaying] = useState<boolean>(false);
-  const [loadPlayer, setLoadPlayer] = useState<boolean>(false);
   const [playerLoaded, setPlayerLoaded] = useState<boolean>(false);
   useAuth(token);
-
-  let currentSongUri = useStorageState({ state: "currentSongUri" });
 
   return (
     <Container fluid="true" className='container'>
       <HashRouter >
-        <AppContext.Provider value={{ setLoading, token, setToken, songPlaying, setSongPlaying, loadPlayer, setLoadPlayer, playerLoaded, setPlayerLoaded }}>
+        <AppContext.Provider value={{ setLoading, token, setToken, songPlaying, setSongPlaying, playerLoaded, setPlayerLoaded }}>
           {loading && <Loader />}
           <Header />
           <Routes>
@@ -59,7 +54,6 @@ function App() {
             element={<Navigate to="/404" replace />}
           /> */}
           </Routes>
-          <div style={{opacity: `${loadPlayer && currentSongUri.store ? 1 : 0}`, transition: "all 0.2s ease-in-out"}}><Player uri={currentSongUri.store ? currentSongUri.store : ""}/></div>
         </AppContext.Provider>
       </HashRouter >
     </Container>
