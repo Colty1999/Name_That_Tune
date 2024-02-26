@@ -1,5 +1,5 @@
 <p align='center'>
-<img src=".client/public/gameLogo.png" alt="game logo">
+<img src="./client/public/gameLogo.png" alt="game logo">
 </p>
 
 # Name That Tune
