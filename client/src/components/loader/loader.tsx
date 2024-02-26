@@ -1,4 +1,4 @@
-import "./Loader.scss"
+import "./loader.scss"
 
 interface LoaderProps {
     style?: React.CSSProperties;
