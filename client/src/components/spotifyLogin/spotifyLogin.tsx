@@ -7,12 +7,13 @@ import { useStorageState } from "../../hooks/useStorageState";
 import "./spotifyLogin.scss";
 import { frontend } from "../../assets/common";
 import Cookies from "js-cookie";
+import { useTranslation } from "react-i18next";
 
 
 const SpotifyLogin = () => {
+    const [t] = useTranslation();
 
     let accessToken = Cookies.get("accessToken");
-
     const {setLoading} = useContext(AppContext);
 
     const authEndpoint = 'https://accounts.spotify.com/authorize',
@@ -35,11 +36,11 @@ const SpotifyLogin = () => {
         <div className="spotifyLogin">
             {accessToken ?
                 <a>
-                    <button className='button' onClick={logout}><FontAwesomeIcon icon={faSpotify} /> | Logout</button>
+                    <button className='button' onClick={logout}><FontAwesomeIcon icon={faSpotify} /> | {t('spotifylogin.logout')}</button>
                 </a>
                 :
                 <Link to={authorizationLink}>
-                    <button className='button'><FontAwesomeIcon icon={faSpotify} /> | Login to Spotify</button>
+                    <button className='button'><FontAwesomeIcon icon={faSpotify} /> | {t('spotifylogin.login')}</button>
                 </Link>
             }
         </div>

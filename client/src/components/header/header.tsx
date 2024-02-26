@@ -25,13 +25,15 @@ function Header() {
 
     return (
         <header className="header">
-            {location.pathname === "/" ? 
+            {/* {location.pathname === "/" ? 
                 <div className='userbutton' onClick={() => alert("Not Implemented")}>
                     <img src={googleLogo} alt="user" className="userimg" />
                     <span style={{ marginTop: "-0.25rem" }}>
                         | &nbsp;&nbsp; Login &nbsp;
                     </span>
-                </div> : <div/>}
+                </div> : <div/>} */}
+                {/* TODO Google firebase implementation */}
+                <div/>
             {(location.pathname === "/" || location.pathname.includes("gamemaster")) &&
                 <Select
                     // menuIsOpen={true}

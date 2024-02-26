@@ -12,9 +12,12 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import ConfigurationModal from "./components/configurationModal/configurationModal";
 import { AppContext } from "../../App";
+import { useTranslation } from "react-i18next";
 
 
 const GameConfiguration = () => {
+    const [t] = useTranslation();
+
     let accessToken = Cookies.get("accessToken");
     let tracks = useStorageState({ state: "tracks" });
 
@@ -67,7 +70,7 @@ const GameConfiguration = () => {
         return () => { cancel = true };
     }, [search, accessToken]);
 
-    if (!accessToken) return <div className="spotifyLoginPrompt"><div style={{ paddingBottom: "1rem" }}>Your session has expired</div><SpotifyLogin /></div>;
+    if (!accessToken) return <div className="spotifyLoginPrompt"><div style={{ paddingBottom: "1rem" }}>{t('sessionexpired')}</div><SpotifyLogin /></div>;
     return (
         <div className="gameConfigurationContainer">
             <ConfigurationModal show={showModal} handleClose={() => setShowModal(false)} />
@@ -76,7 +79,7 @@ const GameConfiguration = () => {
                 <div className={`searchContainer ${searchResults.length === 0 ? "" : "searchContainerActive"}`}>
                     <Form.Control
                         type="search"
-                        placeholder="Search Playlists"
+                        placeholder={t('config.search')}
                         value={search}
                         onChange={e => setSearch(e.target.value)}
                         className="searchBar"
@@ -88,20 +91,20 @@ const GameConfiguration = () => {
                         <PlaylistSearchResult playlist={playlist} key={key} />
                     ))}
                     {(search && searchResults.length === 0) && (
-                        <div className="noResults">No results found for "{search}"
+                        <div className="noResults">{t('config.noresults')} "{search}"
                         </div>
                     )}
                 </div>
             </div>
             {/* game settings */}
             <div className="gameSettings" style={(tracks.store && tracks.store.length > 0) ? {} : { display: 'none' }}>
-                <div className="gameSettingsTitle">Game Summary</div>
+                <div className="gameSettingsTitle">{t('config.summary')}</div>
                 <div className="gameSettingsContainer">
                     {(tracks.store && tracks.store.length > 0) && JSON.parse(tracks.store).map((track: any, key: number) => <TrackResult track={track} id={key} key={key} />)}
                 </div>
                 <div className="gameButtonContainer">
-                    <button className="" onClick={() => setShowModal(true)}>Settings</button>
-                    <Link to="/spotifygamemaster"><button className="gameSettingsButton">Start Game</button></Link>
+                    <button className="" onClick={() => setShowModal(true)}>{t('config.settings')}</button>
+                    <Link to="/spotifygamemaster"><button className="gameSettingsButton">{t('config.start')}</button></Link>
                 </div>
             </div>
             {/* <Player uri={currentSongUri.store ? currentSongUri.store : ""} /> */}

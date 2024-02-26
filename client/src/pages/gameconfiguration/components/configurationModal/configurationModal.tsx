@@ -2,6 +2,8 @@ import { useStorageState } from '../../../../hooks/useStorageState';
 import Modal from 'react-modal';
 import './configurationModal.scss';
 import { useRef } from 'react';
+import { Track } from '../../../../assets/common';
+import { useTranslation } from 'react-i18next';
 
 interface ConfigurationModalProps {
     show: boolean;
@@ -10,6 +12,7 @@ interface ConfigurationModalProps {
 
 function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
     Modal.setAppElement('#root');
+    const [t] = useTranslation();
     let tracks = useStorageState({ state: "tracks" });
 
     const downloadTxtFile = () => {
@@ -20,6 +23,8 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
         document.body.appendChild(element); // Required for this to work in FireFox
         element.click();
     }
+
+    //-----------------
 
     const uploadFile = async (e: any) => {
         e.preventDefault();
@@ -42,6 +47,16 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
         hiddenFileInput.current.click();
     };
 
+    //-----------------
+
+    // const resetClues = () => {
+    //     if (!tracks.store) return;
+    //     let newTracks = JSON.parse(tracks.store);
+    //     newTracks.forEach((trck: Track) => delete trck.clue);
+    //     tracks.setStorageState(JSON.stringify(newTracks));
+    // }; TODO reset clues function
+
+
     return (
         <Modal
             isOpen={show}
@@ -52,12 +67,14 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
             className="modalContainer"
             overlayClassName="overlayContainer"
         >
-            <div className="modalHeader">Settings</div>
+            <div className="modalHeader">{t('config.modal.settings')}</div>
             <div className="modalBody">
-                <button onClick={downloadTxtFile} >Download configuration</button>
-                <div> - Download current game configuration with song, clues and points.</div>
-                <button onClick={handleClick}>Upload configuration</button>
-                <div> - Upload previous game configuration.</div>
+                <button onClick={downloadTxtFile} >{t('config.modal.download')}</button>
+                <div>{t('config.modal.downloadmsg')}</div>
+                <button onClick={handleClick}>{t('config.modal.upload')}</button>
+                <div>{t('config.modal.uploadmsg')}</div>
+                {/* <button onClick={resetClues}>Reset clues</button>
+                <div> - Resets clues :)</div> */}
                 <input
                     type="file"
                     name="myFile"
@@ -66,7 +83,7 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
                     onChange={uploadFile} />
             </div>
             <div className="modalFooter">
-                <button onClick={handleClose}>Close settings</button>
+                <button onClick={handleClose}>{t('config.modal.close')}</button>
             </div>
         </Modal>
     );

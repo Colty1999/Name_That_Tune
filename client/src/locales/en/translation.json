@@ -2,7 +2,7 @@
   "mainmenu": {
     "title": "Name That Tune",
     "start": "Start Game",
-    "config": "Configuration",
+    "demo": "Demo",
     "instruction": "Instruction"
   },
   "game": {},
@@ -13,10 +13,34 @@
     "resetpoints": "Reset Points",
     "opennewgamewindow": "Open New Game Window"
   },
+  "config": {
+    "search": "Search playlists",
+    "noresults": "No results found for",
+    "summary": "Game Summary",
+    "settings": "Settings",
+    "start": "Start Game",
+    "modal": {
+      "settings": "Settings",
+      "download": "Download configuration",
+      "downloadmsg": " - Download current game configuration with song, clues and points.",
+      "upload": "Upload configuration",
+      "uploadmsg": " - Upload previous game configuration z pliku.",
+      "close": "Close settings"
+    },
+    "trackresults": {
+        "clue:": "Clue:",
+        "points:": "Points:"
+    }
+  },
+  "spotifylogin": {
+    "login": "Login to Spotify",
+    "logout": "Logout"
+  },
   "notimplemented": "Not implemented yet",
   "notfound": "Not found",
   "loading": "Loading...",
   "points": "Points",
   "pt": "pt",
-  "team": "Team"
+  "team": "Team",
+  "sessionexpired": "Your session has expired"
 }

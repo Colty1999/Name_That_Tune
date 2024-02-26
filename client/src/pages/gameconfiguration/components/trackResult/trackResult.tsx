@@ -5,6 +5,7 @@ import { AppContext } from "../../../../App";
 import "./trackResult.scss";
 import { useStorageState } from "../../../../hooks/useStorageState";
 import { Track } from "../../../../assets/common";
+import { useTranslation } from "react-i18next";
 
 interface TrackResultProps {
     track: Track;
@@ -12,6 +13,8 @@ interface TrackResultProps {
 }
 
 const TrackResult = ({ track, id }: TrackResultProps) => {
+    const [t] = useTranslation();
+    
     let { setSongPlaying } = useContext(AppContext);
     let currentSongUri = useStorageState({ state: "currentSongUri" });
     let tracks = useStorageState({ state: "tracks" });
@@ -55,8 +58,8 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
 
     useEffect(() => {
         setClue("");
-        // setPoints(100);
     }, [currentPlaylistUri.store]); // Reset clue and points when playlist changes
+    //TODO doesnt work
 
     useEffect(() => {
         if (currentSongUri.store !== track.track.uri) stopPlaying();
@@ -95,7 +98,7 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
                     </div>
                     <div className="trackForm">
                         <div className="clueForm">
-                            <label>Clue:</label>
+                            <label>{t('config.trackresults.clue')}</label>
                             <input
                                 type="text"
                                 value={clue}
@@ -103,7 +106,7 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
                             />
                         </div>
                         <div className="pointsForm">
-                            <label>Points:</label>
+                            <label>{t('config.trackresults.points')}</label>
                             <input
                                 type="number"
                                 value={points}

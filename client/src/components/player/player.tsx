@@ -40,7 +40,7 @@ const Player = ({ uri }: PlayerProps) => {
                 styles={styles}
                 // layout='compact'
                 hideAttribution={true}
-                hideCoverArt={true}
+                // hideCoverArt={true}
             />
         </div>
     );

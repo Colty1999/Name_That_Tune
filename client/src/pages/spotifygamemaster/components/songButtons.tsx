@@ -2,7 +2,7 @@ import { faPlay, faPause, faBan, faRotateLeft } from "@fortawesome/free-solid-sv
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StateType, Track } from "../../../assets/common";
 import { useTranslation } from "react-i18next";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext } from "../../../App";
 
 interface SongButtonProps {
@@ -19,12 +19,20 @@ const SongButton = (props: SongButtonProps) => {
     const { track, category, count, startPlaying, pausePlaying, setPoints, resetTrack } = props;
     const [t] = useTranslation();
     const { songPlaying, playerLoaded } = useContext(AppContext);
+    const smallestImage = track.track.album.images.reduce((smallest: any, image: any) => {
+        if (image.height < smallest.height) return image;
+        return smallest;
+    }, track.track.album.images[0]);
+
 
     // console.log(track);
     return (
         <div key={track.track.id} className="horizontalpanel">
             <div className={`${category.store === track.track.name ? "active" : ""} ${track.played === true ? "playedsong" : ""} song`} style={{ width: "100%" }}>
-                <h4>{track.track.name}</h4>
+                <div style={{display: "flex", gap: "1rem", alignItems: "center"}}>
+                    <img src={smallestImage.url} alt="album cover" width="40rem" height="40rem"/>
+                    <h4>{track.track.name} - {track.track.artists[0].name}</h4>
+                </div>
                 <h4>{track.points}{t("pt")}</h4>
             </div>
             {!songPlaying || category.store !== track.track.name ?

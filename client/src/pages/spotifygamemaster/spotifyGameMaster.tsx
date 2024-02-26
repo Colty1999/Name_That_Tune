@@ -71,10 +71,6 @@ const SpotifyGameMaster = () => {
         }
     }, []);
 
-    useEffect(() => {
-        forceUpdate();
-    }, [compiledTracks]);
-
     //-----------------
 
     useEffect(() => {
