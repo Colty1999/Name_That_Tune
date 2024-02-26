@@ -28,8 +28,8 @@
       "close": "Close settings"
     },
     "trackresults": {
-        "clue:": "Clue:",
-        "points:": "Points:"
+        "clue": "Clue:",
+        "points": "Points:"
     }
   },
   "spotifylogin": {
