@@ -29,7 +29,8 @@
     },
     "trackresults": {
         "clue": "Clue:",
-        "points": "Points:"
+        "points": "Points:",
+        "youtubelink": "Youtube:"
     }
   },
   "spotifylogin": {

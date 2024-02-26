@@ -1,7 +1,4 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
-import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../../../App";
+import { useEffect, useState } from "react";
 import "./trackResult.scss";
 import { useStorageState } from "../../../../hooks/useStorageState";
 import { Track } from "../../../../assets/common";
@@ -14,15 +11,12 @@ interface TrackResultProps {
 
 const TrackResult = ({ track, id }: TrackResultProps) => {
     const [t] = useTranslation();
-    
-    let { setSongPlaying } = useContext(AppContext);
-    let currentSongUri = useStorageState({ state: "currentSongUri" });
-    let tracks = useStorageState({ state: "tracks" });
-    const {playerLoaded} = useContext(AppContext);
 
-    const [trackSelect, setTrackSelect] = useState<boolean>(false);
+    let tracks = useStorageState({ state: "tracks" });
+
     const [clue, setClue] = useState<string>("");
     const [points, setPoints] = useState<number>(100);
+    const [youtubeLink, setYoutubeLink] = useState<string>("");
 
     let currentPlaylistUri = useStorageState({ state: "currentPlaylistUri" });
 
@@ -42,44 +36,31 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
         tracks.setStorageState(JSON.stringify(newTracks));
     };
 
+    const updateYoutubeLink = (link: string) => {
+        if (!tracks.store) return;
+        setYoutubeLink(link);
+        let newTracks = JSON.parse(tracks.store);
+        newTracks[id].youtubeLink = youtubeLink;
+        tracks.setStorageState(JSON.stringify(newTracks));
+    };
+
     useEffect(() => {
         if (!tracks.store || tracks.store.length === 0) return;
         const newTracks = JSON.parse(tracks.store);
         if (newTracks[id].clue) setClue(newTracks[id].clue);
         if (newTracks[id].points) setPoints(newTracks[id].points);
+        if (newTracks[id].youtubeLink) setYoutubeLink(newTracks[id].youtubeLink);
     }, [tracks]); // set clue and points on load
-
-    // useEffect(() => {
-    //     if (!tracks.store || tracks.store.length === 0) return;
-    //     let newTracks = JSON.parse(tracks.store!);
-    //     newTracks[id].points = points;
-    //     tracks.setStorageState(JSON.stringify(newTracks));
-    // }, []); // set points on load
 
     useEffect(() => {
         setClue("");
     }, [currentPlaylistUri.store]); // Reset clue and points when playlist changes
     //TODO doesnt work
 
-    useEffect(() => {
-        if (currentSongUri.store !== track.track.uri) stopPlaying();
-    }, [currentSongUri.store]); // Stop playing if another song is selected
-
     const smallestImage = track.track.album.images.reduce((smallest: any, image: any) => {
         if (image.height < smallest.height) return image;
         return smallest;
     }, track.track.album.images[0]);
-
-    const startPlaying = () => {
-        currentSongUri.setStorageState(track.track.uri);
-        setSongPlaying(true);
-        setTrackSelect(true);
-    }
-
-    const stopPlaying = () => {
-        setSongPlaying(false);
-        setTrackSelect(false);
-    }
 
     const [loadedClassName, setLoadedClassName] = useState<string>("");
     useEffect(() => {
@@ -88,7 +69,7 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
 
     return (
         <div className="trackResult">
-            <div className={`trackElement ${trackSelect ? "active" : ""} ${loadedClassName}`}>
+            <div className={`trackElement ${loadedClassName}`}>
                 <h4 className="trackId">{id + 1}</h4>
                 <img src={smallestImage.url} alt={track.track.name} />
                 <div className="trackData">
@@ -111,6 +92,14 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
                                 type="number"
                                 value={points}
                                 onChange={(e) => updatePoints(Number(e.target.value))}
+                            />
+                        </div>
+                        <div className="youtubeForm">
+                            <label>{t('config.trackresults.youtubelink')}</label>
+                            <input
+                                type="text"
+                                value={youtubeLink}
+                                onChange={(e) => updateYoutubeLink(e.target.value)}
                             />
                         </div>
                     </div>

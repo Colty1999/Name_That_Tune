@@ -43,16 +43,20 @@
 
             .trackForm {
                 width: 100%;
-                display: flex;
-                flex-direction: row;
+                // display: flex;
+                // flex-direction: row;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
                 align-items: start;
                 justify-content: start;
                 gap: 0.5rem;
 
                 .clueForm,
-                .pointsForm {
+                .pointsForm,
+                .youtubeForm {
                     // justify-self: start;
-                    width: 50%;
+                    // width: 100%;
                     font-size: .8rem;
                     display: flex;
                     // align-items: center;
@@ -75,11 +79,15 @@
                             filter: drop-shadow(0 0 1rem var(--buttonHoverColor));
                         }
                     }
-
                     // .pointsForm{
                     //     justify-self: end;
                     //     padding: 0 1rem;
                     // }
+                }
+                
+                .youtubeForm {
+                    grid-column-start: 1;
+                    grid-column-end: 3;
                 }
             }
         }

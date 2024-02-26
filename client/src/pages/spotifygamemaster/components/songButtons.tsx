@@ -1,9 +1,10 @@
-import { faPlay, faPause, faBan, faRotateLeft } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPause, faBan, faRotateLeft, faVideo, faVideoSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StateType, Track } from "../../../assets/common";
 import { useTranslation } from "react-i18next";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AppContext } from "../../../App";
+import { useStorageState } from "../../../hooks/useStorageState";
 
 interface SongButtonProps {
     track: Track;
@@ -24,13 +25,13 @@ const SongButton = (props: SongButtonProps) => {
         return smallest;
     }, track.track.album.images[0]);
 
+    let youtubePlaying = useStorageState({ state: "youtubePlaying" });
 
-    // console.log(track);
     return (
         <div key={track.track.id} className="horizontalpanel">
             <div className={`${category.store === track.track.name ? "active" : ""} ${track.played === true ? "playedsong" : ""} song`} style={{ width: "100%" }}>
-                <div style={{display: "flex", gap: "1rem", alignItems: "center"}}>
-                    <img src={smallestImage.url} alt="album cover" width="40rem" height="40rem"/>
+                <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+                    <img src={smallestImage.url} alt="album cover" width="40rem" height="40rem" />
                     <h4>{track.track.name} - {track.track.artists[0].name}</h4>
                 </div>
                 <h4>{track.points}{t("pt")}</h4>
@@ -68,6 +69,20 @@ const SongButton = (props: SongButtonProps) => {
                     <FontAwesomeIcon icon={faRotateLeft} />
                 </button>
             }
+            {track.youtubeLink ?
+                <button
+                    className={`song songbutton`}
+                    onClick={() => youtubePlaying.store === "true" ? youtubePlaying.setStorageState("false") : youtubePlaying.setStorageState("true")}
+                >
+                    {youtubePlaying ? <FontAwesomeIcon icon={faVideo} /> : <FontAwesomeIcon icon={faVideoSlash} />}
+                </button>
+                :
+                <button
+                    className={`song songbutton`}
+                    style={{ cursor: "auto" }}
+                    disabled={true} />
+            }
+
         </div>
     )
 };
