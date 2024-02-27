@@ -5,11 +5,10 @@ import YoutubeModal from "./youtubeModal/youtubeModal";
 interface SongPickerProps {
     tracks: Track[];
     category: StateType;
-    setYoutubePlay: (id: number) => void;
 }
 
 const SongPicker = (props: SongPickerProps) => {
-    const { tracks, category, setYoutubePlay } = props;
+    const { tracks, category } = props;
     const [t] = useTranslation();
 
     return (
@@ -24,7 +23,7 @@ const SongPicker = (props: SongPickerProps) => {
                     {track.youtubeLink && track.youtubePlay &&
                         <YoutubeModal
                             show={true}
-                            handleClose={() => { setYoutubePlay(0) }}
+                            handleClose={() => () => {}}
                             id={track.youtubeLink}
                         />
                     }

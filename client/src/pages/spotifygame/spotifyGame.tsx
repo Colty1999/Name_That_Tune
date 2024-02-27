@@ -39,13 +39,6 @@ const SpotifyGame = () => {
         }
     }, [tracks.store, compiledTracks]); // Add compiledTracks as a dependency
 
-    const setYoutubePlay = (id: number) => {
-        if (!tracks.store) return;
-        let newTracks = JSON.parse(tracks.store);
-        newTracks[id].youtubePlay = !newTracks[id].youtubePlay;
-        tracks.setStorageState(JSON.stringify(newTracks));
-    };
-    
     if (!accessToken) return <div className="spotifyLoginPrompt"><div style={{ paddingBottom: "1rem" }}>{t('sessionexpired')}</div><SpotifyLogin /></div>;
     if (!compiledTracks) return <Loader />;
     return (
@@ -64,7 +57,7 @@ const SpotifyGame = () => {
             <div style={{ paddingBottom: "5rem", minHeight: "25rem" }}>
                 {compiledTracks.map((tracks: Track[], key: number) => (
                     <div key={key} className={`${key === currentPage ? 'visible' : 'hidden'}`}>
-                        <SongPicker tracks={tracks} category={category} setYoutubePlay={setYoutubePlay}/>
+                        <SongPicker tracks={tracks} category={category}/>
                     </div>
                 ))}
             </div>
