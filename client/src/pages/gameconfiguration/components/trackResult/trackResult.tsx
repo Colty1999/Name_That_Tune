@@ -106,13 +106,6 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
                         </div>
                     </div>
                 </div>
-                {/* <button
-                                onClick={() => trackSelect ? stopPlaying() : startPlaying()} 
-                                className="playIcon" 
-                                disabled={!playerLoaded}
-                >
-                <FontAwesomeIcon icon={trackSelect ? faPause : faPlay} />
-                </button> */}
             </div>
         </div >
 
