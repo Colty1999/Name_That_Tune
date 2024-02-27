@@ -13,12 +13,25 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
     const [t] = useTranslation();
 
     let tracks = useStorageState({ state: "tracks" });
+    let currentPlaylistUri = useStorageState({ state: "currentPlaylistUri" });
+
 
     const [clue, setClue] = useState<string>("");
     const [points, setPoints] = useState<number>(100);
     const [youtubeLink, setYoutubeLink] = useState<string>("");
+    
+    useEffect(() => {
+        if (!tracks.store) return;
+        const newTracks = JSON.parse(tracks.store);
+        if (newTracks[id].clue) setClue(newTracks[id].clue);
+        else setClue("");
+        if (newTracks[id].points) setPoints(newTracks[id].points);
+        else setPoints(100);
+        if (newTracks[id].youtubeLink) setYoutubeLink(newTracks[id].youtubeLink);
+        else setYoutubeLink("");
+    }, [tracks]); // set clue and points on load
 
-    // let currentPlaylistUri = useStorageState({ state: "currentPlaylistUri" });
+    //-----------------
 
     const updateClue = (clue: string) => {
         if (!tracks.store) return;
@@ -44,29 +57,9 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
         // console.log(newTracks[0]);
         // console.log(JSON.parse(tracks.store)[0]);
         tracks.setStorageState(JSON.stringify(newTracks));
-    };
+    }
 
-    // useEffect(() => {
-    //     if (!tracks.store) return;
-    //     let newTracks = JSON.parse(tracks.store);
-    //     newTracks.forEach((track: Track) => {
-    //         track.played = false;
-    //     });
-    //     tracks.setStorageState(JSON.stringify(newTracks));
-    // }, []);
-
-    useEffect(() => {
-        if (!tracks.store) return;
-        const newTracks = JSON.parse(tracks.store);
-        if (newTracks[id].clue) setClue(newTracks[id].clue);
-        if (newTracks[id].points) setPoints(newTracks[id].points);
-        if (newTracks[id].youtubeLink) setYoutubeLink(newTracks[id].youtubeLink);
-    }, [tracks]); // set clue and points on load
-
-    // useEffect(() => {
-    //     setClue("");
-    // }, [currentPlaylistUri.store]); // Reset clue and points when playlist changes
-    //TODO doesnt work
+    //-----------------
 
     const smallestImage = track.track.album.images.reduce((smallest: any, image: any) => {
         if (image.height < smallest.height) return image;

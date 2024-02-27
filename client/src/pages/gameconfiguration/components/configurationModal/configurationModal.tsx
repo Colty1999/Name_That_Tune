@@ -46,16 +46,6 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
         hiddenFileInput.current.click();
     };
 
-    //-----------------
-
-    // const resetClues = () => {
-    //     if (!tracks.store) return;
-    //     let newTracks = JSON.parse(tracks.store);
-    //     newTracks.forEach((trck: Track) => delete trck.clue);
-    //     tracks.setStorageState(JSON.stringify(newTracks));
-    // }; TODO reset clues function
-
-
     return (
         <Modal
             isOpen={show}

@@ -32,8 +32,6 @@ function YoutubeModal({ show, handleClose, id }: ConfigurationModalProps) {
         },
     };
 
-    console.log(id)
-
     return (
         <Modal
             isOpen={show}

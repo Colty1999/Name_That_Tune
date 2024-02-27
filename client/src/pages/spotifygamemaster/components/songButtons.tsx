@@ -60,7 +60,6 @@ const SongButton = (props: SongButtonProps) => {
                     <FontAwesomeIcon icon={faPause} />
                 </button>
             }
-            {/* TODO fix buttons  and playing functions*/}
             {track.played !== true ?
                 <button
                     className={`song songbutton`}
