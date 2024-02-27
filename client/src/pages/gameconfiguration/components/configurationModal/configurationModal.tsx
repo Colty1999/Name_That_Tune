@@ -2,7 +2,6 @@ import { useStorageState } from '../../../../hooks/useStorageState';
 import Modal from 'react-modal';
 import './configurationModal.scss';
 import { useRef } from 'react';
-import { Track } from '../../../../assets/common';
 import { useTranslation } from 'react-i18next';
 
 interface ConfigurationModalProps {
@@ -52,7 +51,7 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
             // onAfterOpen={afterOpenModal}
             onRequestClose={handleClose}
             // style={customStyles}
-            contentLabel="Example Modal"
+            contentLabel="Game configuration modal"
             className="modalContainer"
             overlayClassName="overlayContainer"
         >

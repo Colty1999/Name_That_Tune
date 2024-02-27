@@ -1,5 +1,5 @@
 import Modal from 'react-modal';
-import YouTube from "react-youtube";
+import YouTube, { YouTubeEvent } from "react-youtube";
 import { useTranslation } from 'react-i18next';
 import './youtubeModal.scss';
 
@@ -14,12 +14,12 @@ function YoutubeModal({ show, handleClose, id }: ConfigurationModalProps) {
     
     const [t] = useTranslation();
 
-    const onPlayerReady = (event:any) => {
+    const onPlayerReady = (event: YouTubeEvent<number>) => {
         const player = event.target;
         player.pauseVideo();
     };
 
-    const onPlayerStateChange = (event:any) => {
+    const onPlayerStateChange = (event: YouTubeEvent<number>) => {
         const player = event.target;
         player.playVideo();
     };
@@ -38,7 +38,7 @@ function YoutubeModal({ show, handleClose, id }: ConfigurationModalProps) {
             // onAfterOpen={afterOpenModal}
             onRequestClose={handleClose}
             // style={customStyles}
-            contentLabel="Example Modal"
+            contentLabel="Youtube modal"
             className="youtubeModalContainer"
             overlayClassName="overlayContainer"
         >

@@ -13,9 +13,6 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
     const [t] = useTranslation();
 
     let tracks = useStorageState({ state: "tracks" });
-    let currentPlaylistUri = useStorageState({ state: "currentPlaylistUri" });
-
-
     const [clue, setClue] = useState<string>("");
     const [points, setPoints] = useState<number>(100);
     const [youtubeLink, setYoutubeLink] = useState<string>("");
