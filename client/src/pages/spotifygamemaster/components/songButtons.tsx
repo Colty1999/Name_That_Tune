@@ -36,10 +36,25 @@ const SongButton = (props: SongButtonProps) => {
 
     return (
         <div key={track.track.id} className="horizontalpanel">
+                        {track.youtubeLink ?
+                <button
+                    className={`song songbutton`}
+                    onClick={() => setYoutubePlay(id)}
+                >
+                    <FontAwesomeIcon icon={track.youtubePlay ? faVideoSlash : faVideo} />
+                </button>
+                :
+                <button
+                className={`song songbutton`}
+                disabled
+            >
+                <FontAwesomeIcon icon={faVideo} />
+            </button>
+            }
             <div className={`${category.store === track.track.name ? "active" : ""} ${track.played === true ? "playedsong" : ""} song`} style={{ width: "100%" }}>
                 <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
                     <img src={smallestImage.url} alt="album cover" width="40rem" height="40rem" />
-                    <h4>{track.track.name} - {track.track.artists[0].name} <div style={{fontSize: "0.8rem"}}>({track.clue})</div></h4>
+                    <h4>{track.track.name} - {track.track.artists[0].name} {track.clue && <>({track.clue})</>}</h4>
                 </div>
                 <h4>{track.points}{t("pt")}</h4>
             </div>
@@ -74,19 +89,6 @@ const SongButton = (props: SongButtonProps) => {
                 >
                     <FontAwesomeIcon icon={faRotateLeft} />
                 </button>
-            }
-            {track.youtubeLink ?
-                <button
-                    className={`song songbutton`}
-                    onClick={() => setYoutubePlay(id)}
-                >
-                    <FontAwesomeIcon icon={track.youtubePlay ? faVideoSlash : faVideo} />
-                </button>
-                :
-                <button
-                    className={`song songbutton`}
-                    style={{ cursor: "auto" }}
-                    disabled={true} />
             }
         </div>
     )

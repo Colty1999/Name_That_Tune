@@ -82,7 +82,7 @@ const SpotifyGameMaster = () => {
         let newTracks = JSON.parse(tracks.store);
         newTracks[id].youtubePlay = !newTracks[id].youtubePlay;
         tracks.setStorageState(JSON.stringify(newTracks));
-    };
+    }; //TODO close all other youtube links
     //-----------------
 
     useEffect(() => {
