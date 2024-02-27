@@ -27,9 +27,9 @@ function YoutubeModal({ show, handleClose, id }: ConfigurationModalProps) {
     const options = {
         height: "100%",
         width: "100%",
-        playerVars: {
-            autoplay: 1,
-        },
+        // playerVars: {
+        //     autoplay: 1,
+        // },
     };
 
     return (
@@ -48,7 +48,7 @@ function YoutubeModal({ show, handleClose, id }: ConfigurationModalProps) {
                 videoId={id.substring(id.indexOf("watch?v=") + 8)}
                 opts={options}
                 onReady={onPlayerReady}
-                onStateChange={onPlayerStateChange}
+                // onStateChange={onPlayerStateChange}
                 style={{ width: "100%", height: "100%" }}
             />
             </div>
