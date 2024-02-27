@@ -9,7 +9,7 @@
         padding: 0.1rem 1rem;
 
         background-color: var(--buttonPrimaryColor);
-        cursor: pointer;
+        // cursor: pointer;
         transition: all 0.2s ease-in-out;
         border: solid var(--secondaryColor);
         border-width: 0 0 0.1rem 0;
@@ -120,14 +120,6 @@
             width: 64px;
             height: 64px;
         }
-
-    }
-
-    .active {
-        background-color: var(--secondaryColor);
-        color: var(--primaryTextColor);
-        filter: drop-shadow(0 0 2rem var(--dropShadowColor));
-        border-bottom: 0.1rem solid var(--buttonPrimaryColor);
 
     }
 

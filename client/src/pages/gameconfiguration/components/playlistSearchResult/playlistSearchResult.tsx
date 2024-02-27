@@ -18,7 +18,7 @@ const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
     const { title, description, uri, albumUrl } = playlist;
     let accessToken = Cookies.get("accessToken");
     let tracks = useStorageState({ state: "tracks" });
-    let { setSongPlaying } = useContext(AppContext);
+    let { setLoading, setSongPlaying } = useContext(AppContext);
 
     const spotifyApi = new SpotifyWebApi({
         clientId: "226da25afbe64537a2574c7155cbc643",
@@ -33,6 +33,8 @@ const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
         currentPlaylistUri.setStorageState(uri);
         if (!accessToken) return;
         let cancel = false;
+        setLoading(true);
+        tracks.setStorageState(JSON.stringify([]));
         spotifyApi.setAccessToken(accessToken);
         spotifyApi.getPlaylistTracks(playlist.uri.replace("spotify:playlist:", "")) //, { limit: 50, offset: 1 }
             .then((res) => {
@@ -44,9 +46,11 @@ const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
                     track.played = false;
                 });
                 tracks.setStorageState(JSON.stringify(response));
+                setLoading(false);
             })
             .catch((err) => {
                 console.error(err);
+                setLoading(false);
             })
         return () => { cancel = true };
     }

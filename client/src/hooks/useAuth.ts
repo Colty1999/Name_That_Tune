@@ -1,14 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { backend, cookieOptions } from "../assets/common";
 import SpotifyWebApi from "spotify-web-api-node";
 import Cookies from "js-cookie";
+import { AppContext } from "../App";
 
 export default function useAuth(code: string | null) {
   let accessToken = Cookies.get("accessToken");
   let refreshToken = Cookies.get("refreshToken");
 
   const [expiresIn, setExpiresIn] = useState<number | null>(null);
+
+  let { setLoading } = useContext(AppContext);
 
   const isLoginMounted = useRef(false);
   const isRefreshed = useRef(false);
@@ -19,6 +22,7 @@ export default function useAuth(code: string | null) {
     const spotifyApi = new SpotifyWebApi({
       clientId: "226da25afbe64537a2574c7155cbc643",
     });
+    setLoading(true);
     spotifyApi.setAccessToken(accessToken);
     spotifyApi
       .getMe()
@@ -31,17 +35,20 @@ export default function useAuth(code: string | null) {
             Cookies.set("accessToken", res.data.accessToken, cookieOptions);
             // accessToken.setStorageState(res.data.accessToken);
             setExpiresIn(res.data.expiresIn);
+            setLoading(false);
           })
           .catch((err) => {
             history.replaceState({}, "", "/");
             Cookies.remove("accessToken");
             console.error(err.response);
+            setLoading(false);
           });
       })
       .catch((err) => {
         // accessToken.setStorageState("");
         Cookies.remove("accessToken");
         console.error(err.response);
+        setLoading(false);
       });
     isRefreshed.current = true;
   }, []);
@@ -50,6 +57,7 @@ export default function useAuth(code: string | null) {
     if (code === null) return; //return if logging out (code is null)
     if (isLoginMounted.current) return;
     //useStrict double rendering countermeasure
+    setLoading(true);
     axios
       .post(`${backend}/login`, {
         code,
@@ -61,10 +69,12 @@ export default function useAuth(code: string | null) {
         Cookies.set("refreshToken", res.data.refreshToken, cookieOptions);
         setExpiresIn(res.data.expiresIn);
         window.history.pushState({}, "", "/");
+        setLoading(false);
       })
       .catch((err) => {
         Cookies.remove("accessToken");
         console.error(err.response);
+        setLoading(false);
       });
     isLoginMounted.current = true;
   }, [code]);
