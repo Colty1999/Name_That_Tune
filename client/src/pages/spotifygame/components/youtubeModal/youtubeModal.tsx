@@ -54,9 +54,6 @@ function YoutubeModal({ show, handleClose, id }: ConfigurationModalProps) {
                 style={{ width: "100%", height: "100%" }}
             />
             </div>
-            {/* <div className="modalFooter"> */}
-                {/* <button onClick={handleClose}>{t('config.modal.close')}</button> */}
-            {/* </div> */}
         </Modal>
     );
 }
