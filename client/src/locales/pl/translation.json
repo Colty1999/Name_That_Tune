@@ -27,7 +27,7 @@
       "settings": "Ustawienia",
       "download": "Pobierz konfigurację",
       "downloadmsg": " - Pobierz aktualną konfigurację gry z piosenkami, podpowiedziami i punktami.",
-      "upload": "Załadjuj konfigurację",
+      "upload": "Załaduj konfigurację",
       "uploadmsg": " - Załaduj poprzednią konfigurację gry z pliku.",
       "close": "Zamknij"
     },
