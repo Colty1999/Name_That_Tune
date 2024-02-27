@@ -2,7 +2,7 @@ import MainMenu from './pages/mainmenu/mainMenu'
 import Container from 'react-bootstrap/esm/Container';
 import DemoGame from './pages/demogame/demoGame';
 import NotFound from './pages/notfound/notFound';
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import NotImplemented from './pages/notimplemented/notImplemented';
 import Header from './components/header/header';
 import { createContext, useState } from 'react';
@@ -14,6 +14,7 @@ import SpotifyGameMaster from './pages/spotifygamemaster/spotifyGameMaster';
 import Player from './components/player/player';
 import { useStorageState } from './hooks/useStorageState';
 import SpotifyGame from './pages/spotifygame/spotifyGame';
+import Instruction from './pages/insctruction/instruction';
 
 export const AppContext = createContext<{
   setLoading: (React.Dispatch<React.SetStateAction<boolean>> | Function),
@@ -45,14 +46,15 @@ function App() {
             <Route path="/spotifygame" Component={SpotifyGame} />
             <Route path="/spotifygamemaster" Component={SpotifyGameMaster} />
             <Route path="/gameconfiguration" Component={GameConfiguration} />
+            <Route path="instruction" Component={Instruction} />
             {/* <Route path="/game" Component={GalleryYearView} />
             <Route path="/archive/:year/:folder" Component={GalleryFolderView} />*/}
             <Route path='/notimplemented' Component={NotImplemented} />
             <Route path='/404' Component={NotFound} />
-            {/* <Route
+            <Route
             path="*"
             element={<Navigate to="/404" replace />}
-          /> */}
+          />
           </Routes>
         </AppContext.Provider>
       </HashRouter >

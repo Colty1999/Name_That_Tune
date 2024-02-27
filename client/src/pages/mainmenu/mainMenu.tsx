@@ -32,7 +32,7 @@ const MainMenu = () => {
                         {t("mainmenu.demo")}
                     </button>
                 </Link>
-                <Link to="/notimplemented">
+                <Link to="/instruction">
                     <button onClick={() => { }} className='button'>
                         {t("mainmenu.instruction")}
                     </button>

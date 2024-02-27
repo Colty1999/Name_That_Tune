@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
     return (
         <footer className="footer">
-            Mateusz Gietka 2023 | <Link to="https://www.linkedin.com/in/mateusz-gietka-50032b210/" target='_blank'>
+            Mateusz Gietka 2023 - 2024 | <Link to="https://www.linkedin.com/in/mateusz-gietka-50032b210/" target='_blank'>
                 <FontAwesomeIcon className='linkedin' icon={faLinkedin} />
             </Link> | <Link to="https://github.com/Colty1999" target='_blank'>
                 <FontAwesomeIcon className="github" icon={faGithub} />

@@ -5,6 +5,9 @@
     "demo": "Demo",
     "instruction": "Instruction"
   },
+  "instruction": {
+
+  },
   "game": {
     "modal": {
       "name": "Youtube"
