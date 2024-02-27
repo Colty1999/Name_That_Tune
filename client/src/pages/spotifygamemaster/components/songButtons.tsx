@@ -25,14 +25,7 @@ const SongButton = (props: SongButtonProps) => {
         if (image.height < smallest.height) return image;
         return smallest;
     }, track.track.album.images[0]);
-
-    useEffect(() => {
-        if (!category.store || category.store === "") return;
-        if (category.store === track.track.name) {
-            track.played = true;
-        }
-    }, [category]);
-
+    //TODO add tooltips
 
     return (
         <div key={track.track.id} className="horizontalpanel">
