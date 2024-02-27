@@ -2,9 +2,8 @@ import { faPlay, faPause, faBan, faRotateLeft, faVideo, faVideoSlash } from "@fo
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StateType, Track } from "../../../assets/common";
 import { useTranslation } from "react-i18next";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext } from "../../../App";
-import { useStorageState } from "../../../hooks/useStorageState";
 
 interface SongButtonProps {
     track: Track;
@@ -14,10 +13,12 @@ interface SongButtonProps {
     pausePlaying: (track: Track) => void;
     setPoints: (track: Track | null, teamPoints: StateType | null, count: StateType) => void;
     resetTrack: (track: Track) => void;
+    setYoutubePlay: (id: number) => void;
+    id: number;
 }
 
 const SongButton = (props: SongButtonProps) => {
-    const { track, category, count, startPlaying, pausePlaying, setPoints, resetTrack } = props;
+    const { track, category, count, startPlaying, pausePlaying, setPoints, resetTrack, setYoutubePlay, id } = props;
     const [t] = useTranslation();
     const { songPlaying, playerLoaded } = useContext(AppContext);
     const smallestImage = track.track.album.images.reduce((smallest: any, image: any) => {
@@ -25,7 +26,13 @@ const SongButton = (props: SongButtonProps) => {
         return smallest;
     }, track.track.album.images[0]);
 
-    let youtubePlaying = useStorageState({ state: "youtubePlaying" });
+    useEffect(() => {
+        if (!category.store || category.store === "") return;
+        if (category.store === track.track.name) {
+            track.played = true;
+        }
+    }, [category]);
+
 
     return (
         <div key={track.track.id} className="horizontalpanel">
@@ -72,9 +79,9 @@ const SongButton = (props: SongButtonProps) => {
             {track.youtubeLink ?
                 <button
                     className={`song songbutton`}
-                    onClick={() => youtubePlaying.store === "true" ? youtubePlaying.setStorageState("false") : youtubePlaying.setStorageState("true")}
+                    onClick={() => setYoutubePlay(id)}
                 >
-                    {youtubePlaying ? <FontAwesomeIcon icon={faVideo} /> : <FontAwesomeIcon icon={faVideoSlash} />}
+                    <FontAwesomeIcon icon={track.youtubePlay ? faVideo : faVideoSlash} />
                 </button>
                 :
                 <button
@@ -82,7 +89,6 @@ const SongButton = (props: SongButtonProps) => {
                     style={{ cursor: "auto" }}
                     disabled={true} />
             }
-
         </div>
     )
 };

@@ -31,6 +31,7 @@ export interface Track {
   clue?: string;
   played?: boolean;
   youtubeLink?: string;
+  youtubePlay?: boolean;
 }
 
 export interface StateType {

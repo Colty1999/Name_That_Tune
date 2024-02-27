@@ -40,16 +40,8 @@ const SpotifyGameMaster = () => {
     const [compiledTracks, setCompiledTracks] = useState<Track[][] | null>(null);
 
     //-----------------
-    useEffect(() => { //stop music if playing
-        if (!tracks.store) return;
-        const chunkSize = 5;
-        const splitArrays: Track[][] = [];
-        const tracksFromJSON = JSON.parse(tracks.store);
-        for (let i = 0; i < tracksFromJSON.length; i += chunkSize) {
-            splitArrays.push(tracksFromJSON.slice(i, i + chunkSize));
-        }
-        setCompiledTracks(splitArrays);
-        //-----------------
+
+    useEffect(() => {
         pageStorage.setStorageState("0");
         category.setStorageState("");
         count.setStorageState("0");
@@ -64,7 +56,33 @@ const SpotifyGameMaster = () => {
             count.setStorageState("0");
         }
     }, []);
+    //-----------------
 
+    useEffect(() => {
+        if (!tracks.store) return;
+    
+        const chunkSize = 5;
+        const tracksFromJSON = JSON.parse(tracks.store);
+        const splitArrays = [];
+    
+        for (let i = 0; i < tracksFromJSON.length; i += chunkSize) {
+            splitArrays.push(tracksFromJSON.slice(i, i + chunkSize));
+        }
+    
+        // Only update the state if splitArrays is different from the current state
+        if (JSON.stringify(splitArrays) !== JSON.stringify(compiledTracks)) {
+            setCompiledTracks(splitArrays);
+        }
+    }, [tracks.store, compiledTracks]); // Add compiledTracks as a dependency
+    
+    //-----------------
+
+    const setYoutubePlay = (id: number) => {
+        if (!tracks.store) return;
+        let newTracks = JSON.parse(tracks.store);
+        newTracks[id].youtubePlay = !newTracks[id].youtubePlay;
+        tracks.setStorageState(JSON.stringify(newTracks));
+    };
     //-----------------
 
     useEffect(() => {
@@ -74,8 +92,6 @@ const SpotifyGameMaster = () => {
                     break;
                 case (!songPlaying):
                     break;
-                // case (currentSong && currentSong.songAudio!.paused):
-                //     break
                 case (Number(count.store) < 400):
                     count.setStorageState((Number(count.store) + 10).toString());
                     forceUpdate();
@@ -99,13 +115,6 @@ const SpotifyGameMaster = () => {
             case (!currentTrack || currentTrack.track.name !== track.track.name):
                 count.setStorageState((track.points).toString());
                 break;
-            // case (currentTrack && currentTrack.track.name !== track.track.name):
-            //     console.log(currentTrack.track.name, track.track.name)
-            //     // setSongPlaying(false);
-            //     // currentSong.songAudio!.pause();
-            //     // currentSong.songAudio!.currentTime = 0; //TODO reset time
-            //     count.setStorageState((track.points).toString());
-            //     break;
             default:
                 count.setStorageState((Number(count.store)).toString());
                 break;
@@ -116,8 +125,6 @@ const SpotifyGameMaster = () => {
     //pauses song
     const pausePlaying = () => {
         setSongPlaying(false);
-        // category.setStorageState("");
-        // song.songAudio!.pause();
         forceUpdate();
     };
 
@@ -129,9 +136,7 @@ const SpotifyGameMaster = () => {
         }, [])
         ));
         category.setStorageState("");
-        // if (currentTrack) currentTrack.songAudio!.pause();
         setSongPlaying(false);
-        // if (currentTrack) currentTrack.songAudio!.currentTime = 0; //TODO timer
         if (team) team.setStorageState(JSON.stringify({ name: JSON.parse(team.store!).name, points: JSON.parse(team.store!).points + Number(count.store) }));
         count.setStorageState("0");
     };
@@ -174,6 +179,7 @@ const SpotifyGameMaster = () => {
                         pausePlaying={pausePlaying}
                         setPoints={setPoints}
                         resetTrack={resetTrack}
+                        setYoutubePlay={setYoutubePlay}
                     />
                 </div>
             ))}
@@ -182,7 +188,7 @@ const SpotifyGameMaster = () => {
                 team2={team2}
                 team3={team3}
             />
-            <Player uri={currentSongUri.store ? currentSongUri.store : ""}/>
+            <Player uri={currentSongUri.store ? currentSongUri.store : ""} />
         </div >
     );
 };

@@ -1,0 +1,75 @@
+.youtubeModalContainer {
+    position: absolute;
+    inset: 25% 30%;
+    // top: 10%;
+    // left: 10%;
+    // right: 10%;
+    // bottom: 10%;
+    height: inherit;
+    // width: 50%;
+    padding: 1rem 1rem 2.5rem 1rem;
+    background-color: var(--primaryColor);
+    color: var(--secondaryTextColor);
+    border-radius: 1.5rem;
+    box-shadow: 0 0 1rem var(--buttonHoverColor);
+
+    .modalHeader{
+        height: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: end;
+        padding: 0 0 1rem 0;
+        border-bottom: 0.1rem solid var(--secondaryColor);
+        font-size: 1.5rem;
+    }
+
+    .modalBody {
+        height: 90%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        // justify-items: center;
+        // justify-content: center;
+        text-align: left;        
+        align-items: start;
+        justify-items: center;
+        margin: 0.5rem 0;
+    }
+
+    .modalFooter {
+        height: 10%;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        padding: 1rem 0 0 0;
+        border-top: 0.1rem solid var(--secondaryColor);
+    }
+
+    button {
+        // min-width: 10rem;
+        border-color: var(--buttonHoverColor);     
+        transition: all 0.2s ease-in-out;
+        border-color: var(--spotifyColor);
+        background-color: var(--spotifyColor);
+        &:hover {
+            color: var(--primaryTextColor);
+            background-color: var(--secondaryColor);
+            border-color: var(--buttonHoverColor);
+            filter: drop-shadow(0 0 1rem var(--buttonHoverColor));
+        }   
+    }
+
+}
+
+.overlayContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:none;
+    backdrop-filter: blur(0.25rem);
+}

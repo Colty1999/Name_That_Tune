@@ -5,7 +5,11 @@
     "demo": "Demo",
     "instruction": "Instrukcja"
   },
-  "game": {},
+  "game": {
+    "modal": {
+      "name": "Youtube"
+    }
+  },
   "gamemaster": {
     "masterpanel": "Master Panel",
     "nextset": "Następny Set",

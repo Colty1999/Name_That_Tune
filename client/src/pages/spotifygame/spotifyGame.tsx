@@ -24,14 +24,27 @@ const SpotifyGame = () => {
 
     useEffect(() => {
         if (!tracks.store) return;
+    
         const chunkSize = 5;
-        const splitArrays: Track[][] = [];
         const tracksFromJSON = JSON.parse(tracks.store);
+        const splitArrays = [];
+    
         for (let i = 0; i < tracksFromJSON.length; i += chunkSize) {
             splitArrays.push(tracksFromJSON.slice(i, i + chunkSize));
         }
-        setCompiledTracks(splitArrays);
-    }, [tracks]);
+    
+        // Only update the state if splitArrays is different from the current state
+        if (JSON.stringify(splitArrays) !== JSON.stringify(compiledTracks)) {
+            setCompiledTracks(splitArrays);
+        }
+    }, [tracks.store, compiledTracks]); // Add compiledTracks as a dependency
+
+    const setYoutubePlay = (id: number) => {
+        if (!tracks.store) return;
+        let newTracks = JSON.parse(tracks.store);
+        newTracks[id].youtubePlay = !newTracks[id].youtubePlay;
+        tracks.setStorageState(JSON.stringify(newTracks));
+    };
     
     if (!accessToken) return <div className="spotifyLoginPrompt"><div style={{ paddingBottom: "1rem" }}>{t('sessionexpired')}</div><SpotifyLogin /></div>;
     if (!compiledTracks) return <Loader />;
@@ -51,7 +64,7 @@ const SpotifyGame = () => {
             <div style={{ paddingBottom: "5rem", minHeight: "25rem" }}>
                 {compiledTracks.map((tracks: Track[], key: number) => (
                     <div key={key} className={`${key === currentPage ? 'visible' : 'hidden'}`}>
-                        <SongPicker tracks={tracks} category={category} />
+                        <SongPicker tracks={tracks} category={category} setYoutubePlay={setYoutubePlay}/>
                     </div>
                 ))}
             </div>

@@ -18,7 +18,7 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
     const [points, setPoints] = useState<number>(100);
     const [youtubeLink, setYoutubeLink] = useState<string>("");
 
-    let currentPlaylistUri = useStorageState({ state: "currentPlaylistUri" });
+    // let currentPlaylistUri = useStorageState({ state: "currentPlaylistUri" });
 
     const updateClue = (clue: string) => {
         if (!tracks.store) return;
@@ -36,11 +36,13 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
         tracks.setStorageState(JSON.stringify(newTracks));
     };
 
-    const updateYoutubeLink = (link: string) => {
+    const updateYoutubeLink = (youtubeLink: string) => {
         if (!tracks.store) return;
-        setYoutubeLink(link);
+        setYoutubeLink(youtubeLink);
         let newTracks = JSON.parse(tracks.store);
         newTracks[id].youtubeLink = youtubeLink;
+        // console.log(newTracks[0]);
+        // console.log(JSON.parse(tracks.store)[0]);
         tracks.setStorageState(JSON.stringify(newTracks));
     };
 
@@ -52,9 +54,9 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
         if (newTracks[id].youtubeLink) setYoutubeLink(newTracks[id].youtubeLink);
     }, [tracks]); // set clue and points on load
 
-    useEffect(() => {
-        setClue("");
-    }, [currentPlaylistUri.store]); // Reset clue and points when playlist changes
+    // useEffect(() => {
+    //     setClue("");
+    // }, [currentPlaylistUri.store]); // Reset clue and points when playlist changes
     //TODO doesnt work
 
     const smallestImage = track.track.album.images.reduce((smallest: any, image: any) => {
