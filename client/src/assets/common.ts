@@ -1,6 +1,13 @@
 export const gameLogo = "./gameLogo.png";
 export const googleLogo = "./googleLogo.png";
 
+export const loginImage = "./instruction/login.png";
+export const gameConfigurationImage = "./instruction/gameConfiguration.png";
+export const gameConfigurationModalImage = "./instruction/gameConfigurationModal.png";
+export const masterPanelImage = "./instruction/masterPanel.png";
+export const gameImage = "./instruction/game.png";
+export const gameModalImage = "./instruction/gameModal.png";
+
 export interface Song {
   id: number;
   songName: string;

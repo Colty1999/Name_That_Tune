@@ -23,6 +23,8 @@ function Header() {
         }
     }, [language]);
 
+    const visibilityPaths = ["/", "/demogamemaster", "spotifygamemaster", "/instruction"];
+
     return (
         <header className="header">
             {/* {location.pathname === "/" ? 
@@ -34,7 +36,7 @@ function Header() {
                 </div> : <div/>} */}
                 {/* TODO Google firebase implementation */}
                 <div/>
-            {(location.pathname === "/" || location.pathname.includes("gamemaster")) &&
+            {visibilityPaths.includes(location.pathname) &&
                 <Select
                     // menuIsOpen={true}
                     styles={{

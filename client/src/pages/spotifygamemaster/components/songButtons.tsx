@@ -2,7 +2,7 @@ import { faPlay, faPause, faBan, faRotateLeft, faVideo, faVideoSlash } from "@fo
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StateType, Track } from "../../../assets/common";
 import { useTranslation } from "react-i18next";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AppContext } from "../../../App";
 
 interface SongButtonProps {
