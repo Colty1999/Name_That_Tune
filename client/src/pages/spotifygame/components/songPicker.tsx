@@ -21,7 +21,7 @@ const SongPicker = (props: SongPickerProps) => {
                 >
                     <h3>{track.clue ?? track.track.artists[0].name ?? "missing clue"}</h3>
                     <h3>{track.points}{t("pt")}</h3>
-                    {track.youtubeLink && !track.youtubePlay &&
+                    {track.youtubeLink && track.youtubePlay &&
                         <YoutubeModal
                             show={true}
                             handleClose={() => { setYoutubePlay(0) }}

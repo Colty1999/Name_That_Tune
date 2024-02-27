@@ -39,7 +39,7 @@ const SongButton = (props: SongButtonProps) => {
             <div className={`${category.store === track.track.name ? "active" : ""} ${track.played === true ? "playedsong" : ""} song`} style={{ width: "100%" }}>
                 <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
                     <img src={smallestImage.url} alt="album cover" width="40rem" height="40rem" />
-                    <h4>{track.track.name} - {track.track.artists[0].name}</h4>
+                    <h4>{track.track.name} - {track.track.artists[0].name} <div style={{fontSize: "0.8rem"}}>({track.clue})</div></h4>
                 </div>
                 <h4>{track.points}{t("pt")}</h4>
             </div>
@@ -81,7 +81,7 @@ const SongButton = (props: SongButtonProps) => {
                     className={`song songbutton`}
                     onClick={() => setYoutubePlay(id)}
                 >
-                    <FontAwesomeIcon icon={track.youtubePlay ? faVideo : faVideoSlash} />
+                    <FontAwesomeIcon icon={track.youtubePlay ? faVideoSlash : faVideo} />
                 </button>
                 :
                 <button

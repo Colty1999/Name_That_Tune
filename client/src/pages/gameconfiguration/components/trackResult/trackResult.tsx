@@ -46,8 +46,17 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
         tracks.setStorageState(JSON.stringify(newTracks));
     };
 
+    // useEffect(() => {
+    //     if (!tracks.store) return;
+    //     let newTracks = JSON.parse(tracks.store);
+    //     newTracks.forEach((track: Track) => {
+    //         track.played = false;
+    //     });
+    //     tracks.setStorageState(JSON.stringify(newTracks));
+    // }, []);
+
     useEffect(() => {
-        if (!tracks.store || tracks.store.length === 0) return;
+        if (!tracks.store) return;
         const newTracks = JSON.parse(tracks.store);
         if (newTracks[id].clue) setClue(newTracks[id].clue);
         if (newTracks[id].points) setPoints(newTracks[id].points);
