@@ -1,4 +1,4 @@
-import { faPlay, faPause, faBan, faRotateLeft } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPause, faBan, faRotateLeft, faVideo, faVideoSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StateType, Track } from "../../../assets/common";
 import { useTranslation } from "react-i18next";
@@ -13,25 +13,41 @@ interface SongButtonProps {
     pausePlaying: (track: Track) => void;
     setPoints: (track: Track | null, teamPoints: StateType | null, count: StateType) => void;
     resetTrack: (track: Track) => void;
+    setYoutubePlay: (id: number) => void;
+    id: number;
 }
 
 const SongButton = (props: SongButtonProps) => {
-    const { track, category, count, startPlaying, pausePlaying, setPoints, resetTrack } = props;
+    const { track, category, count, startPlaying, pausePlaying, setPoints, resetTrack, setYoutubePlay, id } = props;
     const [t] = useTranslation();
     const { songPlaying, playerLoaded } = useContext(AppContext);
     const smallestImage = track.track.album.images.reduce((smallest: any, image: any) => {
         if (image.height < smallest.height) return image;
         return smallest;
     }, track.track.album.images[0]);
+    //TODO add tooltips
 
-
-    // console.log(track);
     return (
         <div key={track.track.id} className="horizontalpanel">
+                        {track.youtubeLink ?
+                <button
+                    className={`song songbutton`}
+                    onClick={() => setYoutubePlay(id)}
+                >
+                    <FontAwesomeIcon icon={track.youtubePlay ? faVideoSlash : faVideo} />
+                </button>
+                :
+                <button
+                className={`song songbutton`}
+                disabled
+            >
+                <FontAwesomeIcon icon={faVideo} />
+            </button>
+            }
             <div className={`${category.store === track.track.name ? "active" : ""} ${track.played === true ? "playedsong" : ""} song`} style={{ width: "100%" }}>
-                <div style={{display: "flex", gap: "1rem", alignItems: "center"}}>
-                    <img src={smallestImage.url} alt="album cover" width="40rem" height="40rem"/>
-                    <h4>{track.track.name} - {track.track.artists[0].name}</h4>
+                <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+                    <img src={smallestImage.url} alt="album cover" width="40rem" height="40rem" />
+                    <h4>{track.track.name} - {track.track.artists[0].name} {track.clue && <>({track.clue})</>}</h4>
                 </div>
                 <h4>{track.points}{t("pt")}</h4>
             </div>
@@ -52,7 +68,6 @@ const SongButton = (props: SongButtonProps) => {
                     <FontAwesomeIcon icon={faPause} />
                 </button>
             }
-            {/* TODO fix buttons  and playing functions*/}
             {track.played !== true ?
                 <button
                     className={`song songbutton`}

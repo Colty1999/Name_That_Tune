@@ -24,14 +24,7 @@ const GameConfiguration = () => {
     const [searchResults, setSearchResults] = useState<any[]>([]);
     const [showModal, setShowModal] = useState(false);
 
-    // const { setSongPlaying, setLoadPlayer} = useContext(AppContext);
-    // useEffect(() => {
-    //     setLoadPlayer(true);
-    //     return () => {
-    //         setLoadPlayer(false);
-    //         setSongPlaying(false);
-    //     };
-    // }, []); //show player on load
+    // let { setLoading } = useContext(AppContext);
 
     const spotifyApi = new SpotifyWebApi({
         clientId: "226da25afbe64537a2574c7155cbc643",
@@ -41,6 +34,7 @@ const GameConfiguration = () => {
         if (!search) return setSearchResults([]);
         if (!accessToken) return;
         let cancel = false;
+        // setLoading(true);
         spotifyApi.setAccessToken(accessToken);
         spotifyApi.searchPlaylists(search) //, { limit: 50, offset: 1 }
             .then((res) => {
@@ -51,6 +45,8 @@ const GameConfiguration = () => {
                         if (image.height < smallest.height) return image;
                         return smallest;
                     }, playlist.images[0]);
+
+                    // setLoading(false);
 
                     return {
                         title: playlist.name,
@@ -64,6 +60,7 @@ const GameConfiguration = () => {
             })
             .catch((err) => {
                 console.error(err);
+                // setLoading(false);
             })
         return () => { cancel = true };
     }, [search, accessToken]);

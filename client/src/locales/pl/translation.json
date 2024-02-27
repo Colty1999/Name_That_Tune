@@ -5,7 +5,11 @@
     "demo": "Demo",
     "instruction": "Instrukcja"
   },
-  "game": {},
+  "game": {
+    "modal": {
+      "name": "Youtube"
+    }
+  },
   "gamemaster": {
     "masterpanel": "Master Panel",
     "nextset": "Następny Set",
@@ -23,13 +27,14 @@
       "settings": "Ustawienia",
       "download": "Pobierz konfigurację",
       "downloadmsg": " - Pobierz aktualną konfigurację gry z piosenkami, podpowiedziami i punktami.",
-      "upload": "Załadjuj konfigurację",
+      "upload": "Załaduj konfigurację",
       "uploadmsg": " - Załaduj poprzednią konfigurację gry z pliku.",
       "close": "Zamknij"
     },
     "trackresults": {
         "clue": "Podpowiedź:",
-        "points": "Punkty:"
+        "points": "Punkty:",
+        "youtubelink": "Youtube:"
     }
   },
   "spotifylogin": {

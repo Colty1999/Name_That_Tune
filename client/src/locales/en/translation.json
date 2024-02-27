@@ -5,7 +5,11 @@
     "demo": "Demo",
     "instruction": "Instruction"
   },
-  "game": {},
+  "game": {
+    "modal": {
+      "name": "Youtube"
+    }
+  },
   "gamemaster": {
     "masterpanel": "Master Panel",
     "nextset": "Next Set",
@@ -29,7 +33,8 @@
     },
     "trackresults": {
         "clue": "Clue:",
-        "points": "Points:"
+        "points": "Points:",
+        "youtubelink": "Youtube:"
     }
   },
   "spotifylogin": {

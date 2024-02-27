@@ -30,6 +30,8 @@ export interface Track {
   points: number;
   clue?: string;
   played?: boolean;
+  youtubeLink?: string;
+  youtubePlay?: boolean;
 }
 
 export interface StateType {

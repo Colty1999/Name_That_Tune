@@ -1,6 +1,6 @@
-.modalContainer {
+.youtubeModalContainer {
     position: absolute;
-    inset: 30% 20%;
+    inset: 25% 30%;
     // top: 10%;
     // left: 10%;
     // right: 10%;
@@ -17,22 +17,26 @@
         height: 10%;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: end;
         padding: 0 0 1rem 0;
         border-bottom: 0.1rem solid var(--secondaryColor);
+        font-size: 1.5rem;
     }
 
     .modalBody {
-        height: 70%;
-        // width: 100%;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
+        height: 90%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
         // justify-items: center;
         // justify-content: center;
-        text-align: right;        
-        align-items: center;
-        margin: 0.5rem;
+        text-align: left;        
+        align-items: start;
+        justify-items: center;
+        margin: 0.5rem 0;
     }
 
     .modalFooter {
