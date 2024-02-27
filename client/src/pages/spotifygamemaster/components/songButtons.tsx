@@ -14,11 +14,12 @@ interface SongButtonProps {
     setPoints: (track: Track | null, teamPoints: StateType | null, count: StateType) => void;
     resetTrack: (track: Track) => void;
     setYoutubePlay: (id: number) => void;
-    id: number;
+    tableId: number;
+    songId: number;
 }
 
 const SongButton = (props: SongButtonProps) => {
-    const { track, category, count, startPlaying, pausePlaying, setPoints, resetTrack, setYoutubePlay, id } = props;
+    const { track, category, count, startPlaying, pausePlaying, setPoints, resetTrack, setYoutubePlay, tableId, songId } = props;
     const [t] = useTranslation();
     const { songPlaying, playerLoaded } = useContext(AppContext);
     const smallestImage = track.track.album.images.reduce((smallest: any, image: any) => {
@@ -32,7 +33,7 @@ const SongButton = (props: SongButtonProps) => {
                         {track.youtubeLink ?
                 <button
                     className={`song songbutton`}
-                    onClick={() => setYoutubePlay(id)}
+                    onClick={() => setYoutubePlay(tableId * 5 + songId)}
                 >
                     <FontAwesomeIcon icon={track.youtubePlay ? faVideoSlash : faVideo} />
                 </button>

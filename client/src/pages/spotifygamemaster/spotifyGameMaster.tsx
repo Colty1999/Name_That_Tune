@@ -76,11 +76,12 @@ const SpotifyGameMaster = () => {
     }, [tracks.store, compiledTracks]); // Add compiledTracks as a dependency
     
     //-----------------
-
+//TODO somwhere here fix youtube song playing only form the first array of 5
     const setYoutubePlay = (id: number) => {
         if (!tracks.store) return;
         let newTracks = JSON.parse(tracks.store);
         newTracks[id].youtubePlay = !newTracks[id].youtubePlay;
+        console.log(newTracks[id])
         tracks.setStorageState(JSON.stringify(newTracks));
     }; //TODO close all other youtube links
     //-----------------
@@ -181,6 +182,7 @@ const SpotifyGameMaster = () => {
                         setPoints={setPoints}
                         resetTrack={resetTrack}
                         setYoutubePlay={setYoutubePlay}
+                        tableId={key}
                     />
                 </div>
             ))}

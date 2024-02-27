@@ -4,12 +4,11 @@
     justify-content: start;
     align-items: start;
     width: 100%;
-    // overflow-y: auto;
 
     .gameSettings {
         width: calc(50% - 3rem);
         // height: calc(100vh - 7rem);
-        height: calc(100vh - 4rem);
+        height: calc(100vh - 4.5rem);
         margin: 2rem 1rem 2rem 2rem;
         border: 0.1rem solid transparent;
         background-color: var(--buttonPrimaryColor);
@@ -69,7 +68,7 @@
 
     .form {
         width: calc(50% - 3rem);
-        height: calc(100vh - 4rem);
+        height: calc(100vh - 4.4rem);
         overflow: hidden;
         margin: 2rem 1rem 2rem 2rem;
         border-radius: 1.5rem;
