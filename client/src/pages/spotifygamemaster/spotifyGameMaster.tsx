@@ -138,7 +138,7 @@ const SpotifyGameMaster = () => {
         category.setStorageState("");
         setSongPlaying(false);
         if (team) team.setStorageState(JSON.stringify({ name: JSON.parse(team.store!).name, points: JSON.parse(team.store!).points + Number(count.store) }));
-        // count.setStorageState("0");
+        if (team) count.setStorageState("0");
     };
 
     //resets disabled song
