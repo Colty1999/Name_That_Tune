@@ -31,7 +31,15 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
         reader.onload = async (e) => {
             if (!e.target) return;
             const text = (e.target.result);
-            if (typeof(text) === 'string') tracks.setStorageState(text);
+            if (typeof (text) === 'string') {
+                try {
+                    JSON.parse(text);
+                } catch (e) {
+                    console.error(e);
+                    return;
+                }
+                tracks.setStorageState(text);
+            }
         };
         reader.readAsText(e.target.files[0])
     }
