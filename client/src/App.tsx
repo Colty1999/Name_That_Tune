@@ -15,6 +15,7 @@ import Player from './components/player/player';
 import { useStorageState } from './hooks/useStorageState';
 import SpotifyGame from './pages/spotifygame/spotifyGame';
 import Instruction from './pages/insctruction/instruction';
+import ErrorModal from './components/errorModal/errorModal';
 
 export const AppContext = createContext<{
   setLoading: (React.Dispatch<React.SetStateAction<boolean>> | Function),
@@ -24,20 +25,24 @@ export const AppContext = createContext<{
   setSongPlaying: (React.Dispatch<React.SetStateAction<boolean>> | Function),
   playerLoaded: boolean,
   setPlayerLoaded: (React.Dispatch<React.SetStateAction<boolean>> | Function),
-}>({ setLoading: () => { }, token: null, setToken: () => { }, songPlaying: false, setSongPlaying: () => { }, playerLoaded: false, setPlayerLoaded: () => { }});
+  error: string,
+  setError: (React.Dispatch<React.SetStateAction<string>> | Function)
+}>({ setLoading: () => { }, token: null, setToken: () => { }, songPlaying: false, setSongPlaying: () => { }, playerLoaded: false, setPlayerLoaded: () => { }, error: "", setError: () => { }});
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
   const [token, setToken] = useState<string | null>(new URLSearchParams(window.location.search).get('code'));
   const [songPlaying, setSongPlaying] = useState<boolean>(false);
   const [playerLoaded, setPlayerLoaded] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
   useAuth(token);
 
   return (
     <Container fluid="true" className='container'>
       <HashRouter >
-        <AppContext.Provider value={{ setLoading, token, setToken, songPlaying, setSongPlaying, playerLoaded, setPlayerLoaded }}>
+        <AppContext.Provider value={{ setLoading, token, setToken, songPlaying, setSongPlaying, playerLoaded, setPlayerLoaded, error, setError }}>
           {loading && <Loader />}
+          <ErrorModal />
           <Header />
           <Routes>
             <Route path="/" Component={MainMenu} />

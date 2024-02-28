@@ -1,8 +1,9 @@
 import { useStorageState } from '../../../../hooks/useStorageState';
 import Modal from 'react-modal';
 import './configurationModal.scss';
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { AppContext } from '../../../../App';
 
 interface ConfigurationModalProps {
     show: boolean;
@@ -12,6 +13,9 @@ interface ConfigurationModalProps {
 function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
     Modal.setAppElement('#root');
     const [t] = useTranslation();
+
+    let { setError } = useContext(AppContext);
+
     let tracks = useStorageState({ state: "tracks" });
 
     const downloadTxtFile = () => {
@@ -56,6 +60,7 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
                     tracks.setStorageState(text);
                 } else {
                     console.error("Parsed JSON is not of type SpotifyTrackData.");
+                    setError("File doesnt contain correct game data.");
                 }
             } catch (e) {
                 console.error(e);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import "./gameConfiguration.scss";
 import SpotifyWebApi from "spotify-web-api-node";
@@ -12,10 +12,13 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import ConfigurationModal from "./components/configurationModal/configurationModal";
 import { useTranslation } from "react-i18next";
+import { AppContext } from "../../App";
 
 
 const GameConfiguration = () => {
     const [t] = useTranslation();
+
+    let { setError } = useContext(AppContext);
 
     let accessToken = Cookies.get("accessToken");
     let tracks = useStorageState({ state: "tracks" });
@@ -60,6 +63,7 @@ const GameConfiguration = () => {
             })
             .catch((err) => {
                 console.error(err);
+                setError(err.message);
                 // setLoading(false);
             })
         return () => { cancel = true };

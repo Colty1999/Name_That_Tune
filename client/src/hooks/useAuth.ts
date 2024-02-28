@@ -11,7 +11,7 @@ export default function useAuth(code: string | null) {
 
   const [expiresIn, setExpiresIn] = useState<number | null>(null);
 
-  let { setLoading } = useContext(AppContext);
+  let { setLoading, setError } = useContext(AppContext);
 
   const isLoginMounted = useRef(false);
   const isRefreshed = useRef(false);
@@ -38,17 +38,19 @@ export default function useAuth(code: string | null) {
             setLoading(false);
           })
           .catch((err) => {
-            history.replaceState({}, "", "/");
+            // history.replaceState({}, "", "/");
             Cookies.remove("accessToken");
             console.error(err.response);
             setLoading(false);
+            setError(err.message);
           });
       })
       .catch((err) => {
-        // accessToken.setStorageState("");
+        // history.replaceState({}, "", "/");
         Cookies.remove("accessToken");
         console.error(err.response);
         setLoading(false);
+        setError(err.message);
       });
     isRefreshed.current = true;
   }, []);
@@ -75,6 +77,7 @@ export default function useAuth(code: string | null) {
         Cookies.remove("accessToken");
         console.error(err.response);
         setLoading(false);
+        setError(err.message);
       });
     isLoginMounted.current = true;
   }, [code]);
@@ -92,9 +95,10 @@ export default function useAuth(code: string | null) {
           setExpiresIn(res.data.expiresIn);
         })
         .catch((err) => {
-          history.replaceState({}, "", "/");
+          // history.replaceState({}, "", "/");
           Cookies.remove("accessToken");
           console.error(err.response);
+          setError(err.message);
         });
     }, (expiresIn - 59) * 1000);
 

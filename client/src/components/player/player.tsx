@@ -9,7 +9,8 @@ interface PlayerProps {
 }
 
 const Player = ({ uri }: PlayerProps) => {
-    // let accessToken = useStorageState({ state: "accessToken" });
+    let { setError } = useContext(AppContext);
+
     let accessToken = Cookies.get("accessToken");
     const { songPlaying, setPlayerLoaded } = useContext(AppContext);
 
@@ -34,6 +35,7 @@ const Player = ({ uri }: PlayerProps) => {
                 play={songPlaying}
                 callback={state => {
                     // if (!state.isPlaying) setSongPlaying(false);
+                    if (state.status === "ERROR") setError(state.error);
                     if (state.status === "READY") setPlayerLoaded(true);
                     else setPlayerLoaded(false);
                 }}

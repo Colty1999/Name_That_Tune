@@ -18,7 +18,7 @@ const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
     const { title, description, uri, albumUrl } = playlist;
     let accessToken = Cookies.get("accessToken");
     let tracks = useStorageState({ state: "tracks" });
-    let { setLoading, setSongPlaying } = useContext(AppContext);
+    let { setLoading, setSongPlaying, setError } = useContext(AppContext);
 
     const spotifyApi = new SpotifyWebApi({
         clientId: "226da25afbe64537a2574c7155cbc643",
@@ -51,6 +51,7 @@ const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
             .catch((err) => {
                 console.error(err);
                 setLoading(false);
+                setError(err.message);
             })
         return () => { cancel = true };
     }
