@@ -13,7 +13,7 @@
         "header": "Name that tune is a game based on a populat TV show.",
         "description": "The participants compete againt each other by guessing the title of a song as fast as possible.",
         "requirements": {
-          "title": "Requirements",
+          "title": "Requirements:",
           "account": "Spotify account",
           "gamemaster": "1 Game master",
           "players": "2 or more players"

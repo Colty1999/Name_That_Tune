@@ -13,7 +13,7 @@
         "header": "Jaka to melodia to gra oparta na popularnym programie telewizyjnym.",
         "description": "Uczestnicy rywalizują ze sobą, próbując odgadnąć tytuł piosenki przed pozostałymi.",
         "requirements": {
-          "title": "Wymagania",
+          "title": "Wymagania:",
           "account": "Konto Spotify",
           "gamemaster": "1 mistrz gry",
           "players": "2 lub więcej graczy"
