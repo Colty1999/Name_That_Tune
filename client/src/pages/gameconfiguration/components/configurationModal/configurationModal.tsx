@@ -24,25 +24,46 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
     }
 
     //-----------------
-
+    const isSpotifyTrackData = (data: any): data is SpotifyTrackData[] => {
+        return Array.isArray(data) && data.every((item: any) => {
+            return (
+                typeof item === "object" &&
+                item !== null &&
+                "added_at" in item &&
+                "added_by" in item &&
+                "is_local" in item &&
+                "primary_color" in item &&
+                "track" in item &&
+                "video_thumbnail" in item &&
+                "points" in item &&
+                ("played" in item || "clue" in item || "youtubeLink" in item || "youtubePlay" in item)
+            );
+        });
+    };
+    
+    
+    
+    
     const uploadFile = async (e: any) => {
         e.preventDefault();
-        const reader = new FileReader()
+        const reader = new FileReader();
         reader.onload = async (e) => {
             if (!e.target) return;
-            const text = (e.target.result);
-            if (typeof (text) === 'string') {
-                try {
-                    JSON.parse(text);
-                } catch (e) {
-                    console.error(e);
-                    return;
+            const text = e.target.result as string;
+            try {
+                const parsedData = JSON.parse(text);
+                if (isSpotifyTrackData(parsedData)) {
+                    tracks.setStorageState(text);
+                } else {
+                    console.error("Parsed JSON is not of type SpotifyTrackData.");
                 }
-                tracks.setStorageState(text);
+            } catch (e) {
+                console.error(e);
             }
         };
-        reader.readAsText(e.target.files[0])
-    }
+        reader.readAsText(e.target.files[0]);
+    };
+    
 
     const hiddenFileInput = useRef<HTMLInputElement>(null);
 
@@ -86,3 +107,86 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
 }
 
 export default ConfigurationModal;
+
+type SpotifyUser = {
+    external_urls: {
+        spotify: string;
+    };
+    href: string;
+    id: string;
+    type: string;
+    uri: string;
+};
+
+type SpotifyVideoThumbnail = {
+    url: string | null;
+};
+
+type SpotifyExternalUrls = {
+    spotify: string;
+};
+
+type SpotifyImage = {
+    height: number | null;
+    url: string;
+    width: number | null;
+};
+
+type SpotifyArtist = {
+    external_urls: SpotifyExternalUrls;
+    href: string;
+    id: string;
+    name: string;
+    type: string;
+    uri: string;
+};
+
+type SpotifyAlbum = {
+    album_type: string;
+    artists: SpotifyArtist[];
+    available_markets: string[];
+    external_urls: SpotifyExternalUrls;
+    href: string;
+    id: string;
+    images: SpotifyImage[];
+    name: string;
+    release_date: string;
+    release_date_precision: string;
+    total_tracks: number;
+    type: string;
+    uri: string;
+};
+
+type SpotifyTrack = {
+    album: SpotifyAlbum;
+    artists: SpotifyArtist[];
+    available_markets: string[];
+    disc_number: number;
+    duration_ms: number;
+    explicit: boolean;
+    external_ids?: { [key: string]: string };
+    external_urls: SpotifyExternalUrls;
+    href: string;
+    id: string;
+    is_local: boolean;
+    name: string;
+    popularity?: number;
+    preview_url: string | null;
+    track_number: number;
+    type: string;
+    uri: string;
+};
+
+type SpotifyTrackData = {
+    added_at: string;
+    added_by: SpotifyUser;
+    is_local: boolean;
+    primary_color: string | null;
+    track: SpotifyTrack;
+    video_thumbnail: SpotifyVideoThumbnail;
+    points: number;
+    clue?: string;
+    played?: boolean;
+    youtubeLink?: string;
+    youtubePlay?: boolean;
+};
