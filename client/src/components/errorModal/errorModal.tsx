@@ -3,16 +3,21 @@ import './errorModal.scss';
 import { useTranslation } from 'react-i18next';
 import { useContext } from 'react';
 import { AppContext } from '../../App';
+import { useNavigate } from 'react-router-dom';
 
 
 function ErrorModal() {
     Modal.setAppElement('#root');
     const [t] = useTranslation();
+
+    const navigate = useNavigate();
+    
     const {error, setError} = useContext(AppContext);
 
     const handleReload = () => {
         setError("");
-        location.reload();
+        navigate("/");
+        navigate(0);
     }
 
 

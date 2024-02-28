@@ -35,7 +35,10 @@ const Player = ({ uri }: PlayerProps) => {
                 play={songPlaying}
                 callback={state => {
                     // if (!state.isPlaying) setSongPlaying(false);
-                    if (state.status === "ERROR") setError(state.error);
+                    if (state.status === "ERROR") {
+                        Cookies.remove("accessToken");
+                        setError(state.error);
+                    }
                     if (state.status === "READY") setPlayerLoaded(true);
                     else setPlayerLoaded(false);
                 }}

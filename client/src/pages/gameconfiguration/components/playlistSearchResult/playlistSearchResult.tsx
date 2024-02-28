@@ -49,9 +49,11 @@ const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
                 setLoading(false);
             })
             .catch((err) => {
+                Cookies.remove("accessToken");
                 console.error(err);
                 setLoading(false);
                 setError(err.message);
+
             })
         return () => { cancel = true };
     }

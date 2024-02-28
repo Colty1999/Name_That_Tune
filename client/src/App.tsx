@@ -11,8 +11,6 @@ import GameConfiguration from './pages/gameconfiguration/gameConfiguration';
 import useAuth from './hooks/useAuth';
 import DemoGameMaster from './pages/demogamemaster/demoGameMaster';
 import SpotifyGameMaster from './pages/spotifygamemaster/spotifyGameMaster';
-import Player from './components/player/player';
-import { useStorageState } from './hooks/useStorageState';
 import SpotifyGame from './pages/spotifygame/spotifyGame';
 import Instruction from './pages/insctruction/instruction';
 import ErrorModal from './components/errorModal/errorModal';

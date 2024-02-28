@@ -32,7 +32,7 @@
     "react-i18next": "^13.4.0",
     "react-modal": "^3.16.1",
     "react-router": "^6.18.0",
-    "react-router-dom": "^6.18.0",
+    "react-router-dom": "^6.22.2",
     "react-select": "^5.8.0",
     "react-spotify-web-playback": "^0.14.2",
     "react-world-flags": "^1.6.0",
@@ -53,6 +53,6 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.5.2"
   }
 }

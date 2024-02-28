@@ -62,6 +62,7 @@ const GameConfiguration = () => {
                 );
             })
             .catch((err) => {
+                Cookies.remove("accessToken");
                 console.error(err);
                 setError(err.message);
                 // setLoading(false);
