@@ -1,6 +1,6 @@
 .instructionContainer {
-    width: 80%;
-    padding: 2rem;
+    width: 70%;
+    padding: 2rem 2rem 1rem 2rem;
     overflow-y: auto;
 
     .instructionTitle {
@@ -79,6 +79,17 @@
                 // }
             }
         }
+    }
 
+    .footer{
+        position: static;
+        transform: none;
+        width: 100%;
+        max-width: none;
+        padding-top: 2rem;
+        // align-items: center;
+        // justify-items: center;
+        // align-content: center;
+        // justify-content: center;
     }
 }

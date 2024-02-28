@@ -6,7 +6,144 @@
     "instruction": "Instruction"
   },
   "instruction": {
-
+    "title": "Setup instruction",
+    "introduction": {
+      "title": "Introduction",
+      "content": {
+        "header": "Name that tune is a game based on a populat TV show.",
+        "description": "The participants compete againt each other by guessing the title of a song as fast as possible.",
+        "requirements": {
+          "title": "Requirements",
+          "account": "Spotify account",
+          "gamemaster": "1 Game master",
+          "players": "2 or more players"
+        }
+      }
+    },
+    "login": {
+      "title": "Login",
+      "content": "use this button to login to your Spotify account."
+    },
+    "gameconfiguration": {
+      "title": "Game configuration",
+      "content": {
+        "header": "Game configuration allows you to configure your game by selecting playlists and editing song properties.",
+        "properties": {
+          "title": "Song properties:",
+          "clue": {
+            "1": "Clue",
+            "2": " - defines what clue will be presented to players."
+          },
+          "points": {
+            "1": "Points",
+            "2": " - point value of selected song ",
+            "3": "(default 100 points)",
+            "4": "Note: When song is playing the value increases by 10 every 1 second.",
+            "5": "max 400 points"
+          },
+          "youtube": {
+            "1": "Youtube",
+            "2": " - add youtube link to song. Allows to display the video in game client.",
+            "3": "(Created with the idea of playing Just Dance videos but will play anything)."
+          }
+        },
+        "loadplaylist": {
+          "title": "Load game from playlist:",
+          "step1": "Search playlists and select the one you want to play.",
+          "step2": {
+            "1": "(OPTIONAL)",
+            "2": " Add clues, points and youtube links to songs.",
+            "3": "(Note: If clue is not defined song author name will be use as one)."
+          },
+          "step3": "Start the game"
+        },
+        "loadfile": {
+          "title": "Load game from file:",
+          "step1": "Click settings button to open settings modal.",
+          "step2": "Click upload button to upload a previous game configuration from file.",
+          "step3": {
+            "1": "(OPTIONAL)",
+            "2": " Add clues, points and youtube links to songs.",
+            "3": "(Note: If clue is not defined song author name will be use as one)."
+          },
+          "step4": "Start the game"
+        },
+        "savefile": {
+          "title": "Save game to file:",
+          "step1": "Search playlists and select the one you want to play.",
+          "step2": {
+            "1": "(OPTIONAL)",
+            "2": " Add clues, points and youtube links to songs.",
+            "3": "(Note: If clue is not defined song author name will be use as one)."
+          },
+          "step3": "Click settings button to open settings modal.",
+          "step4": "Click download button to download current game configuration file."
+        }
+      }
+    },
+    "gamemaster": {
+      "title": "Game master",
+      "content": {
+        "header": "Master panel is a cockpit for game master to lead the game.",
+        "steps": {
+          "set": {
+            "name": "Previous Set, Next Set",
+            "description": " - buttons to change the array of currently displayed songs.",
+            "note": "(Note: Songs from playlist are divided into sets of 5 songs)."
+          },
+          "points": {
+            "name": "Points",
+            "description": " - displays current point pool.</"
+          },
+          "teampanel": {
+            "title": "Team panel:",
+            "name": {
+              "name": "Team name",
+              "description": " - name of the team, click to change."
+            },
+            "points": {
+              "name": "Team points",
+              "description": " - team points, click to add the current point pool to the team."
+            },
+            "increment": {
+              "description": " - change team points in increment of 10."
+            }
+          },
+          "songpanel": {
+            "title": "Songs panel:",
+            "video": {
+              "description": " - open/close youtube video in game window.",
+              "note": "(Note: Disabled if no Youtube link was provided)."
+            },
+            "data": {
+              "name": "Song data",
+              "description": " - Data about the song."
+            },
+            "play": {
+              "description": " - play/pause the song."
+            },
+            "enable": {
+              "description": " - enable/disable the song (for example if no team guessed the song name)."
+            }
+          },
+          "reset": {
+            "name": "Reset points",
+            "description": " - reset points for all teams."
+          },
+          "gamewindow": {
+            "name": "Open new game window",
+            "description": " - open game client for game participants."
+          }
+        }
+      }
+    },
+    "client": {
+      "title": "Game client for participants.",
+      "content": {
+        "1": "Main game window for alle the players in teams to look at. Reflects data set in Game Configuration and Game Master.",
+        "2": "Shows youtube video for a song when the proper button is clicked in the Master Panel."
+      }
+    }
   },
   "game": {
     "modal": {
@@ -17,7 +154,7 @@
     "masterpanel": "Master Panel",
     "nextset": "Next Set",
     "prevset": "Previous Set",
-    "resetpoints": "Reset Points",
+    "restepoints": "Reset Points",
     "opennewgamewindow": "Open New Game Window"
   },
   "config": {
@@ -35,9 +172,9 @@
       "close": "Close settings"
     },
     "trackresults": {
-        "clue": "Clue:",
-        "points": "Points:",
-        "youtubelink": "Youtube:"
+      "clue": "Clue:",
+      "points": "Points:",
+      "youtubelink": "Youtube:"
     }
   },
   "spotifylogin": {

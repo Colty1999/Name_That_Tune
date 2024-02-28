@@ -19,10 +19,10 @@ function YoutubeModal({ show, handleClose, id }: ConfigurationModalProps) {
         player.pauseVideo();
     };
 
-    const onPlayerStateChange = (event: YouTubeEvent<number>) => {
-        const player = event.target;
-        player.playVideo();
-    };
+    // const onPlayerStateChange = (event: YouTubeEvent<number>) => {
+    //     const player = event.target;
+    //     player.playVideo();
+    // };
 
     const options = {
         height: "100%",

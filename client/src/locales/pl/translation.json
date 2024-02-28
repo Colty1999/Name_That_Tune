@@ -6,7 +6,144 @@
     "instruction": "Instrukcja"
   },
   "instruction": {
-
+    "title": "Instrukcja",
+    "introduction": {
+      "title": "Wprowadzenie",
+      "content": {
+        "header": "Jaka to melodia to gra oparta na popularnym programie telewizyjnym.",
+        "description": "Uczestnicy rywalizują ze sobą, próbując odgadnąć tytuł piosenki przed pozostałymi.",
+        "requirements": {
+          "title": "Wymagania",
+          "account": "Konto Spotify",
+          "gamemaster": "1 mistrz gry",
+          "players": "2 lub więcej graczy"
+        }
+      }
+    },
+    "login": {
+      "title": "Zaloguj się",
+      "content": "użyj tego przycisku, aby zalogować się na swoje konto Spotify."
+    },
+    "gameconfiguration": {
+      "title": "Konfiguracja gry",
+      "content": {
+        "header": "Konfiguracja gry pozwala na dostosowanie gry poprzez wybór playlisty i edycję właściwości piosenek.",
+        "properties": {
+          "title": "Właściwości piosenki:",
+          "clue": {
+            "1": "Wskazówka",
+            "2": " - definiuje, jaką wskazówkę otrzymają gracze."
+          },
+          "points": {
+            "1": "Punkty",
+            "2": " - wartość punktowa wybranej piosenki",
+            "3": "(domyślnie 100 punktów)",
+            "4": "Uwaga: W trakcie odtwarzania piosenki wartość ta zwiększa się o 10 punktów co 1 sekundę.",
+            "5": "maksymalnie 400 punktów"
+          },
+          "youtube": {
+            "1": "YouTube",
+            "2": " - dodaj link do piosenki na YouTube. Pozwala to na wyświetlanie wideo w grze.",
+            "3": "(Stworzone z myślą o odtwarzaniu filmów Just Dance, ale odtworzy cokolwiek)."
+          }
+        },
+        "loadplaylist": {
+          "title": "Załaduj grę z playlisty:",
+          "step1": "Przeszukaj playlisty i wybierz tę, którą chcesz odtworzyć.",
+          "step2": {
+            "1": "(OPCJONALNIE)",
+            "2": "Dodaj wskazówki, punkty i linki YouTube do piosenek.",
+            "3": "(Uwaga: Jeśli wskazówka nie jest zdefiniowana, jako wskazówka będzie używana nazwa autora piosenki)."
+          },
+          "step3": "Uruchom grę"
+        },
+        "loadfile": {
+          "title": "Załaduj grę z pliku:",
+          "step1": "Kliknij przycisk ustawień, aby otworzyć okno ustawień.",
+          "step2": "Kliknij przycisk przesyłania, aby przesłać wcześniejszą konfigurację gry z pliku.",
+          "step3": {
+            "1": "(OPCJONALNIE)",
+            "2": "Dodaj wskazówki, punkty i linki YouTube do piosenek.",
+            "3": "(Uwaga: Jeśli wskazówka nie jest zdefiniowana, jako wskazówka będzie używana nazwa autora piosenki)."
+          },
+          "step4": "Uruchom grę"
+        },
+        "savefile": {
+          "title": "Zapisz grę do pliku:",
+          "step1": "Wyszukaj playlisty i wybierz tę, którą chcesz odtworzyć.",
+          "step2": {
+            "1": "(OPCJONALNIE)",
+            "2": "Dodaj wskazówki, punkty i linki YouTube do piosenek.",
+            "3": "(Uwaga: Jeśli wskazówka nie jest zdefiniowana, jako wskazówka będzie używana nazwa autora piosenki)."
+          },
+          "step3": "Kliknij przycisk ustawień, aby otworzyć okno ustawień.",
+          "step4": "Kliknij przycisk pobierania, aby pobrać plik z bieżącą konfiguracją gry."
+        }
+      }
+    },
+    "gamemaster": {
+      "title": "Panem mistrza gry",
+      "content": {
+        "header": "Panel mistrza gry to kokpit dla mistrza gry, aby prowadzić grę.",
+        "steps": {
+          "set": {
+            "name": "Poprzedni set, Następny set",
+            "description": " - przyciski do zmiany tablicy obecnie wyświetlanych piosenek.",
+            "note": "(Uwaga: Piosenki z playlisty są podzielone na zestawy po 5 piosenek)."
+          },
+          "points": {
+            "name": "Punkty",
+            "description": " - wyświetla bieżącą pulę punktów."
+          },
+          "teampanel": {
+            "title": "Panel zespołu:",
+            "name": {
+              "name": "Nazwa zespołu",
+              "description": " - nazwa zespołu, kliknij, aby zmienić."
+            },
+            "points": {
+              "name": "Punkty zespołu",
+              "description": " - punkty zespołu, kliknij, aby dodać bieżącą pulę punktów do zespołu."
+            },
+            "increment": {
+              "description": " - ziększ/zmniejsz wynik zespołu o 10 punktów."
+            }
+          },
+          "songpanel": {
+            "title": "Panel piosenek:",
+            "video": {
+              "description": " - otwórz/zamknij wideo z YouTube w oknie gry.",
+              "note": "(Uwaga: Wyłączone, jeśli nie podano linku do YouTube)."
+            },
+            "data": {
+              "name": "Dane piosenki",
+              "description": " - Dane o piosence."
+            },
+            "play": {
+              "description": " - uruchom/zatrzymaj odtwarzanie piosenki."
+            },
+            "enable": {
+              "description": " - włącz/wyłącz piosenkę (na przykład, jeśli żaden zespół nie odgadnie nazwy piosenki)."
+            }
+          },
+          "reset": {
+            "name": "Resetuj punkty",
+            "description": " - resetuje punkty dla wszystkich zespołów."
+          },
+          "gamewindow": {
+            "name": "Otwórz nowe okno gry",
+            "description": " - otwiera klienta gry dla uczestników."
+          }
+        }
+      }
+    },
+    "client": {
+      "title": "Klient gry dla uczestników.",
+      "content": {
+        "1": "Główne okno gry dla wszystkich graczy w zespołach. Odzwierciedla dane ustawione w Konfiguracji i Panelu Mistrza gry.",
+        "2": "Pokazuje wideo z YouTube po kliknięciu odpowiedniego przycisku w Panelu Mistrza."
+      }
+    }
   },
   "game": {
     "modal": {
@@ -35,9 +172,9 @@
       "close": "Zamknij"
     },
     "trackresults": {
-        "clue": "Podpowiedź:",
-        "points": "Punkty:",
-        "youtubelink": "Youtube:"
+      "clue": "Podpowiedź:",
+      "points": "Punkty:",
+      "youtubelink": "Youtube:"
     }
   },
   "spotifylogin": {
