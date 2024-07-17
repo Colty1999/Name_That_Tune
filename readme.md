@@ -8,7 +8,8 @@ Game based on a popular TV music game show
 
 
 ## Demo
-[https://namethattuneapp.netlify.app/](https://namethattuneapp.netlify.app/)
+- [https://namethattuneapp.netlify.app/](https://namethattuneapp.netlify.app/) 
+- (Note that full aplications works only for approved users as my Spotify API is not made public so if you want to get access email me).
 
 
 ## Features
