@@ -1,4 +1,4 @@
-import { faPlay, faPause, faBan, faRotateLeft, faVideo, faVideoSlash } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPause, faBan, faRotateLeft, faVideo, faVideoSlash, faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StateType, Track } from "../../../assets/common";
 import { useTranslation } from "react-i18next";
@@ -13,13 +13,14 @@ interface SongButtonProps {
     pausePlaying: (track: Track) => void;
     setPoints: (track: Track | null, teamPoints: StateType | null, count: StateType) => void;
     resetTrack: (track: Track) => void;
+    setShowName: (track: Track) => void;
     setYoutubePlay: (id: number) => void;
     tableId: number;
     songId: number;
 }
 
 const SongButton = (props: SongButtonProps) => {
-    const { track, category, count, startPlaying, pausePlaying, setPoints, resetTrack, setYoutubePlay, tableId, songId } = props;
+    const { track, category, count, startPlaying, pausePlaying, setPoints, resetTrack, setShowName, setYoutubePlay, tableId, songId } = props;
     const [t] = useTranslation();
     const { songPlaying, playerLoaded } = useContext(AppContext);
     const smallestImage = track.track.album.images.reduce((smallest: any, image: any) => {
@@ -30,20 +31,31 @@ const SongButton = (props: SongButtonProps) => {
 
     return (
         <div key={track.track.id} className="horizontalpanel">
-                        {track.youtubeLink ?
+            {/* {!track.showName ?
                 <button
                     className={`song songbutton`}
-                    onClick={() => setYoutubePlay(tableId * 5 + songId)}
+                    onClick={() => setShowName(track)}
+                    disabled={!playerLoaded}
                 >
-                    <FontAwesomeIcon icon={track.youtubePlay ? faVideoSlash : faVideo} />
+                    <FontAwesomeIcon icon={faEye} />
                 </button>
                 :
                 <button
-                className={`song songbutton`}
-                disabled
-            >
-                <FontAwesomeIcon icon={faVideo} />
-            </button>
+                    className={`song songbutton`}
+                    onClick={() => setShowName(track)}
+                    disabled={!playerLoaded}
+                >
+                    <FontAwesomeIcon icon={faEyeSlash} />
+                </button>
+            } */}
+            {track.youtubeLink &&
+                <button
+                    className={`song songbutton`}
+                    onClick={() => setYoutubePlay(tableId * 5 + songId)}
+                    disabled={!playerLoaded}
+                >
+                    <FontAwesomeIcon icon={track.youtubePlay ? faVideoSlash : faVideo} />
+                </button>
             }
             <div className={`${category.store === track.track.name ? "active" : ""} ${track.played === true ? "playedsong" : ""} song`} style={{ width: "100%" }}>
                 <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
@@ -73,6 +85,7 @@ const SongButton = (props: SongButtonProps) => {
                 <button
                     className={`song songbutton`}
                     onClick={() => setPoints(track, null, count)}
+                    disabled={!playerLoaded}
                 >
                     <FontAwesomeIcon icon={faBan} />
                 </button>
@@ -80,6 +93,7 @@ const SongButton = (props: SongButtonProps) => {
                 <button
                     className={`song songbutton`}
                     onClick={() => resetTrack(track)}
+                    disabled={!playerLoaded}
                 >
                     <FontAwesomeIcon icon={faRotateLeft} />
                 </button>

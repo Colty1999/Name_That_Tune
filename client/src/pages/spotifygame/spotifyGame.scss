@@ -90,10 +90,22 @@
             filter: drop-shadow(0 0 2em var(--dropShadowColor));
         }
         .playedsong {
+            // opacity: 0.5;
+            // color: var(--textInactiveColor);
             opacity: 0.5;
-            color: var(--textInactiveColor);
+            color: var(--secondaryColor);
             background-color: var(--buttonInactiveColor);
             filter: none;
         }
     }
+    .fade-out {
+        transition: none;
+        opacity: 0;
+    }
+    
+    .fade-in {
+        transition: opacity 0.2s ease;
+        opacity: 1;
+    }
 }
+

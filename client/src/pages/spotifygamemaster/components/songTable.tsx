@@ -9,17 +9,19 @@ export interface SongTableProps {
     pausePlaying: (track: Track) => void;
     setPoints: (track: Track | null, teamPoints: StateType | null, count: StateType) => void;
     resetTrack: (track: Track) => void;
+    setShowName: (track: Track) => void;
     setYoutubePlay: (id: number) => void;
     tableId: number;
 }
 
 const SongTable = (props: SongTableProps) => {
-    const { tracks, category, count, startPlaying, pausePlaying, setPoints, resetTrack, setYoutubePlay, tableId} = props;
+    const { tracks, category, count, startPlaying, pausePlaying, setPoints, resetTrack, setShowName, setYoutubePlay, tableId} = props;
 
     return (
         <div className="songtable">
             {tracks.map((track: Track, id: number) => (
                 <SongButton
+                    key={id}
                     track={track}
                     category={category}
                     count={count}
@@ -27,7 +29,7 @@ const SongTable = (props: SongTableProps) => {
                     pausePlaying={pausePlaying}
                     setPoints={setPoints}
                     resetTrack={resetTrack}
-                    key={id}
+                    setShowName={setShowName}
                     setYoutubePlay={setYoutubePlay}
                     tableId={tableId}
                     songId={id}

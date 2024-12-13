@@ -39,6 +39,7 @@ export interface Track {
   played?: boolean;
   youtubeLink?: string;
   youtubePlay?: boolean;
+  showName?: boolean;
 }
 
 export interface StateType {

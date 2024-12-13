@@ -145,7 +145,7 @@ const SpotifyGameMaster = () => {
 
     //adds points to team and resets count
     const setPoints = (track: Track | null, team: StateType | null, count: StateType) => {
-        if (track) track.played = true;
+        if (track) {track.played = true; track.showName = true;}
         if (compiledTracks) tracks.setStorageState(JSON.stringify(compiledTracks.reduce((accumulator, currentArray) => {
             return accumulator.concat(currentArray);
         }, [])
@@ -158,13 +158,21 @@ const SpotifyGameMaster = () => {
 
     //resets disabled song
     const resetTrack = (track: Track) => {
-        track.played = false;
+        if (track) {track.played = false; track.showName = false;}
         // count.setStorageState(JSON.stringify(track.points));
         if (compiledTracks) tracks.setStorageState(JSON.stringify(compiledTracks.reduce((accumulator, currentArray) => {
             return accumulator.concat(currentArray);
         }, [])
         ))
     };
+
+    const setShowName = (track: Track) => {
+        track.showName = !track.showName
+        if (compiledTracks) tracks.setStorageState(JSON.stringify(compiledTracks.reduce((accumulator, currentArray) => {
+            return accumulator.concat(currentArray);
+        }, [])
+        ))
+    }
 
     //-----------------
 
@@ -195,6 +203,7 @@ const SpotifyGameMaster = () => {
                         pausePlaying={pausePlaying}
                         setPoints={setPoints}
                         resetTrack={resetTrack}
+                        setShowName={setShowName}
                         setYoutubePlay={setYoutubePlay}
                         tableId={key}
                     />
