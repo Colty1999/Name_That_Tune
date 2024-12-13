@@ -32,6 +32,7 @@ const TopPanel = (props: TopPanelProps) => {
                     >
                         {t("gamemaster.nextset")} <FontAwesomeIcon icon={faSquareCaretRight} />
                     </button>
+                    {pageStorage.store && <div style={{display: "flex", alignItems: "center", marginLeft: "1rem"}}>Set {Number(pageStorage.store) + 1}/{tracks.length}</div>}
                 </div>
             </div>
             <div style={{ margin: "auto 0 0 0" }}>
