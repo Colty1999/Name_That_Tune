@@ -42,7 +42,7 @@ const GameConfiguration = () => {
         spotifyApi.searchPlaylists(search) //, { limit: 50, offset: 1 }
             .then((res) => {
                 if (cancel) return;
-                setSearchResults(res.body.playlists!.items.map((playlist: any) => {
+                setSearchResults(res.body.playlists!.items.filter((playlist) => playlist !== null).map((playlist: any) => {
 
                     const smallestImage = playlist.images.reduce((smallest: any, image: any) => {
                         if (image.height < smallest.height) return image;
