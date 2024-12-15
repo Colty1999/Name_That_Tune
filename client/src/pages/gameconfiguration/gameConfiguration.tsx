@@ -13,6 +13,7 @@ import Cookies from "js-cookie";
 import ConfigurationModal from "./components/configurationModal/configurationModal";
 import { useTranslation } from "react-i18next";
 import { AppContext } from "../../App";
+import { Track } from "../../assets/common";
 
 
 const GameConfiguration = () => {
@@ -32,6 +33,16 @@ const GameConfiguration = () => {
     const spotifyApi = new SpotifyWebApi({
         clientId: "226da25afbe64537a2574c7155cbc643",
     });
+
+    useEffect(() => {
+        if (tracks.store) {
+            let currentTracks = JSON.parse(tracks.store)
+            currentTracks.forEach((track: Track) => {
+                track.showName = false
+            })
+            tracks.setStorageState(JSON.stringify(currentTracks));
+        }
+    }, [tracks])  // Reset showName to false when tracks are loaded
 
     useEffect(() => {
         if (!search) return setSearchResults([]);
