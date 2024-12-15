@@ -1,15 +1,16 @@
 .gamestyle {
     padding: 2rem;
+    transition: all 0.2s ease-in-out;
 
     .logo {
         height: 5rem;
-        // padding: 1.5em;
         will-change: filter;
         transition: filter 300ms;
         filter: drop-shadow(0 0 2em var(--dropShadowColor));
     }
 
     .teampoints {
+        position: relative;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -17,16 +18,44 @@
         padding: 0 3rem 0 3rem;
         margin: 0.5rem;
         border: 1px solid transparent;
-        background-color: #1a1a1a;
+        background-color: var(--primaryColor);
         border-radius: 1rem;
         transition: all 0.2s ease-in-out;
         min-width: 15rem;
-        // &:hover {
-        //     background-color: #eee;
-        // }
+
+        .progressbar {
+            border: 1px solid transparent;
+            border-radius: 1rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: var(--secondaryColor);
+            transition: all 2s linear;
+            filter: drop-shadow(0 0 2em var(--dropShadowColor));
+        }
+
+        .pointsdisplay {
+            z-index: 1;
+            mix-blend-mode: difference;
+        }
+
     }
 
-    transition: all 0.2s ease-in-out;
+    @keyframes flash {
+        0% {
+            background-color: white;
+            filter: drop-shadow(0 0 2em var(--dropShadowColor));
+        }
+
+        100% {
+            background-color: transparent;
+        }
+    }
+
+    .flash {
+        animation: flash 0.5s ease-in-out;
+    }
 
     .visible {
         visibility: visible;
@@ -47,7 +76,7 @@
         align-items: center;
         justify-content: space-between;
         gap: 5rem;
-    
+
         .teampoints {
             display: flex;
             flex-direction: row;
@@ -64,11 +93,13 @@
     }
 
     .songpickerstyle {
+
         // max-width: 1280px;
         // margin: auto;
         h3 {
             font-size: 1.8rem;
         }
+
         .song {
             display: flex;
             flex-direction: row;
@@ -84,11 +115,13 @@
             //     background-color: #eee;
             // }
         }
+
         .active {
             background-color: var(--secondaryColor);
             color: var(--primaryTextColor);
             filter: drop-shadow(0 0 2em var(--dropShadowColor));
         }
+
         .playedsong {
             // opacity: 0.5;
             // color: var(--textInactiveColor);
@@ -97,15 +130,15 @@
             background-color: var(--buttonInactiveColor);
             filter: none;
         }
-    }
-    .fade-out {
-        transition: none;
-        opacity: 0;
-    }
-    
-    .fade-in {
-        transition: opacity 0.2s ease;
-        opacity: 1;
+
+        .fade-out {
+            transition: none;
+            opacity: 0;
+        }
+
+        .fade-in {
+            transition: opacity 0.2s ease;
+            opacity: 1;
+        }
     }
 }
-

@@ -63,17 +63,20 @@ const SongPicker = (props: SongPickerProps) => {
         <div className="songpickerstyle">
             {tracks.map((track: Track) => {
                 const trackId = track.track.id;
+                const smallestImage = track.track.album.images.reduce((smallest: any, image: any) => {
+                    if (image.height < smallest.height) return image;
+                    return smallest;
+                }, track.track.album.images[0]);
                 return (
                     <div
-                        style={{ transition: "all 0.2s" }}
                         className={`${category.store === track.track.name ? "active" : ""} ${track.played ? "playedsong" : ""} song`}
                         key={trackId}
                     >
-                        <h3 className={fadingTracks[trackId] ? "fade-out" : "fade-in"}>{visibleTexts[trackId]}</h3>
-                        <h3>
-                            {track.points}
-                            {t("pt")}
-                        </h3>
+                        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+                            <img className={track.showName ? "fade-in" : "fade-out"} style={{ transition: "all 0.5s ease-in-out" }} src={smallestImage.url} alt="album cover" width="40rem" height="40rem" />
+                            <h3 className={fadingTracks[trackId] ? "fade-out" : "fade-in"}>{visibleTexts[trackId]}</h3>
+                        </div>
+                        <h3>{track.points}{t("pt")}</h3>
                         {track.youtubeLink && track.youtubePlay && (
                             <YoutubeModal
                                 show={true}

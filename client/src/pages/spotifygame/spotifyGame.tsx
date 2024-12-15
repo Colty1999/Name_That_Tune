@@ -24,15 +24,15 @@ const SpotifyGame = () => {
 
     useEffect(() => {
         if (!tracks.store) return;
-    
+
         const chunkSize = 5;
         const tracksFromJSON = JSON.parse(tracks.store);
         const splitArrays = [];
-    
+
         for (let i = 0; i < tracksFromJSON.length; i += chunkSize) {
             splitArrays.push(tracksFromJSON.slice(i, i + chunkSize));
         }
-    
+
         // Only update the state if splitArrays is different from the current state
         if (JSON.stringify(splitArrays) !== JSON.stringify(compiledTracks)) {
             setCompiledTracks(splitArrays);
@@ -47,7 +47,14 @@ const SpotifyGame = () => {
                 <div>
                     <h2>{t("points")}</h2>
                     <div className="teampoints">
-                        <h3>{count.store}{t("pt")}</h3>
+                        <div
+                            className='progressbar'
+                            style={{
+                                width: `${Math.min(Math.max(((Number(count.store) - 100) / 300) * 100, 0), 100)}%`,
+                                opacity: `${Number(count.store) <= 100 ? 0 : 1}`,
+                            }}
+                        />
+                        <h3 className="pointsdisplay">{count.store}{t("pt")}</h3>
                     </div>
                 </div>
             </div>
@@ -57,7 +64,7 @@ const SpotifyGame = () => {
             <div style={{ paddingBottom: "5rem", minHeight: "25rem" }}>
                 {compiledTracks.map((tracks: Track[], key: number) => (
                     <div key={key} className={`${key === currentPage ? 'visible' : 'hidden'}`}>
-                        <SongPicker tracks={tracks} category={category}/>
+                        <SongPicker tracks={tracks} category={category} />
                     </div>
                 ))}
             </div>

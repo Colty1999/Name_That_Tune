@@ -42,37 +42,6 @@ const SpotifyGameMaster = () => {
     //-----------------
 
     useEffect(() => {
-        pageStorage.setStorageState("0");
-        category.setStorageState("");
-        count.setStorageState("0");
-        if (!team1.store) team1.setStorageState(JSON.stringify({ name: "Team1", points: 0 }));
-        else team1.setStorageState(JSON.stringify({ name: JSON.parse(team1.store!).name, points: JSON.parse(team1.store!).points }));
-        if (!team2.store) team2.setStorageState(JSON.stringify({ name: "Team2", points: 0 }));
-        else team2.setStorageState(JSON.stringify({ name: JSON.parse(team2.store!).name, points: JSON.parse(team2.store!).points }));
-        if (!team3.store) team3.setStorageState(JSON.stringify({ name: "Team3", points: 0 }));
-        else team3.setStorageState(JSON.stringify({ name: JSON.parse(team3.store!).name, points: JSON.parse(team3.store!).points }));
-        // team1.setStorageState(JSON.stringify({ name: "Team1", points: 0 }));
-        // team2.setStorageState(JSON.stringify({ name: "Team2", points: 0 }));
-        // team3.setStorageState(JSON.stringify({ name: "Team3", points: 0 }));
-        if (tracks.store) {
-            const trackRevival = JSON.parse(tracks.store!);
-            trackRevival.forEach((track: Track) => {
-                track.played = false;
-                track.youtubePlay = false;
-            });
-            tracks.setStorageState(JSON.stringify(trackRevival));
-        }
-        return () => {
-            category.setStorageState("");
-            // team1.setStorageState(JSON.stringify({ name: "Team1", points: 0 }));
-            // team2.setStorageState(JSON.stringify({ name: "Team2", points: 0 }));
-            // team3.setStorageState(JSON.stringify({ name: "Team3", points: 0 }));
-            count.setStorageState("0");
-        }
-    }, []);
-    //-----------------
-
-    useEffect(() => {
         if (!tracks.store) return;
 
         const chunkSize = 5;

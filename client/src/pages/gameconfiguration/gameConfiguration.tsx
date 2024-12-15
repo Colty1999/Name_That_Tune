@@ -28,21 +28,42 @@ const GameConfiguration = () => {
     const [searchResults, setSearchResults] = useState<any[]>([]);
     const [showModal, setShowModal] = useState(false);
 
-    // let { setLoading } = useContext(AppContext);
+    // -----------------
+
+    let team1 = useStorageState({ state: "team1" });
+    let team2 = useStorageState({ state: "team2" });
+    let team3 = useStorageState({ state: "team3" });
+    let category = useStorageState({ state: "category" }); //compares if the song name matches to determine styling (stupid)
+    let count = useStorageState({ state: "count" });
+
+    //-----------------
+
+    let pageStorage = useStorageState({ state: "currentPage" });
 
     const spotifyApi = new SpotifyWebApi({
         clientId: "226da25afbe64537a2574c7155cbc643",
     });
 
-    useEffect(() => {
+    function configureGameStart() {
+        pageStorage.setStorageState("0");
+        category.setStorageState("");
+        count.setStorageState("0");
+        if (!team1.store) team1.setStorageState(JSON.stringify({ name: "Team1", points: 0 }));
+        else team1.setStorageState(JSON.stringify({ name: JSON.parse(team1.store!).name, points: JSON.parse(team1.store!).points }));
+        if (!team2.store) team2.setStorageState(JSON.stringify({ name: "Team2", points: 0 }));
+        else team2.setStorageState(JSON.stringify({ name: JSON.parse(team2.store!).name, points: JSON.parse(team2.store!).points }));
+        if (!team3.store) team3.setStorageState(JSON.stringify({ name: "Team3", points: 0 }));
+        else team3.setStorageState(JSON.stringify({ name: JSON.parse(team3.store!).name, points: JSON.parse(team3.store!).points }));
         if (tracks.store) {
-            let currentTracks = JSON.parse(tracks.store)
-            currentTracks.forEach((track: Track) => {
-                track.showName = false
-            })
-            tracks.setStorageState(JSON.stringify(currentTracks));
+            const trackRevival = JSON.parse(tracks.store);
+            trackRevival.forEach((track: Track) => {
+                track.played = false;
+                track.youtubePlay = false;
+                track.showName = false;
+            });
+            tracks.setStorageState(JSON.stringify(trackRevival));
         }
-    }, [tracks])  // Reset showName to false when tracks are loaded
+    }
 
     useEffect(() => {
         if (!search) return setSearchResults([]);
@@ -115,7 +136,7 @@ const GameConfiguration = () => {
                 </div>
                 <div className="gameButtonContainer">
                     <button className="" onClick={() => setShowModal(true)}>{t('config.settings')}</button>
-                    <Link to="/spotifygamemaster"><button className="gameSettingsButton">{t('config.start')}</button></Link>
+                    <Link to="/spotifygamemaster" onClick={configureGameStart}><button className="gameSettingsButton">{t('config.start')}</button></Link>
                 </div>
             </div>
             {/* <Player uri={currentSongUri.store ? currentSongUri.store : ""} /> */}
