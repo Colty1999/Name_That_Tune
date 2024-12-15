@@ -1,6 +1,7 @@
 import MainMenu from './pages/mainmenu/mainMenu'
 import Container from 'react-bootstrap/esm/Container';
-import DemoGame from './pages/demogame/demoGame';
+// import DemoGame from './pages/demogame/demoGame';
+// import DemoGameMaster from './pages/demogamemaster/demoGameMaster';
 import NotFound from './pages/notfound/notFound';
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import NotImplemented from './pages/notimplemented/notImplemented';
@@ -9,7 +10,6 @@ import { createContext, useState } from 'react';
 import Loader from './components/loader/loader';
 import GameConfiguration from './pages/gameconfiguration/gameConfiguration';
 import useAuth from './hooks/useAuth';
-import DemoGameMaster from './pages/demogamemaster/demoGameMaster';
 import SpotifyGameMaster from './pages/spotifygamemaster/spotifyGameMaster';
 import SpotifyGame from './pages/spotifygame/spotifyGame';
 import Instruction from './pages/insctruction/instruction';
@@ -44,8 +44,8 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" Component={MainMenu} />
-            <Route path="/demogame" Component={DemoGame} />
-            <Route path="/demogamemaster" Component={DemoGameMaster} />
+            {/* <Route path="/demogame" Component={DemoGame} />
+            <Route path="/demogamemaster" Component={DemoGameMaster} /> */}
             <Route path="/spotifygame" Component={SpotifyGame} />
             <Route path="/spotifygamemaster" Component={SpotifyGameMaster} />
             <Route path="/gameconfiguration" Component={GameConfiguration} />

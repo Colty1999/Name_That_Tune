@@ -169,6 +169,10 @@
       "downloadmsg": " - Download current game configuration with song, clues and points.",
       "upload": "Upload configuration",
       "uploadmsg": " - Upload previous game configuration z pliku.",
+      "resetpoints": "Reset points",
+      "resetpointsmsg": " - Reset points to 100 for all songs.",
+      "resetclues": "Reset clues",
+      "resetcluesmsg": " - Reset clues for all teams.",
       "close": "Close settings"
     },
     "trackresults": {

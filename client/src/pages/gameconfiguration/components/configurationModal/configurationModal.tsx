@@ -4,6 +4,7 @@ import './configurationModal.scss';
 import { useContext, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../../../App';
+import { Track } from '../../../../assets/common';
 
 interface ConfigurationModalProps {
     show: boolean;
@@ -44,10 +45,10 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
             );
         });
     };
-    
-    
-    
-    
+
+
+
+
     const uploadFile = async (e: any) => {
         e.preventDefault();
         const reader = new FileReader();
@@ -68,7 +69,7 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
         };
         reader.readAsText(e.target.files[0]);
     };
-    
+
 
     const hiddenFileInput = useRef<HTMLInputElement>(null);
 
@@ -78,6 +79,26 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
         if (!hiddenFileInput.current) return;
         hiddenFileInput.current.click();
     };
+
+    const resetClues = () => {
+        if (tracks.store) {
+            const trackRevival = JSON.parse(tracks.store);
+            trackRevival.forEach((track: Track) => {
+                track.clue = "";
+            });
+            tracks.setStorageState(JSON.stringify(trackRevival));
+        }
+    }
+
+    const resetPoints = () => {
+        if (tracks.store) {
+            const trackRevival = JSON.parse(tracks.store);
+            trackRevival.forEach((track: Track) => {
+                track.points = 100;
+            });
+            tracks.setStorageState(JSON.stringify(trackRevival));
+        }
+    }
 
     return (
         <Modal
@@ -103,6 +124,10 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
                     ref={hiddenFileInput}
                     style={{ display: 'none' }}
                     onChange={uploadFile} />
+                <button onClick={resetPoints}>{t('config.modal.resetpoints')}</button>
+                <div>{t('config.modal.resetpointsmsg')}</div>
+                <button onClick={resetClues}>{t('config.modal.resetclues')}</button>
+                <div>{t('config.modal.resetcluesmsg')}</div>
             </div>
             <div className="modalFooter">
                 <button onClick={handleClose}>{t('config.modal.close')}</button>

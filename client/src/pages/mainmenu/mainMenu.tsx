@@ -25,13 +25,13 @@ const MainMenu = () => {
                         {t("mainmenu.start")}
                     </button>
                 </Link>
-                <Link to="/demogamemaster">
+                {/* <Link to="/demogamemaster">
                     <button
                         className='button'
                     >
                         {t("mainmenu.demo")}
                     </button>
-                </Link>
+                </Link> */}
                 <Link to="/instruction">
                     <button onClick={() => { }} className='button'>
                         {t("mainmenu.instruction")}

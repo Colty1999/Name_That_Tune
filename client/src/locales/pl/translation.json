@@ -169,6 +169,10 @@
       "downloadmsg": " - Pobierz aktualną konfigurację gry z piosenkami, podpowiedziami i punktami.",
       "upload": "Załaduj konfigurację",
       "uploadmsg": " - Załaduj poprzednią konfigurację gry z pliku.",
+      "resetpoints": "Zresetuj punkty",
+      "resetpointsmsg": " - Zresetuj punkty do 100 dla wszystkich piosenek.",
+      "resetclues": "Zresetuj podpowiedzi",
+      "resetcluesmsg": " - Zresetuj podpowiedzi dla wszystkich zespołów.",
       "close": "Zamknij"
     },
     "trackresults": {
