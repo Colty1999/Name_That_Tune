@@ -1,0 +1,23 @@
+* {
+.spotifyLogin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .button {
+        min-width: 20rem;
+        margin: -1rem;
+        border-color: var(--spotifyColor);
+        background-color: var(--spotifyColor);
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+            color: var(--primaryTextColor);
+            background-color: var(--secondaryColor);
+            border-color: var(--buttonHoverColor);
+            filter: drop-shadow(0 0 1rem var(--buttonHoverColor));
+        }
+    }
+}
+}

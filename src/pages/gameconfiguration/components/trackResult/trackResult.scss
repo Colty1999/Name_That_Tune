@@ -1,0 +1,131 @@
+* {
+.trackResult {
+    .trackElement {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.1rem 1rem;
+
+        background-color: var(--buttonPrimaryColor);
+        // cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        border: solid var(--secondaryColor);
+        border-width: 0 0 0.1rem 0;
+        opacity: 0;
+
+        .trackData {
+            // width: calc(100% - 8rem);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            // justify-items: start;
+            // align-items: end;
+            /* Center vertically */
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+            .trackTitleAndArtist {
+                display: flex;
+                flex-direction: row;
+                justify-content: start;
+                align-items: start;
+                gap: 0.5rem;
+                align-items: center;
+
+                .trackArtist {
+                    font-size: .8rem;
+                }
+            }
+
+
+            .trackForm {
+                width: 100%;
+                // display: flex;
+                // flex-direction: row;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+                align-items: start;
+                justify-content: start;
+                gap: 0.5rem;
+
+                .clueForm,
+                .pointsForm,
+                .youtubeForm {
+                    // justify-self: start;
+                    // width: 100%;
+                    font-size: .8rem;
+                    display: flex;
+                    // align-items: center;
+                    gap: 0.25rem;
+
+                    input {
+                        width: 100%;
+                        margin-left: 0.2rem;
+                        padding: 0.2rem;
+                        border: 0.05rem solid var(--secondaryColor);
+                        border-radius: 0.5rem;
+                        background-color: var(--buttonPrimaryColor);
+                        color: var(--secondaryTextColor);
+                        transition: all 0.2s ease-in-out;
+                        text-align: center;
+
+                        &:focus {
+                            outline: none;
+                            border-color: var(--buttonHoverColor);
+                            filter: drop-shadow(0 0 1rem var(--buttonHoverColor));
+                        }
+                    }
+                    // .pointsForm{
+                    //     justify-self: end;
+                    //     padding: 0 1rem;
+                    // }
+                }
+                
+                .youtubeForm {
+                    grid-column-start: 1;
+                    grid-column-end: 3;
+                }
+            }
+        }
+
+
+
+
+        .playIcon {
+            all: unset;
+            position: absolute;
+            right: 0;
+            margin: 1.25rem;
+            transition: all 0.2s ease-in-out;
+
+            &:disabled {
+                // cursor: not-allowed;
+                opacity: 0.5;
+            }
+            &:not(:disabled):hover {
+                transform: scale(1.1);
+            }
+        }
+
+        h3,
+        h4 {
+            margin: 1rem 0;
+        }
+
+        img {
+            width: 64px;
+            height: 64px;
+        }
+
+    }
+
+    .loaded {
+        opacity: 1;
+    }
+}
+}
