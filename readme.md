@@ -1,15 +1,11 @@
 <p align='center'>
-<img src="./client/public/gameLogo.png" alt="game logo">
+<img src="./public/gameLogo.png" alt="game logo">
 </p>
 
 # Name That Tune
 
 Game based on a popular TV music game show
 
-
-## Demo
-- [https://namethattuneapp.netlify.app/](https://namethattuneapp.netlify.app/) 
-- (Note that full aplications works only for approved users as my Spotify API is not made public so if you want to get access email me).
 
 
 ## Features
@@ -35,6 +31,12 @@ Game based on a popular TV music game show
 
 
 
+
+## Demo
+[ https://colty1999.github.io/name_that_tune_release/](https://colty1999.github.io/name_that_tune_release/)
+
+
 ## Authors
 
 - [@Colty1999](https://github.com/Colty1999)
+
