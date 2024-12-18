@@ -48,6 +48,7 @@ const Player = ({ uri }: PlayerProps) => {
                 // layout='compact'
                 hideAttribution={true}
                 // hideCoverArt={true}
+                name="Name That Tune Game Player" 
             />
         </div>
     );

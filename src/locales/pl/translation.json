@@ -173,6 +173,8 @@
       "resetpointsmsg": " - Zresetuj punkty do 100 dla wszystkich piosenek.",
       "resetclues": "Zresetuj podpowiedzi",
       "resetcluesmsg": " - Zresetuj podpowiedzi dla wszystkich zespołów.",
+      "maxpointsmsg": " - Maksymalna wartość punktów dla piosenki (domyślnie 400).",
+      "pointsincrementmsg": " - Wartość, o którą zwiększa się punkty co sekundę (domyślnie 5).",
       "close": "Zamknij"
     },
     "trackresults": {

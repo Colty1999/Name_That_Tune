@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 
 import MainMenu from './views/mainmenu/mainMenu';
 import Container from 'react-bootstrap/esm/Container';

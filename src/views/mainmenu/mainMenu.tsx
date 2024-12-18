@@ -14,7 +14,7 @@ const MainMenu = () => {
     
 
     return (
-        <div className="mainmenu">
+        <main className="mainmenu">
             <div>
                 <img src={gameLogo} className="logo" alt="logo" />
             </div>
@@ -40,7 +40,7 @@ const MainMenu = () => {
                 </Link>
             </div>
             <Footer />
-        </div>
+        </main>
     );
 };
 

@@ -41,6 +41,9 @@ const SpotifyGameMaster = () => {
     const tracks = useStorageState({ state: "tracks" });
     const [compiledTracks, setCompiledTracks] = useState<Track[][] | null>(null);
 
+    const maxPoints = useStorageState({ state: "maxPoints" });
+    const pointsIncrement = useStorageState({ state: "pointsIncrement" });
+
     //-----------------
 
     useEffect(() => {
@@ -66,10 +69,16 @@ const SpotifyGameMaster = () => {
         if (!tracks.store) return;
         const newTracks = JSON.parse(tracks.store);
         newTracks[id].youtubePlay = !newTracks[id].youtubePlay;
-        console.log(newTracks[id])
         tracks.setStorageState(JSON.stringify(newTracks));
     }; //TODO close all other youtube links
     //-----------------
+
+    useEffect(() => {
+        if (Number(count.store) > Number(maxPoints.store)) {
+            count.setStorageState((Number(maxPoints.store)).toString());
+            forceUpdate();
+        }
+    }, [count.store])
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -78,14 +87,14 @@ const SpotifyGameMaster = () => {
                     break;
                 case (!songPlaying):
                     break;
-                case (Number(count.store) < 400):
-                    count.setStorageState((Number(count.store) + 10).toString());
+                case (Number(count.store) < Number(maxPoints.store)):
+                    count.setStorageState((Number(count.store) + Number(pointsIncrement.store)).toString());
                     forceUpdate();
                     break;
                 default:
                     break;
             }
-        }, 2000); // 1000ms = 1 second
+        }, 1000); // 1000ms = 1 second
         return () => {
             clearInterval(interval); // Clean up the interval when the component unmounts
         };
@@ -116,7 +125,7 @@ const SpotifyGameMaster = () => {
 
     //adds points to team and resets count
     const setPoints = (track: Track | null, team: StateType | null, count: StateType) => {
-        if (track) {track.played = true; track.showName = true;}
+        if (track) { track.played = true; track.showName = true; }
         if (compiledTracks) tracks.setStorageState(JSON.stringify(compiledTracks.reduce((accumulator, currentArray) => {
             return accumulator.concat(currentArray);
         }, [])
@@ -129,7 +138,7 @@ const SpotifyGameMaster = () => {
 
     //resets disabled song
     const resetTrack = (track: Track) => {
-        if (track) {track.played = false; track.showName = false;}
+        if (track) { track.played = false; track.showName = false; }
         // count.setStorageState(JSON.stringify(track.points));
         if (compiledTracks) tracks.setStorageState(JSON.stringify(compiledTracks.reduce((accumulator, currentArray) => {
             return accumulator.concat(currentArray);
@@ -150,43 +159,46 @@ const SpotifyGameMaster = () => {
     if (!accessToken) return <div className="spotifyLoginPrompt"><div style={{ paddingBottom: "1rem" }}>{t('sessionexpired')}</div><SpotifyLogin /></div>;
     if (!compiledTracks) return <Loader />;
     return (
-        <div className="gamemasterstyle" >
-            <TopPanel
-                pageStorage={pageStorage}
-                count={count}
-                tracks={compiledTracks}
-            />
-            <TeamPoints
-                team1={team1}
-                team2={team2}
-                team3={team3}
-                currentTrack={currentTrack!}
-                count={count}
-                setPoints={setPoints}
-            />
-            {compiledTracks.map((tracks: Track[], key: number) => (
-                < div key={key} className={`${key === currentPage ? 'visible' : 'hidden'}`}>
-                    <SongTable
-                        tracks={tracks}
-                        category={category}
-                        count={count}
-                        startPlaying={startPlaying}
-                        pausePlaying={pausePlaying}
-                        setPoints={setPoints}
-                        resetTrack={resetTrack}
-                        setShowName={setShowName}
-                        setYoutubePlay={setYoutubePlay}
-                        tableId={key}
-                    />
-                </div>
-            ))}
-            <BottomPanel
-                team1={team1}
-                team2={team2}
-                team3={team3}
-            />
-            <Player uri={currentSongUri.store ? currentSongUri.store : ""} />
-        </div >
+        <>
+            <div className="gamemasterstyle" >
+                <TopPanel
+                    pageStorage={pageStorage}
+                    count={count}
+                    tracks={compiledTracks}
+                />
+                <TeamPoints
+                    team1={team1}
+                    team2={team2}
+                    team3={team3}
+                    currentTrack={currentTrack!}
+                    count={count}
+                    setPoints={setPoints}
+                />
+                {compiledTracks.map((tracks: Track[], key: number) => (
+                    < div key={key} className={`${key === currentPage ? 'visible' : 'hidden'}`}>
+                        <SongTable
+                            tracks={tracks}
+                            category={category}
+                            count={count}
+                            startPlaying={startPlaying}
+                            pausePlaying={pausePlaying}
+                            setPoints={setPoints}
+                            resetTrack={resetTrack}
+                            setShowName={setShowName}
+                            setYoutubePlay={setYoutubePlay}
+                            tableId={key}
+                        />
+                    </div>
+                ))}
+                <BottomPanel
+                    team1={team1}
+                    team2={team2}
+                    team3={team3}
+                />
+                            <Player uri={currentSongUri.store ? currentSongUri.store : ""} />
+
+            </div >
+        </>
     );
 };
 

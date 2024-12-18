@@ -154,7 +154,7 @@
     "masterpanel": "Master Panel",
     "nextset": "Next Set",
     "prevset": "Previous Set",
-    "restepoints": "Reset Points",
+    "resetpoints": "Reset Points",
     "opennewgamewindow": "Open New Game Window"
   },
   "config": {
@@ -173,6 +173,8 @@
       "resetpointsmsg": " - Reset points to 100 for all songs.",
       "resetclues": "Reset clues",
       "resetcluesmsg": " - Reset clues for all teams.",
+      "maxpointsmsg": " - Max points value for a song (default 400).",
+      "pointsincrementmsg": " - The value by which points increase every second (default 5).",
       "close": "Close settings"
     },
     "trackresults": {

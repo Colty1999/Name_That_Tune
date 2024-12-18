@@ -21,8 +21,19 @@ const SpotifyGame = () => {
     const category = useStorageState({ state: "category" })
     const tracks = useStorageState({ state: "tracks" });
     const pageStorage = useStorageState({ state: "currentPage" });
+    const maxPoints = useStorageState({ state: "maxPoints" });
     const currentPage: number = Number(pageStorage.store ?? 0);
     const [compiledTracks, setCompiledTracks] = useState<Track[][] | null>(null);
+
+    const [currentTrackPoints, setCurrentTrackPoints] = useState<number>(100);
+    useEffect(() => {
+        if (!compiledTracks) return;
+        compiledTracks.forEach((track: Track[]) => {
+            track.forEach((track: Track) => {
+                if (category.store === track.track.name) setCurrentTrackPoints(track.points);
+            });
+        });
+    }, [category.store, compiledTracks, count.store]);
 
     useEffect(() => {
         if (!tracks.store) return;
@@ -41,6 +52,7 @@ const SpotifyGame = () => {
         }
     }, [tracks.store, compiledTracks]); // Add compiledTracks as a dependency
 
+
     if (!accessToken) return <div className="spotifyLoginPrompt"><div style={{ paddingBottom: "1rem" }}>{t('sessionexpired')}</div><SpotifyLogin /></div>;
     if (!compiledTracks) return <Loader />;
     return (
@@ -52,8 +64,8 @@ const SpotifyGame = () => {
                         <div
                             className='progressbar'
                             style={{
-                                width: `${Math.min(Math.max(((Number(count.store) - 100) / 300) * 100, 0), 100)}%`,
-                                opacity: `${Number(count.store) <= 100 ? 0 : 1}`,
+                                width: `${Math.min(Math.max(((Number(count.store) - currentTrackPoints) / (Number(maxPoints.store) - currentTrackPoints)) * 100, 0), 100)}%`,
+                                opacity: `${Number(count.store) <= currentTrackPoints ? 0 : 1}`,
                             }}
                         />
                         <h3 className="pointsdisplay">{count.store}{t("pt")}</h3>

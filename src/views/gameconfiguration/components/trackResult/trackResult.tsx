@@ -28,7 +28,7 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
         else setPoints(100);
         if (newTracks[id].youtubeLink) setYoutubeLink(newTracks[id].youtubeLink);
         else setYoutubeLink("");
-    }, [tracks, id]); // set clue and points on load
+    }, [tracks.store, id]); // set clue and points on load
 
     //-----------------
 

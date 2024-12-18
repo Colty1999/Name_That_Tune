@@ -3,7 +3,7 @@
 import { useStorageState } from '../../../../hooks/useStorageState';
 import Modal from 'react-modal';
 import './configurationModal.scss';
-import { useContext, useRef } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../../../App';
 import { Track } from '../../../../assets/common';
@@ -20,7 +20,11 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
     const { setError } = useContext(AppContext);
 
     const tracks = useStorageState({ state: "tracks" });
-
+    const maxPoints = useStorageState({ state: "maxPoints" });
+    const [maxPointsLocal, setMaxPointsLocal] = useState<number>(maxPoints.store !== null ? Number(maxPoints.store) : 400);
+    const pointsIncrement = useStorageState({ state: "pointsIncrement" });
+    const [pointsIncrementLocal, setPointsIncrementLocal] = useState<number>(pointsIncrement.store !== null ? Number(pointsIncrement.store) : 5);
+    
     const downloadTxtFile = () => {
         const element = document.createElement("a");
         const file = new Blob([tracks.store ? tracks.store : ""], { type: 'text/plain' });
@@ -133,6 +137,22 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
                 <div>{t('config.modal.resetpointsmsg')}</div>
                 <button onClick={resetClues}>{t('config.modal.resetclues')}</button>
                 <div>{t('config.modal.resetcluesmsg')}</div>
+                <div className="clueForm">
+                    <input
+                        type="text"
+                        value={maxPointsLocal}
+                        onChange={(e) => { setMaxPointsLocal(Number(e.target.value)); maxPoints.setStorageState(e.target.value) }}
+                    />
+                </div>
+                <div>{t('config.modal.maxpointsmsg')}</div>
+                <div className="clueForm">
+                    <input
+                        type="text"
+                        value={pointsIncrementLocal}
+                        onChange={(e) => { setPointsIncrementLocal(Number(e.target.value)); pointsIncrement.setStorageState(e.target.value) }}
+                    />
+                </div>
+                <div>{t('config.modal.pointsincrementmsg')}</div>
             </div>
             <div className="modalFooter">
                 <button onClick={handleClose}>{t('config.modal.close')}</button>

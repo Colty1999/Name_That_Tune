@@ -22,10 +22,10 @@ const PointsScreen = () => {
     const [prevPoints3, setPrevPoints3] = useState(JSON.parse(team3.store!).points);
 
     // Check for point changes and trigger flash
+    const minTeamPointsAnimation = 10;
     useEffect(() => {
-        console.log("dzaiala")
         const currentPoints = JSON.parse(team1.store!).points;
-        if (currentPoints - prevPoints1 >= 100) {
+        if (currentPoints - prevPoints1 > minTeamPointsAnimation) {
             setFlashTeam1(true);
             setTimeout(() => setFlashTeam1(false), 1000);
         }
@@ -34,7 +34,7 @@ const PointsScreen = () => {
 
     useEffect(() => {
         const currentPoints = JSON.parse(team2.store!).points;
-        if (currentPoints - prevPoints2 >= 100) {
+        if (currentPoints - prevPoints2 > minTeamPointsAnimation) {
             setFlashTeam2(true);
             setTimeout(() => setFlashTeam2(false), 1000);
         }
@@ -43,7 +43,7 @@ const PointsScreen = () => {
 
     useEffect(() => {
         const currentPoints = JSON.parse(team3.store!).points;
-        if (currentPoints - prevPoints3 >= 100) {
+        if (currentPoints - prevPoints3 > minTeamPointsAnimation) {
             setFlashTeam3(true);
             setTimeout(() => setFlashTeam3(false), 1000);
         }

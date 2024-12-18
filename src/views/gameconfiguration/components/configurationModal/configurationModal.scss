@@ -1,73 +1,102 @@
 * {
-.modalContainer {
-    position: absolute;
-    inset: 30% 20%;
-    // top: 10%;
-    // left: 10%;
-    // right: 10%;
-    // bottom: 10%;
-    height: inherit;
-    // width: 50%;
-    padding: 1rem 1rem 2.5rem 1rem;
-    background-color: var(--primaryColor);
-    color: var(--secondaryTextColor);
-    border-radius: 1.5rem;
-    box-shadow: 0 0 1rem var(--buttonHoverColor);
+    .modalContainer {
+        position: absolute;
+        inset: 20% 10%;
+        // top: 10%;
+        // left: 10%;
+        // right: 10%;
+        // bottom: 10%;
+        height: inherit;
+        // width: 50%;
+        padding: 1rem 1rem 2.5rem 1rem;
+        background-color: var(--primaryColor);
+        color: var(--secondaryTextColor);
+        border-radius: 1.5rem;
+        box-shadow: 0 0 1rem var(--buttonHoverColor);
 
-    .modalHeader{
-        height: 10%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0 0 1rem 0;
-        border-bottom: 0.1rem solid var(--secondaryColor);
-    }
+        .modalHeader {
+            height: 10%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 0 1rem 0;
+            border-bottom: 0.1rem solid var(--secondaryColor);
+        }
 
-    .modalBody {
-        height: 70%;
-        // width: 100%;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr 1fr;
-        // justify-items: center;
-        // justify-content: center;
-        text-align: right;        
-        align-items: center;
-        margin: 0.5rem;
-    }
+        .modalBody {
+            height: 70%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+            text-align: right;
+            align-items: center;
+            margin: 0.5rem;
 
-    .modalFooter {
-        height: 10%;
-        display: flex;
-        justify-content: end;
-        align-items: center;
-        padding: 1rem 0 0 0;
-        border-top: 0.1rem solid var(--secondaryColor);
-    }
+            .clueForm {
+                font-size: .8rem;
+                display: flex;
+                gap: 0.25rem;
 
-    button {
-        // min-width: 10rem;
-        border-color: var(--buttonHoverColor);     
-        transition: all 0.2s ease-in-out;
-        border-color: var(--spotifyColor);
-        background-color: var(--spotifyColor);
-        &:hover {
-            color: var(--primaryTextColor);
-            background-color: var(--secondaryColor);
+                input {
+                    width: 100%;
+                    margin-left: 0.2rem;
+                    padding: 0.2rem;
+                    border: 0.05rem solid var(--secondaryColor);
+                    border-radius: 1rem;
+                    background-color: var(--buttonPrimaryColor);
+                    color: var(--secondaryTextColor);
+                    transition: all 0.2s ease-in-out;
+                    text-align: center;
+                    padding: 0.6rem 1.2rem;
+
+                    &:focus {
+                        outline: none;
+                        border-color: var(--buttonHoverColor);
+                        filter: drop-shadow(0 0 1rem var(--buttonHoverColor));
+                    }
+                }
+
+                // .pointsForm{
+                //     justify-self: end;
+                //     padding: 0 1rem;
+                // }
+            }
+
+        }
+
+        .modalFooter {
+            height: 10%;
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            padding: 1rem 0 0 0;
+            border-top: 0.1rem solid var(--secondaryColor);
+        }
+
+        button {
+            // min-width: 10rem;
             border-color: var(--buttonHoverColor);
-            filter: drop-shadow(0 0 1rem var(--buttonHoverColor));
-        }   
+            transition: all 0.2s ease-in-out;
+            border-color: var(--spotifyColor);
+            background-color: var(--spotifyColor);
+
+            &:hover {
+                color: var(--primaryTextColor);
+                background-color: var(--secondaryColor);
+                border-color: var(--buttonHoverColor);
+                filter: drop-shadow(0 0 1rem var(--buttonHoverColor));
+            }
+        }
+
     }
 
-}
-
-.overlayContainer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background:none;
-    backdrop-filter: blur(0.25rem);
-}
+    .overlayContainer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: none;
+        backdrop-filter: blur(0.25rem);
+    }
 }

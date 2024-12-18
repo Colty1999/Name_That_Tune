@@ -37,6 +37,9 @@ const GameConfiguration = () => {
     const team3 = useStorageState({ state: "team3" });
     const category = useStorageState({ state: "category" }); //compares if the song name matches to determine styling (stupid)
     const count = useStorageState({ state: "count" });
+    const maxPoints = useStorageState({ state: "maxPoints" });
+    const pointsIncrement = useStorageState({ state: "pointsIncrement" });
+    
 
     //-----------------
 
@@ -65,10 +68,15 @@ const GameConfiguration = () => {
             });
             tracks.setStorageState(JSON.stringify(trackRevival));
         }
+        if (!maxPoints.store) maxPoints.setStorageState("400");
+        if (!pointsIncrement.store) pointsIncrement.setStorageState("5");
     }
 
     useEffect(() => {
-        if (!search) return setSearchResults([]);
+        if (!search) {
+            if (searchResults.length !== 0) setSearchResults([]);
+            return;
+        }
         if (!accessToken) return;
         let cancel = false;
         // setLoading(true);
