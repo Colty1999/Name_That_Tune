@@ -47,7 +47,26 @@
 
     .punctationbutton {
         display: inline-block;
+        position: relative;
         min-width: 15rem;
+
+        
+        .progressbar {
+            border: 1px solid transparent;
+            border-radius: 1rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: var(--secondaryColor);
+            transition: all 1s linear;
+            filter: drop-shadow(0 0 2em var(--dropShadowColor));
+        }
+
+        .pointsdisplay {
+            z-index: 1;
+            mix-blend-mode: difference;
+        }
     }
 
     .playedsong {

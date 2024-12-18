@@ -4,6 +4,8 @@ import { faSquareCaretLeft, faSquareCaretRight } from "@fortawesome/free-solid-s
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTranslation } from "react-i18next";
 import { StateType, Track } from "../../../assets/common";
+import { useState, useEffect } from "react";
+import { useStorageState } from "src/hooks/useStorageState";
 
 interface TopPanelProps {
     pageStorage: StateType;
@@ -15,6 +17,19 @@ interface TopPanelProps {
 const TopPanel = (props: TopPanelProps) => {
     const { pageStorage, count, tracks } = props;
     const [t] = useTranslation();
+
+    const category = useStorageState({ state: "category" })
+    const maxPoints = useStorageState({ state: "maxPoints" });
+
+    const [currentTrackPoints, setCurrentTrackPoints] = useState<number>(100);
+        useEffect(() => {
+            tracks.forEach((track: Track[]) => {
+                track.forEach((track: Track) => {
+                    if (category.store === track.track.name) setCurrentTrackPoints(track.points);
+                });
+            });
+        }, [category.store, tracks, count.store]);
+
     return (
         <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>
@@ -39,9 +54,19 @@ const TopPanel = (props: TopPanelProps) => {
             </div>
             <div style={{ margin: "auto 0 0 0" }}>
                 <h3>{t("points")}</h3>
-                <div className="punctationbutton song" style={{ margin: 0 }}>
+                {/* <div className="punctationbutton song" style={{ margin: 0 }}>
                     <h4>{count.store}{t("pt")}</h4>
-                </div>
+                </div> */}
+                <div className="punctationbutton song ">
+                        <div
+                            className='progressbar'
+                            style={{
+                                width: `${Math.min(Math.max(((Number(count.store) - currentTrackPoints) / (Number(maxPoints.store) - currentTrackPoints)) * 100, 0), 100)}%`,
+                                opacity: `${Number(count.store) <= currentTrackPoints ? 0 : 1}`,
+                            }}
+                        />
+                        <h4 className="pointsdisplay">{count.store}{t("pt")}</h4>
+                    </div>
             </div>
         </div>
     )
