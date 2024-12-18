@@ -1,3 +1,5 @@
+"use client";
+
 import Select from 'react-select'
 import "./header.scss";
 import { useTranslation } from 'react-i18next';

@@ -1,33 +1,38 @@
 import os
 
-def process_scss_files():
-    # Step 1: Find all .scss files
-    scss_files = []
-    for root, _, files in os.walk('.'):
+# Define the target directory
+SRC_DIR = "./src/components"
+
+def process_file(file_path: str):
+    """Adds 'use client'; to the top of a .tsx file if not already present."""
+    with open(file_path, "r+", encoding="utf-8") as file:
+        content = file.readlines()
+
+        # Check if "use client"; is already present
+        if content and content[0].strip() == '"use client";':
+            print(f"Skipped (already exists): {file_path}")
+            return
+        
+        # Insert "use client"; at the top with a clean newline
+        content.insert(0, '"use client";\n\n')
+
+        # Rewrite the file with updated content
+        file.seek(0)
+        file.writelines(content)
+        print(f"Updated: {file_path}")
+
+def process_directory(directory: str):
+    """Recursively processes all .tsx files in the specified directory."""
+    for root, _, files in os.walk(directory):
         for file in files:
-            if file.endswith('.scss'):
-                scss_files.append(os.path.join(root, file))
-    
-    # Step 2: Wrap each .scss file's content with * { ... }
-    for scss_file in scss_files:
-        with open(scss_file, 'r') as file:
-            content = file.read()
-        
-        # Add * { at the beginning and } at the end if not already present
-        wrapped_content = f"* {{\n{content}\n}}"
-        
-        with open(scss_file, 'w') as file:
-            file.write(wrapped_content)
-    
-    # Step 3: Generate import statements
-    imports = [f'import "../{os.path.relpath(scss_file).replace("\\\\", "/")}";' for scss_file in scss_files]
-    
-    # Save the import list to a file or print it
-    with open('scss_imports.js', 'w') as output_file:
-        output_file.write('\n'.join(imports))
-    
-    print(f"Processed {len(scss_files)} .scss files.")
-    print(f"Import list saved to scss_imports.js.")
+            if file.endswith(".tsx"):
+                file_path = os.path.join(root, file)
+                process_file(file_path)
 
 if __name__ == "__main__":
-    process_scss_files()
+    if not os.path.exists(SRC_DIR):
+        print(f"Error: Directory '{SRC_DIR}' does not exist.")
+    else:
+        print(f"Processing .tsx files in '{SRC_DIR}'...")
+        process_directory(SRC_DIR)
+        print("Processing complete.")

@@ -1,3 +1,5 @@
+"use client";
+
 import Modal from 'react-modal';
 import './errorModal.scss';
 import { useContext } from 'react';

@@ -1,3 +1,5 @@
+"use client";
+
 import SpotifyPlayer from 'react-spotify-web-playback';
 import './player.scss';
 import { useContext } from 'react';

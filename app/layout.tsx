@@ -7,15 +7,15 @@ import "../src/components/header/header.scss";
 import "../src/components/loader/loader.scss";
 import "../src/components/player/player.scss";
 import "../src/components/spotifyLogin/spotifyLogin.scss";
-import "../src/pages/gameconfiguration/gameConfiguration.scss";
-import "../src/pages/gameconfiguration/components/configurationModal/configurationModal.scss";
-import "../src/pages/gameconfiguration/components/playlistSearchResult/playlistSearchResult.scss";
-import "../src/pages/gameconfiguration/components/trackResult/trackResult.scss";
-import "../src/pages/insctruction/instruction.scss";
-import "../src/pages/mainmenu/mainMenu.scss";
-import "../src/pages/spotifygame/spotifyGame.scss";
-import "../src/pages/spotifygame/components/youtubeModal/youtubeModal.scss";
-import "../src/pages/spotifygamemaster/spotifyGameMaster.scss";
+import "../src/views/gameconfiguration/gameConfiguration.scss";
+import "../src/views/gameconfiguration/components/configurationModal/configurationModal.scss";
+import "../src/views/gameconfiguration/components/playlistSearchResult/playlistSearchResult.scss";
+import "../src/views/gameconfiguration/components/trackResult/trackResult.scss";
+import "../src/views/insctruction/instruction.scss";
+import "../src/views/mainmenu/mainMenu.scss";
+import "../src/views/spotifygame/spotifyGame.scss";
+import "../src/views/spotifygame/components/youtubeModal/youtubeModal.scss";
+import "../src/views/spotifygamemaster/spotifyGameMaster.scss";
 
 export const metadata: Metadata = {
     title: 'Name That Tune',

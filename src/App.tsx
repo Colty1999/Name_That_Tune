@@ -1,16 +1,18 @@
-import MainMenu from './pages/mainmenu/mainMenu'
+// "use client";
+
+import MainMenu from './views/mainmenu/mainMenu';
 import Container from 'react-bootstrap/esm/Container';
-import NotFound from './pages/notfound/notFound';
+import NotFound from './views/notfound/notFound';
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
-import NotImplemented from './pages/notimplemented/notImplemented';
+import NotImplemented from './views/notimplemented/notImplemented';
 import Header from './components/header/header';
 import { createContext, useState } from 'react';
 import Loader from './components/loader/loader';
-import GameConfiguration from './pages/gameconfiguration/gameConfiguration';
+import GameConfiguration from './views/gameconfiguration/gameConfiguration';
 import useAuth from './hooks/useAuth';
-import SpotifyGameMaster from './pages/spotifygamemaster/spotifyGameMaster';
-import SpotifyGame from './pages/spotifygame/spotifyGame';
-import Instruction from './pages/insctruction/instruction';
+import SpotifyGameMaster from './views/spotifygamemaster/spotifyGameMaster';
+import SpotifyGame from './views/spotifygame/spotifyGame';
+import Instruction from './views/insctruction/instruction';
 import ErrorModal from './components/errorModal/errorModal';
 import './i18n.js';
 

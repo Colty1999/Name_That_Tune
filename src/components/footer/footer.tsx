@@ -1,3 +1,5 @@
+"use client";
+
 import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './footer.scss'
