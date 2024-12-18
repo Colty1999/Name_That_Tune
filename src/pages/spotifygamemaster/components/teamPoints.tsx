@@ -43,7 +43,7 @@ export const TeamPoints = (props: TeamPointsProps) => {
                 </div>
             </div>
         );
-    };
+    }
 
     return (
         <div className="teampoints">
@@ -53,3 +53,5 @@ export const TeamPoints = (props: TeamPointsProps) => {
         </div>
     );
 };
+
+export default TeamPoints;

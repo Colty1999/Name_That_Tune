@@ -39,11 +39,19 @@ export async function POST(req: NextRequest) {
       refreshToken: data.refresh_token,
       expiresIn: data.expires_in,
     });
-  } catch (err: any) {
-    console.error("Error during login:", err.message);
-    return NextResponse.json(
-      { error: err.message || "Something went wrong" },
-      { status: 500 }
-    );
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error("Error during token refresh:", err.message);
+      return NextResponse.json(
+        { error: err.message || "Something went wrong" },
+        { status: 500 }
+      );
+    } else {
+      console.error("An unknown error occurred", err);
+      return NextResponse.json(
+        { error: "Something went wrong" },
+        { status: 500 }
+      );
+    }
   }
 }

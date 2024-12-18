@@ -13,13 +13,13 @@ import { getCookie } from 'cookies-next/client';
 const SpotifyGame = () => {
     const [t] = useTranslation();
 
-    let accessToken = getCookie("accessToken");
+    const accessToken = getCookie("accessToken");
 
-    let count = useStorageState({ state: "count" });
-    let category = useStorageState({ state: "category" })
-    let tracks = useStorageState({ state: "tracks" });
-    let pageStorage = useStorageState({ state: "currentPage" });
-    let currentPage: number = Number(pageStorage.store ?? 0);
+    const count = useStorageState({ state: "count" });
+    const category = useStorageState({ state: "category" })
+    const tracks = useStorageState({ state: "tracks" });
+    const pageStorage = useStorageState({ state: "currentPage" });
+    const currentPage: number = Number(pageStorage.store ?? 0);
     const [compiledTracks, setCompiledTracks] = useState<Track[][] | null>(null);
 
     useEffect(() => {

@@ -17,26 +17,26 @@ import { getCookie } from 'cookies-next/client';
 const SpotifyGameMaster = () => {
     const [t] = useTranslation();
 
-    const [, updateState] = useState<{}>();
+    const [, updateState] = useState<unknown>();
     const forceUpdate = useCallback(() => updateState({}), []);
     //-----------------
-    let team1 = useStorageState({ state: "team1" });
-    let team2 = useStorageState({ state: "team2" });
-    let team3 = useStorageState({ state: "team3" });
-    let category = useStorageState({ state: "category" }); //compares if the song name matches to determine styling (stupid)
-    let count = useStorageState({ state: "count" });
+    const team1 = useStorageState({ state: "team1" });
+    const team2 = useStorageState({ state: "team2" });
+    const team3 = useStorageState({ state: "team3" });
+    const category = useStorageState({ state: "category" }); //compares if the song name matches to determine styling (stupid)
+    const count = useStorageState({ state: "count" });
     //-----------------
-    let pageStorage = useStorageState({ state: "currentPage" });
-    let currentPage: number = Number(pageStorage.store ?? 0);
+    const pageStorage = useStorageState({ state: "currentPage" });
+    const currentPage: number = Number(pageStorage.store ?? 0);
     //-----------------
     //new
     const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
-    let accessToken = getCookie("accessToken");
+    const accessToken = getCookie("accessToken");
     //-----------------
     //new
-    let { songPlaying, setSongPlaying } = useContext(AppContext);
-    let currentSongUri = useStorageState({ state: "currentSongUri" });
-    let tracks = useStorageState({ state: "tracks" });
+    const { songPlaying, setSongPlaying } = useContext(AppContext);
+    const currentSongUri = useStorageState({ state: "currentSongUri" });
+    const tracks = useStorageState({ state: "tracks" });
     const [compiledTracks, setCompiledTracks] = useState<Track[][] | null>(null);
 
     //-----------------
@@ -62,7 +62,7 @@ const SpotifyGameMaster = () => {
     //TODO somwhere here fix youtube song playing only form the first array of 5
     const setYoutubePlay = (id: number) => {
         if (!tracks.store) return;
-        let newTracks = JSON.parse(tracks.store);
+        const newTracks = JSON.parse(tracks.store);
         newTracks[id].youtubePlay = !newTracks[id].youtubePlay;
         console.log(newTracks[id])
         tracks.setStorageState(JSON.stringify(newTracks));
@@ -87,7 +87,7 @@ const SpotifyGameMaster = () => {
         return () => {
             clearInterval(interval); // Clean up the interval when the component unmounts
         };
-    }, [count]);
+    }, [count, category.store, forceUpdate, songPlaying]);
 
     //starts playing song
     const startPlaying = (track: Track) => {

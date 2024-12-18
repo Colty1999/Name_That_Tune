@@ -16,15 +16,15 @@ interface PlaylistSearchResultProps {
 
 const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
     const { title, description, uri, albumUrl } = playlist;
-    let accessToken = getCookie("accessToken");
-    let tracks = useStorageState({ state: "tracks" });
-    let { setLoading, setSongPlaying, setError } = useContext(AppContext);
+    const accessToken = getCookie("accessToken");
+    const tracks = useStorageState({ state: "tracks" });
+    const { setLoading, setSongPlaying, setError } = useContext(AppContext);
 
     const spotifyApi = new SpotifyWebApi({
         clientId: "226da25afbe64537a2574c7155cbc643",
     });
 
-    let currentPlaylistUri = useStorageState({ state: "currentPlaylistUri" });
+    const currentPlaylistUri = useStorageState({ state: "currentPlaylistUri" });
 
     const [playlistSelect, setPlaylistSelect] = useState<boolean>(false);
 
@@ -40,10 +40,10 @@ const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
             .then((res) => {
                 if (cancel) return;
                 // console.log(res.body.items);
-                let response = res.body.items;
-                response.forEach((track: any) => {
-                    track.points = 100;
-                    track.played = false;
+                const response = res.body.items;
+                response.forEach((track: SpotifyApi.PlaylistTrackObject) => {
+                    (track as SpotifyApi.PlaylistTrackObject & { points: number; played: boolean }).points = 100;
+                    (track as SpotifyApi.PlaylistTrackObject & { points: number; played: boolean }).played = false;
                 });
                 tracks.setStorageState(JSON.stringify(response));
                 setLoading(false);
@@ -71,7 +71,7 @@ const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
     useEffect(() => {
         setLoadedClassName("loaded");
         setSongPlaying(false); //stop music if playing
-    }, []);
+    });
 
 
     return (

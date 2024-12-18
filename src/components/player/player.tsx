@@ -9,9 +9,9 @@ interface PlayerProps {
 }
 
 const Player = ({ uri }: PlayerProps) => {
-    let { setError } = useContext(AppContext);
+    const { setError } = useContext(AppContext);
 
-    let accessToken = getCookie("accessToken");
+    const accessToken = getCookie("accessToken");
     const { songPlaying, setPlayerLoaded } = useContext(AppContext);
 
 

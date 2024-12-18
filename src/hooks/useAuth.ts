@@ -6,12 +6,12 @@ import { deleteCookie, getCookie, setCookie } from 'cookies-next/client';
 import { AppContext } from "../App";
 
 export default function useAuth(code: string | null) {
-  let accessToken = getCookie("accessToken");
-  let refreshToken = getCookie("refreshToken");
+  const accessToken = getCookie("accessToken");
+  const refreshToken = getCookie("refreshToken");
 
   const [expiresIn, setExpiresIn] = useState<number | null>(null);
 
-  let { setLoading, setError } = useContext(AppContext);
+  const { setLoading, setError } = useContext(AppContext);
 
   const isLoginMounted = useRef(false);
   const isRefreshed = useRef(false);
@@ -53,7 +53,7 @@ export default function useAuth(code: string | null) {
         setError(err.message);
       });
     isRefreshed.current = true;
-  }, []);
+  });
 
   useEffect(() => {
     if (code === null) return; //return if logging out (code is null)
@@ -80,7 +80,7 @@ export default function useAuth(code: string | null) {
         setError(err.message);
       });
     isLoginMounted.current = true;
-  }, [code]);
+  }, [code, setLoading, setError]);
 
   useEffect(() => {
     if (!refreshToken || !expiresIn) return;
@@ -103,7 +103,7 @@ export default function useAuth(code: string | null) {
     }, (expiresIn - 59) * 1000);
 
     return () => clearInterval(interval);
-  }, [refreshToken, expiresIn]);
+  }, [refreshToken, expiresIn, setError]);
 
   return;
 }

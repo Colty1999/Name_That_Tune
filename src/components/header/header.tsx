@@ -2,15 +2,14 @@ import Select from 'react-select'
 import "./header.scss";
 import { useTranslation } from 'react-i18next';
 import Flag from 'react-world-flags';
-import { googleLogo } from '../../assets/common';
 import { useLocation } from 'react-router-dom';
 import { useStorageState } from '../../hooks/useStorageState';
 import { useEffect, useState } from 'react';
 
 function Header() {
     const { i18n } = useTranslation();
-    let location = useLocation();
-    let language = useStorageState({ state: "language" });
+    const location = useLocation();
+    const language = useStorageState({ state: "language" });
     const [isLoadingLanguage, setLoadingLanguage] = useState(false);
 
     useEffect(() => {
@@ -21,7 +20,7 @@ function Header() {
             };
             load();
         }
-    }, [language]);
+    }, [isLoadingLanguage, language, i18n]);
 
     const visibilityPaths = ["/", "/demogamemaster", "spotifygamemaster", "/instruction"];
 

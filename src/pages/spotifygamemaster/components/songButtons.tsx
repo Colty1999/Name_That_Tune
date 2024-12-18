@@ -1,4 +1,4 @@
-import { faPlay, faPause, faBan, faRotateLeft, faVideo, faVideoSlash, faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPause, faBan, faRotateLeft, faVideo, faVideoSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StateType, Track } from "../../../assets/common";
 import { useTranslation } from "react-i18next";
@@ -20,11 +20,11 @@ interface SongButtonProps {
 }
 
 const SongButton = (props: SongButtonProps) => {
-    const { track, category, count, startPlaying, pausePlaying, setPoints, resetTrack, setShowName, setYoutubePlay, tableId, songId } = props;
+    const { track, category, count, startPlaying, pausePlaying, setPoints, resetTrack, setYoutubePlay, tableId, songId } = props;
     const [t] = useTranslation();
     const { songPlaying, playerLoaded } = useContext(AppContext);
-    const smallestImage = track.track.album.images.reduce((smallest: any, image: any) => {
-        if (image.height < smallest.height) return image;
+    const smallestImage = track.track.album.images.reduce((smallest: SpotifyApi.ImageObject, image: SpotifyApi.ImageObject) => {
+        if (image.height && smallest.height && image.height < smallest.height) return image;
         return smallest;
     }, track.track.album.images[0]);
     //TODO add tooltips

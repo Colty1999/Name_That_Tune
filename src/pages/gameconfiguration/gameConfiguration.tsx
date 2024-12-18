@@ -12,33 +12,33 @@ import { Link } from "react-router-dom";
 import ConfigurationModal from "./components/configurationModal/configurationModal";
 import { useTranslation } from "react-i18next";
 import { AppContext } from "../../App";
-import { Track } from "../../assets/common";
+import { Track, PlaylistSearchResultType } from "../../assets/common";
 import { deleteCookie, getCookie } from "cookies-next/client";
 
 
 const GameConfiguration = () => {
     const [t] = useTranslation();
 
-    let { setError } = useContext(AppContext);
+    const { setError } = useContext(AppContext);
 
-    let accessToken = getCookie("accessToken");
-    let tracks = useStorageState({ state: "tracks" });
+    const accessToken = getCookie("accessToken");
+    const tracks = useStorageState({ state: "tracks" });
 
     const [search, setSearch] = useState("");
-    const [searchResults, setSearchResults] = useState<any[]>([]);
+    const [searchResults, setSearchResults] = useState<PlaylistSearchResultType[]>([]);
     const [showModal, setShowModal] = useState(false);
 
     // -----------------
 
-    let team1 = useStorageState({ state: "team1" });
-    let team2 = useStorageState({ state: "team2" });
-    let team3 = useStorageState({ state: "team3" });
-    let category = useStorageState({ state: "category" }); //compares if the song name matches to determine styling (stupid)
-    let count = useStorageState({ state: "count" });
+    const team1 = useStorageState({ state: "team1" });
+    const team2 = useStorageState({ state: "team2" });
+    const team3 = useStorageState({ state: "team3" });
+    const category = useStorageState({ state: "category" }); //compares if the song name matches to determine styling (stupid)
+    const count = useStorageState({ state: "count" });
 
     //-----------------
 
-    let pageStorage = useStorageState({ state: "currentPage" });
+    const pageStorage = useStorageState({ state: "currentPage" });
 
     const spotifyApi = new SpotifyWebApi({
         clientId: "226da25afbe64537a2574c7155cbc643",
@@ -74,10 +74,10 @@ const GameConfiguration = () => {
         spotifyApi.searchPlaylists(search) //, { limit: 50, offset: 1 }
             .then((res) => {
                 if (cancel) return;
-                setSearchResults(res.body.playlists!.items.filter((playlist) => playlist !== null).map((playlist: any) => {
+                setSearchResults(res.body.playlists!.items.filter((playlist) => playlist !== null).map((playlist: SpotifyApi.PlaylistObjectSimplified ) => {
 
-                    const smallestImage = playlist.images.reduce((smallest: any, image: any) => {
-                        if (image.height < smallest.height) return image;
+                    const smallestImage = playlist.images.reduce((smallest: SpotifyApi.ImageObject, image: SpotifyApi.ImageObject) => {
+                        if (image.height && smallest.height && image.height < smallest.height) return image;
                         return smallest;
                     }, playlist.images[0]);
 
@@ -85,7 +85,7 @@ const GameConfiguration = () => {
 
                     return {
                         title: playlist.name,
-                        description: playlist.description,
+                        description: playlist.description || "",
                         uri: playlist.uri,
                         albumUrl: smallestImage.url,
                     };
@@ -100,7 +100,7 @@ const GameConfiguration = () => {
                 // setLoading(false);
             })
         return () => { cancel = true };
-    }, [search, accessToken]);
+    }, [search, accessToken, setError, spotifyApi]);
 
     if (!accessToken) return <div className="spotifyLoginPrompt"><div style={{ paddingBottom: "1rem" }}>{t('sessionexpired')}</div><SpotifyLogin /></div>;
     return (
@@ -119,7 +119,7 @@ const GameConfiguration = () => {
                     <FontAwesomeIcon icon={faSearch} />
                 </div>
                 <div className="searchContent">
-                    {searchResults.map((playlist: any, key: number) => (
+                    {searchResults.map((playlist: PlaylistSearchResultType, key: number) => (
                         <PlaylistSearchResult playlist={playlist} key={key} />
                     ))}
                     {(search && searchResults.length === 0) && (
@@ -132,7 +132,7 @@ const GameConfiguration = () => {
             <div className="gameSettings" style={(tracks.store && tracks.store.length > 0) ? {} : { display: 'none' }}>
                 <div className="gameSettingsTitle">{t('config.summary')}</div>
                 <div className="gameSettingsContainer">
-                    {(tracks.store && tracks.store.length > 0) && JSON.parse(tracks.store).map((track: any, key: number) => <TrackResult track={track} id={key} key={key} />)}
+                    {(tracks.store && tracks.store.length > 0) && JSON.parse(tracks.store).map((track: Track, key: number) => <TrackResult track={track} id={key} key={key} />)}
                 </div>
                 <div className="gameButtonContainer">
                     <button className="" onClick={() => setShowModal(true)}>{t('config.settings')}</button>

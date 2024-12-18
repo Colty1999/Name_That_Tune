@@ -1,7 +1,5 @@
 import MainMenu from './pages/mainmenu/mainMenu'
 import Container from 'react-bootstrap/esm/Container';
-// import DemoGame from './pages/demogame/demoGame';
-// import DemoGameMaster from './pages/demogamemaster/demoGameMaster';
 import NotFound from './pages/notfound/notFound';
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import NotImplemented from './pages/notimplemented/notImplemented';
@@ -17,15 +15,15 @@ import ErrorModal from './components/errorModal/errorModal';
 import './i18n.js';
 
 export const AppContext = createContext<{
-  setLoading: (React.Dispatch<React.SetStateAction<boolean>> | Function),
+  setLoading: (React.Dispatch<React.SetStateAction<boolean>>),
   token: (string | null),
-  setToken: (React.Dispatch<React.SetStateAction<string | null>> | Function),
+  setToken: (React.Dispatch<React.SetStateAction<string | null>>),
   songPlaying: boolean,
-  setSongPlaying: (React.Dispatch<React.SetStateAction<boolean>> | Function),
+  setSongPlaying: (React.Dispatch<React.SetStateAction<boolean>>),
   playerLoaded: boolean,
-  setPlayerLoaded: (React.Dispatch<React.SetStateAction<boolean>> | Function),
+  setPlayerLoaded: (React.Dispatch<React.SetStateAction<boolean>>),
   error: string,
-  setError: (React.Dispatch<React.SetStateAction<string>> | Function)
+  setError: (React.Dispatch<React.SetStateAction<string>>)
 }>({ setLoading: () => { }, token: null, setToken: () => { }, songPlaying: false, setSongPlaying: () => { }, playerLoaded: false, setPlayerLoaded: () => { }, error: "", setError: () => { }});
 
 export default function App() {

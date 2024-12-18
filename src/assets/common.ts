@@ -51,6 +51,13 @@ export interface Track {
   showName?: boolean;
 }
 
+export interface PlaylistSearchResultType {
+  title: string;
+  description: string;
+  uri: string;
+  albumUrl: string;
+}
+
 export interface StateType {
   readonly store: string | null;
   readonly setStorageState: (newValue: string) => void;

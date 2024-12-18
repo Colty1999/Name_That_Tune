@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 const SpotifyLogin = () => {
     const [t] = useTranslation();
 
-    let accessToken = getCookie("accessToken");
+    const accessToken = getCookie("accessToken");
     const {setLoading} = useContext(AppContext);
 
     const authEndpoint = 'https://accounts.spotify.com/authorize',

@@ -5,9 +5,9 @@ import { useStorageState } from "../../../hooks/useStorageState";
 const PointsScreen = () => {
     const [t] = useTranslation();
 
-    let team1 = useStorageState({ state: "team1" });
-    let team2 = useStorageState({ state: "team2" });
-    let team3 = useStorageState({ state: "team3" });
+    const team1 = useStorageState({ state: "team1" });
+    const team2 = useStorageState({ state: "team2" });
+    const team3 = useStorageState({ state: "team3" });
 
     // State to track flashing for each team
     const [flashTeam1, setFlashTeam1] = useState(false);
@@ -28,7 +28,7 @@ const PointsScreen = () => {
             setTimeout(() => setFlashTeam1(false), 1000);
         }
         setPrevPoints1(currentPoints);
-    }, [team1.store]);
+    }, [team1.store, prevPoints1]);
 
     useEffect(() => {
         const currentPoints = JSON.parse(team2.store!).points;
@@ -37,7 +37,7 @@ const PointsScreen = () => {
             setTimeout(() => setFlashTeam2(false), 1000);
         }
         setPrevPoints2(currentPoints);
-    }, [team2.store]);
+    }, [team2.store, prevPoints2]);
 
     useEffect(() => {
         const currentPoints = JSON.parse(team3.store!).points;
@@ -46,7 +46,7 @@ const PointsScreen = () => {
             setTimeout(() => setFlashTeam3(false), 1000);
         }
         setPrevPoints3(currentPoints);
-    }, [team3.store]);
+    }, [team3.store, prevPoints3]);
 
     return (
         <div className="pointscreenstyle">

@@ -12,11 +12,11 @@ interface TrackResultProps {
 const TrackResult = ({ track, id }: TrackResultProps) => {
     const [t] = useTranslation();
 
-    let tracks = useStorageState({ state: "tracks" });
+    const tracks = useStorageState({ state: "tracks" });
     const [clue, setClue] = useState<string>("");
     const [points, setPoints] = useState<number>(100);
     const [youtubeLink, setYoutubeLink] = useState<string>("");
-    
+
     useEffect(() => {
         if (!tracks.store) return;
         const newTracks = JSON.parse(tracks.store);
@@ -26,14 +26,14 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
         else setPoints(100);
         if (newTracks[id].youtubeLink) setYoutubeLink(newTracks[id].youtubeLink);
         else setYoutubeLink("");
-    }, [tracks]); // set clue and points on load
+    }, [tracks, id]); // set clue and points on load
 
     //-----------------
 
     const updateClue = (clue: string) => {
         if (!tracks.store) return;
         setClue(clue);
-        let newTracks = JSON.parse(tracks.store);
+        const newTracks = JSON.parse(tracks.store);
         newTracks[id].clue = clue;
         tracks.setStorageState(JSON.stringify(newTracks));
     };
@@ -41,7 +41,7 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
     const updatePoints = (points: number) => {
         if (!tracks.store) return;
         setPoints(points);
-        let newTracks = JSON.parse(tracks.store);
+        const newTracks = JSON.parse(tracks.store);
         newTracks[id].points = points;
         tracks.setStorageState(JSON.stringify(newTracks));
     };
@@ -49,7 +49,7 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
     const updateYoutubeLink = (youtubeLink: string) => {
         if (!tracks.store) return;
         setYoutubeLink(youtubeLink);
-        let newTracks = JSON.parse(tracks.store);
+        const newTracks = JSON.parse(tracks.store);
         newTracks[id].youtubeLink = youtubeLink;
         // console.log(newTracks[0]);
         // console.log(JSON.parse(tracks.store)[0]);
@@ -58,11 +58,11 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
 
     //-----------------
 
-    const smallestImage = track.track.album.images.reduce((smallest: any, image: any) => {
-        if (image.height < smallest.height) return image;
+    const smallestImage = track.track.album.images.reduce((smallest: SpotifyApi.ImageObject, image: SpotifyApi.ImageObject) => {
+        if (image.height && smallest.height && image.height < smallest.height) return image;
         return smallest;
     }, track.track.album.images[0]);
-
+ 
     const [loadedClassName, setLoadedClassName] = useState<string>("");
     useEffect(() => {
         setLoadedClassName("loaded");

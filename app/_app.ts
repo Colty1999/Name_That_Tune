@@ -1,4 +1,4 @@
-function MyApp({ Component, pageProps }) {
+function MyApp() {
   return ;
 }
 

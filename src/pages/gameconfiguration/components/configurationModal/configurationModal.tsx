@@ -15,9 +15,9 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
     Modal.setAppElement('#root');
     const [t] = useTranslation();
 
-    let { setError } = useContext(AppContext);
+    const { setError } = useContext(AppContext);
 
-    let tracks = useStorageState({ state: "tracks" });
+    const tracks = useStorageState({ state: "tracks" });
 
     const downloadTxtFile = () => {
         const element = document.createElement("a");
@@ -29,8 +29,8 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
     }
 
     //-----------------
-    const isSpotifyTrackData = (data: any): data is SpotifyTrackData[] => {
-        return Array.isArray(data) && data.every((item: any) => {
+    const isSpotifyTrackData = (data: unknown): data is SpotifyTrackData[] => {
+        return Array.isArray(data) && data.every((item: unknown) => {
             return (
                 typeof item === "object" &&
                 item !== null &&
@@ -49,8 +49,10 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
 
 
 
-    const uploadFile = async (e: any) => {
+    const uploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
+        const files = e.target.files; // Retrieve files safely
+        if (!files || files.length === 0) return;
         const reader = new FileReader();
         reader.onload = async (e) => {
             if (!e.target) return;
@@ -63,11 +65,12 @@ function ConfigurationModal({ show, handleClose }: ConfigurationModalProps) {
                     console.error("Parsed JSON is not of type SpotifyTrackData.");
                     setError("File doesnt contain correct game data.");
                 }
-            } catch (e) {
-                console.error(e);
+            } catch (err) {
+                console.error("Error parsing JSON:", err);
+                setError("Error parsing file.");
             }
         };
-        reader.readAsText(e.target.files[0]);
+        reader.readAsText(files[0]);
     };
 
 

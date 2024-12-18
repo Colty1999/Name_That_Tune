@@ -8,7 +8,7 @@ import { getCookie } from 'cookies-next/client';
 
 const MainMenu = () => {
     const [t] = useTranslation();
-    let accessToken = getCookie("accessToken");
+    const accessToken = getCookie("accessToken");
     
 
     return (

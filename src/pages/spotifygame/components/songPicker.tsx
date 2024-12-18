@@ -63,8 +63,8 @@ const SongPicker = (props: SongPickerProps) => {
         <div className="songpickerstyle">
             {tracks.map((track: Track) => {
                 const trackId = track.track.id;
-                const smallestImage = track.track.album.images.reduce((smallest: any, image: any) => {
-                    if (image.height < smallest.height) return image;
+                const smallestImage = track.track.album.images.reduce((smallest: SpotifyApi.ImageObject, image: SpotifyApi.ImageObject) => {
+                    if (image.height && smallest.height && image.height < smallest.height) return image;
                     return smallest;
                 }, track.track.album.images[0]);
                 return (
