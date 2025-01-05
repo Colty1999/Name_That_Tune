@@ -64,6 +64,8 @@ export interface StateType {
 }
 
 export const frontend = process.env.NEXT_PUBLIC_FRONTEND_URL;
+export const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+export const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 export const cookieOptions = {
   sameSite: "lax",

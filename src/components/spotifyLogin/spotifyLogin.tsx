@@ -2,13 +2,13 @@
 
 import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../../App";
 import "./spotifyLogin.scss";
 import { frontend } from "../../assets/common";
 import { getCookie, deleteCookie } from "cookies-next/client";
 import { useTranslation } from "react-i18next";
+import { createClient } from "../../../utils/supabase/client";
 
 
 const SpotifyLogin = () => {
@@ -17,32 +17,42 @@ const SpotifyLogin = () => {
     const accessToken = getCookie("accessToken");
     const {setLoading} = useContext(AppContext);
 
-    const authEndpoint = 'https://accounts.spotify.com/authorize',
-        clientId = '226da25afbe64537a2574c7155cbc643',
-        responseType = 'code',
-        redirectUri = frontend,
-        scope = ["streaming, user-read-email, user-read-private, user-library-read, user-library-modify, user-read-playback-state, user-modify-playback-state"].join("%20"),
-        authorizationLink = `${authEndpoint}?client_id=${clientId}&response_type=${responseType}&redirect_uri=${redirectUri}&scope=${scope}`;
+    const supabase = createClient();
 
-    function logout() {
+    async function signInWithSpotify() {
+        const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'spotify',
+        options: {
+            scopes: 'user-read-email user-read-private user-library-read user-library-modify user-read-playback-state user-modify-playback-state',
+            redirectTo: `${frontend}/api/callback`,
+        },
+        })
+        if (error) {
+            console.error('Error logging in:', error.message)
+        }
+    }
+
+    async function signOut() {
         setLoading(true);
-        setTimeout(() => {
-            deleteCookie("accessToken");
-            deleteCookie("refreshToken");
-            setLoading(false);
-        }, 300);
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+            console.error('Error logging out:', error.message)
+        }
+        deleteCookie("accessToken");
+        deleteCookie("refreshToken");
+        setLoading(false);
     }
 
     return (
         <div className="spotifyLogin">
             {accessToken ?
                 <a>
-                    <button className='button' onClick={logout}><FontAwesomeIcon icon={faSpotify} /> | {t('spotifylogin.logout')}</button>
+                    <button className='button' onClick={signOut}><FontAwesomeIcon icon={faSpotify} /> | {t('spotifylogin.logout')}</button>
                 </a>
                 :
-                <Link to={authorizationLink}>
-                    <button className='button'><FontAwesomeIcon icon={faSpotify} /> | {t('spotifylogin.login')}</button>
-                </Link>
+                <a>
+                    <button className='button' onClick={signInWithSpotify}><FontAwesomeIcon icon={faSpotify} /> | {t('spotifylogin.login')}</button>
+                </a>
             }
         </div>
     );

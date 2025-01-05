@@ -18,28 +18,25 @@ import './i18n.js';
 
 export const AppContext = createContext<{
   setLoading: (React.Dispatch<React.SetStateAction<boolean>>),
-  token: (string | null),
-  setToken: (React.Dispatch<React.SetStateAction<string | null>>),
   songPlaying: boolean,
   setSongPlaying: (React.Dispatch<React.SetStateAction<boolean>>),
   playerLoaded: boolean,
   setPlayerLoaded: (React.Dispatch<React.SetStateAction<boolean>>),
   error: string,
   setError: (React.Dispatch<React.SetStateAction<string>>)
-}>({ setLoading: () => { }, token: null, setToken: () => { }, songPlaying: false, setSongPlaying: () => { }, playerLoaded: false, setPlayerLoaded: () => { }, error: "", setError: () => { }});
+}>({ setLoading: () => { }, songPlaying: false, setSongPlaying: () => { }, playerLoaded: false, setPlayerLoaded: () => { }, error: "", setError: () => { }});
 
 export default function App() {
   const [loading, setLoading] = useState<boolean>(false);
-  const [token, setToken] = useState<string | null>(new URLSearchParams(window.location.search).get('code'));
   const [songPlaying, setSongPlaying] = useState<boolean>(false);
   const [playerLoaded, setPlayerLoaded] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-  useAuth(token);
+  useAuth();
 
   return (
     <Container fluid="true" className='container'>
       <HashRouter >
-        <AppContext.Provider value={{ setLoading, token, setToken, songPlaying, setSongPlaying, playerLoaded, setPlayerLoaded, error, setError }}>
+        <AppContext.Provider value={{ setLoading, songPlaying, setSongPlaying, playerLoaded, setPlayerLoaded, error, setError }}>
           {loading && <Loader />}
           <ErrorModal />
           <Header />

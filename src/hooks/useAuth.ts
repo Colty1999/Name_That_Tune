@@ -4,8 +4,12 @@ import { cookieOptions } from "../assets/common";
 import SpotifyWebApi from "spotify-web-api-node";
 import { deleteCookie, getCookie, setCookie } from 'cookies-next/client';
 import { AppContext } from "../App";
+import { createClient } from "../../utils/supabase/client";
 
-export default function useAuth(code: string | null) {
+const supabase = createClient();
+
+export default function useAuth() {
+  // write code that is user is not logged into spotify to return
   const accessToken = getCookie("accessToken");
   const refreshToken = getCookie("refreshToken");
 
@@ -33,12 +37,10 @@ export default function useAuth(code: string | null) {
           })
           .then((res) => {
             setCookie("accessToken", res.data.accessToken, cookieOptions);
-            // accessToken.setStorageState(res.data.accessToken);
             setExpiresIn(res.data.expiresIn);
             setLoading(false);
           })
           .catch((err) => {
-            // history.replaceState({}, "", "/");
             deleteCookie("accessToken");
             console.error(err.response);
             setLoading(false);
@@ -46,7 +48,6 @@ export default function useAuth(code: string | null) {
           });
       })
       .catch((err) => {
-        // history.replaceState({}, "", "/");
         deleteCookie("accessToken");
         console.error(err.response);
         setLoading(false);
@@ -56,51 +57,69 @@ export default function useAuth(code: string | null) {
   });
 
   useEffect(() => {
-    if (code === null) return; //return if logging out (code is null)
-    if (isLoginMounted.current) return;
-    //useStrict double rendering countermeasure
-    setLoading(true);
-    axios
-      .post(`/api/login`, {
-        code,
-      })
-      .then((res) => {
-        // accessToken.setStorageState(res.data.accessToken);
-        setCookie("accessToken", res.data.accessToken, cookieOptions);
-        // refreshToken.setStorageState(res.data.refreshToken);
-        setCookie("refreshToken", res.data.refreshToken, cookieOptions);
-        setExpiresIn(res.data.expiresIn);
-        window.history.pushState({}, "", "/");
+    const fetchSpotifyToken = async () => {
+      try {
+        setLoading(true);
+
+        const { data, error } = await supabase.auth.getSession();
+
+        if (error || !data?.session) {
+          setLoading(false);
+          return;
+        }
+
+        const spotifyAccessToken = data.session?.provider_token;
+        const spotifyRefreshToken = data.session?.provider_refresh_token;
+        const spotifyExpiresIn = data.session?.expires_in;
+
+        if (!spotifyAccessToken || !spotifyRefreshToken || !spotifyExpiresIn) {
+          throw new Error("Spotify tokens not found in user metadata.");
+        }
+
+        setCookie("accessToken", spotifyAccessToken, cookieOptions);
+        setCookie("refreshToken", spotifyRefreshToken, cookieOptions);
+        setExpiresIn(spotifyExpiresIn);
+
+        const spotifyApi = new SpotifyWebApi({
+          clientId: "226da25afbe64537a2574c7155cbc643",
+        });
+        spotifyApi.setAccessToken(spotifyAccessToken);
+
+        await spotifyApi.getMe();
+      } catch (err) {
+        console.error("Error fetching Spotify token:", err);
+        setError("Failed to authenticate with Spotify.");
+      } finally {
         setLoading(false);
-      })
-      .catch((err) => {
-        deleteCookie("accessToken");
-        console.error(err.response);
-        setLoading(false);
-        setError(err.message);
-      });
-    isLoginMounted.current = true;
-  }, [code, setLoading, setError]);
+      }
+    };
+
+    if (!isLoginMounted.current) {
+      fetchSpotifyToken();
+      isLoginMounted.current = true;
+    }
+  }, [setLoading, setError]);
 
   useEffect(() => {
-    if (!refreshToken || !expiresIn) return;
-    const interval = setInterval(() => {
-      axios
-        .post(`/api/refresh`, {
-          refreshToken: refreshToken,
-        })
-        .then((res) => {
-          // accessToken.setStorageState(res.data.accessToken);
-          setCookie("accessToken", res.data.accessToken, cookieOptions);
-          setExpiresIn(res.data.expiresIn);
-        })
-        .catch((err) => {
-          // history.replaceState({}, "", "/");
-          deleteCookie("accessToken");
-          console.error(err.response);
-          setError(err.message);
+    if (!refreshToken || !expiresIn || isRefreshed.current) return;
+
+    const interval = setInterval(async () => {
+      try {
+        const response = await axios.post("/api/refresh", {
+          refreshToken,
         });
-    }, (expiresIn - 59) * 1000);
+
+        const newAccessToken = response.data.accessToken;
+        const newExpiresIn = response.data.expiresIn;
+
+        // Update state and cookies
+        setCookie("accessToken", newAccessToken, cookieOptions);
+        setExpiresIn(newExpiresIn);
+      } catch (err) {
+        console.error("Error refreshing Spotify token:", err);
+        setError("Failed to refresh Spotify session.");
+      }
+    }, (expiresIn - 60) * 1000);
 
     return () => clearInterval(interval);
   }, [refreshToken, expiresIn, setError]);
