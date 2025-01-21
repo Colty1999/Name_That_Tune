@@ -1,5 +1,5 @@
 * {
-    .gameConfigurationContainer {
+    .tracksConfigurationContainer {
         display: flex;
         flex-direction: row;
         justify-content: start;
@@ -13,10 +13,10 @@
         padding: 1rem;
 
 
-        .form {
+        .tracksSettings {
             width: 100%;
             // height: calc(100vh - 7rem);
-            // height: calc(100vh - 4.5rem);
+            height: calc(100vh - 4.5rem);
             // margin: 2rem 1rem 2rem 2rem;
             border: 0.1rem solid transparent;
             background-color: var(--buttonPrimaryColor);
@@ -25,62 +25,7 @@
             overflow: hidden;
             transition: all 0.2s ease-in-out;
             position: relative;
-
-            .searchContainer {
-                display: flex;
-                flex-direction: row;
-                justify-content: start;
-                align-items: center;
-                padding: 0.5rem 2rem;
-                border: 0.1rem solid transparent;
-                background-color: var(--buttonPrimaryColor);
-                border-radius: 1.5rem;
-                font-size: 2rem;
-                outline: none;
-                transition: all 0.2s ease-in-out;
-
-                .searchBar {
-                    width: 100%;
-                    border: 0.1rem solid transparent;
-                    background-color: inherit;
-                    font-size: 2rem;
-                    outline: none;
-                    transition: all 0.2s ease-in-out;
-                }
-            }
-
-            .searchContainerActive {
-                border-bottom: 0.1rem solid var(--secondaryColor);
-                border-radius: 1.5rem 1.5rem 0 0;
-            }
-
-            .searchContent {
-                position: relative;
-                // width: 100%;
-                // // height: calc(100% - 3.75rem);
-                // height: 100%;
-                font-size: 1.5rem;
-                // padding: 0 0 1rem 0;
-                // overflow-y: auto;
-                // scrollbar-width: none;
-                // -ms-overflow-style: none;
-                border-radius: 0 0 1.5rem 0;
-                border-bottom: 0.1rem solid transparent;
-
-                // &::-webkit-scrollbar {
-                //     display: none;
-                // }
-
-                .noResults {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: start;
-                    align-items: start;
-                    width: 100%;
-                    font-size: 2rem;
-                    padding: 1rem 0 0 3rem;
-                }
-            }
+            // margin: 2rem;
 
             .tracksSettingsContainer {
                 width: 100%;
@@ -133,20 +78,47 @@
                 }
 
                 .tracksSettingsButton {
+                    // margin-top: 2rem;
+                    // border-top: 0.2rem solid var(--secondaryColor);
+                    // min-width: 15rem;
                     border-color: var(--spotifyColor);
                     background-color: var(--spotifyColor);
-
-                    &:disabled {
-                        background-color: var(--buttonDisabledColor);
-                        border-color: var(--buttonDisabledColor);
-
-                        &:hover {
-                            pointer-events: none;
-                        }
-                    }
+                    // margin-left: 1rem;
                 }
             }
         }
+        
+        .clueForm {
+            width: 100%;
+            font-size: .8rem;
+            display: flex;
+            gap: 0.25rem;
+
+            input {
+                width: 100%;
+                margin-left: 0.2rem;
+                padding: 0.2rem;
+                border: 0.05rem solid var(--secondaryColor);
+                border-radius: 1rem;
+                background-color: var(--buttonPrimaryColor);
+                color: var(--secondaryTextColor);
+                transition: all 0.2s ease-in-out;
+                text-align: center;
+                padding: 0.6rem 1.2rem;
+
+                &:focus {
+                    outline: none;
+                    border-color: var(--buttonHoverColor);
+                    filter: drop-shadow(0 0 1rem var(--buttonHoverColor));
+                }
+            }
+
+            // .pointsForm{
+            //     justify-self: end;
+            //     padding: 0 1rem;
+            // }
+        }
+
     }
 
     .spotifyLoginPrompt {

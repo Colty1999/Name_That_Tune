@@ -73,7 +73,8 @@ export default function useAuth() {
         const spotifyExpiresIn = data.session?.expires_in;
 
         if (!spotifyAccessToken || !spotifyRefreshToken || !spotifyExpiresIn) {
-          throw new Error("Spotify tokens not found in user metadata.");
+          setLoading(false);
+          return;
         }
 
         setCookie("accessToken", spotifyAccessToken, cookieOptions);

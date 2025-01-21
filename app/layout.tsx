@@ -8,6 +8,7 @@ import "../src/components/loader/loader.scss";
 import "../src/components/player/player.scss";
 import "../src/components/spotifyLogin/spotifyLogin.scss";
 import "../src/views/gameconfiguration/gameConfiguration.scss";
+import "../src/views/gameconfiguration/tracksConfiguration.scss";
 import "../src/views/gameconfiguration/components/configurationModal/configurationModal.scss";
 import "../src/views/gameconfiguration/components/playlistSearchResult/playlistSearchResult.scss";
 import "../src/views/gameconfiguration/components/trackResult/trackResult.scss";

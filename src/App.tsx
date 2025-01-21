@@ -15,6 +15,7 @@ import SpotifyGame from './views/spotifygame/spotifyGame';
 import Instruction from './views/insctruction/instruction';
 import ErrorModal from './components/errorModal/errorModal';
 import './i18n.js';
+import PlaylistConfiguration from './views/gameconfiguration/tracksConfiguration';
 
 export const AppContext = createContext<{
   setLoading: (React.Dispatch<React.SetStateAction<boolean>>),
@@ -42,14 +43,11 @@ export default function App() {
           <Header />
           <Routes>
             <Route path="/" Component={MainMenu} />
-            {/* <Route path="/demogame" Component={DemoGame} />
-            <Route path="/demogamemaster" Component={DemoGameMaster} /> */}
             <Route path="/spotifygame" Component={SpotifyGame} />
             <Route path="/spotifygamemaster" Component={SpotifyGameMaster} />
             <Route path="/gameconfiguration" Component={GameConfiguration} />
+            <Route path="/playlistconfiguration" Component={PlaylistConfiguration} />
             <Route path="instruction" Component={Instruction} />
-            {/* <Route path="/game" Component={GalleryYearView} />
-            <Route path="/archive/:year/:folder" Component={GalleryFolderView} />*/}
             <Route path='/notimplemented' Component={NotImplemented} />
             <Route path='/404' Component={NotFound} />
             <Route

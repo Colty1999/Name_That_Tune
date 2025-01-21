@@ -74,7 +74,7 @@ const TrackResult = ({ track, id }: TrackResultProps) => {
         <div className="trackResult">
             <div className={`trackElement ${loadedClassName}`}>
                 <h4 className="trackId">{id + 1}</h4>
-                <img src={smallestImage.url} alt={track.track.name} />
+                <img src={smallestImage ? smallestImage.url : "https://http.cat/404"} alt={track.track.name} />
                 <div className="trackData">
                     <div className="trackTitleAndArtist">
                         <h4 className="trackTitle">{track.track.name}</h4>

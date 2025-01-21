@@ -61,7 +61,7 @@ const SongButton = (props: SongButtonProps) => {
             }
             <div className={`${category.store === track.track.name ? "active" : ""} ${track.played === true ? "playedsong" : ""} song`} style={{ width: "100%" }}>
                 <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-                    <img src={smallestImage.url} alt="album cover" width="40rem" height="40rem" />
+                    <img src={smallestImage ? smallestImage.url : "https://http.cat/404"} alt="album cover" width="40rem" height="40rem" />
                     <h4>{track.track.name} - {track.track.artists[0].name} {track.clue && <>({track.clue})</>}</h4>
                 </div>
                 <h4>{track.points}{t("pt")}</h4>
