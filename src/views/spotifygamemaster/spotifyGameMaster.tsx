@@ -175,7 +175,7 @@ const SpotifyGameMaster = () => {
                     setPoints={setPoints}
                 />
                 {compiledTracks.map((tracks: Track[], key: number) => (
-                    < div key={key} className={`${key === currentPage ? 'visible' : 'hidden'}`}>
+                    <div key={key} className={`${key === currentPage ? 'visible' : 'hidden'}`}>
                         <SongTable
                             tracks={tracks}
                             category={category}

@@ -23,6 +23,7 @@ const GameConfiguration = () => {
 
     const accessToken = getCookie("accessToken");
     const tracks = useStorageState({ state: "tracks" });
+    const currentPlaylist = useStorageState({ state: "currentPlaylist" });
 
     const [search, setSearch] = useState("");
     const [searchResults, setSearchResults] = useState<PlaylistSearchResultType[]>([]);
@@ -99,16 +100,26 @@ const GameConfiguration = () => {
                 </div>
             </div>
 
-            <div className="form" style={{height: "calc(100vh - 4.5rem)"}}>
+            <div className="form" style={{ height: "calc(100vh - 4.5rem)" }}>
                 <div className="tracksSettingsTitle">{t('config.playlists')}</div>
                 <div className="tracksButtonContainer">
                     {/* <button className="" onClick={() => setShowModal(true)}>{t('config.settings')}</button> */}
                     In future saved playlists will appear here
+                    {(currentPlaylist.store && currentPlaylist.store !== "") &&
+                        <div className="currentPlaylist">
+                            <div className="title">Current playlist:</div>
+                            <div className="content">
+                                <img src={JSON.parse(currentPlaylist.store).albumUrl} alt={JSON.parse(currentPlaylist.store).title} style={{width: "20%"}}/>
+                                <div style={{width: "50%", textAlign: "left"}}>{JSON.parse(currentPlaylist.store).title}</div>
+                            </div>
+                        </div>
+                    }
                     <Link to="/playlistconfiguration">
-                    <button onClick={() => { }} className='tracksSettingsButton' disabled={(!tracks.store || tracks.store.length === 0)}>
-                        {t("config.start")}
-                    </button>
-                </Link>                </div>
+                        <button onClick={() => { }} className='tracksSettingsButton' disabled={(!tracks.store || tracks.store.length === 0)}>
+                            {t("config.start")}
+                        </button>
+                    </Link>
+                </div>
             </div>
         </div>
     )

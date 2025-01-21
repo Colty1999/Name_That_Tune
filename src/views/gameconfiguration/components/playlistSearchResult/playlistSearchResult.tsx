@@ -27,12 +27,14 @@ const PlaylistSearchResult = ({ playlist }: PlaylistSearchResultProps) => {
     });
 
     const currentPlaylistUri = useStorageState({ state: "currentPlaylistUri" });
+    const currentPlaylist = useStorageState({ state: "currentPlaylist" });
 
     const [playlistSelect, setPlaylistSelect] = useState<boolean>(false);
 
     const selectPlaylist = () => {
         setPlaylistSelect(true);
         currentPlaylistUri.setStorageState(uri);
+        currentPlaylist.setStorageState(JSON.stringify(playlist));
         if (!accessToken) return;
         let cancel = false;
         setLoading(true);
