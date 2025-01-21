@@ -16,6 +16,7 @@ const PlaylistConfiguration = () => {
 
     const accessToken = getCookie("accessToken");
     const tracks = useStorageState({ state: "tracks" });
+    const currentPlaylist = useStorageState({ state: "currentPlaylist" });
 
     // -----------------
 
@@ -38,7 +39,12 @@ const PlaylistConfiguration = () => {
 
     const downloadTxtFile = () => {
         const element = document.createElement("a");
-        const file = new Blob([tracks.store ? tracks.store : ""], { type: 'text/plain' });
+        const combinedData = {
+            tracks: tracks.store ? JSON.parse(tracks.store) : null,
+            currentPlaylist: currentPlaylist.store ? JSON.parse(currentPlaylist.store) : null
+        };
+        const file = new Blob([JSON.stringify(combinedData, null, 2)], { type: 'application/json' });
+        // const file = new Blob([tracks.store ? tracks.store : ""], { type: 'text/plain' });
         element.href = URL.createObjectURL(file);
         element.download = "NameThatTuneSettings.json";
         document.body.appendChild(element); // Required for this to work in FireFox
@@ -46,22 +52,46 @@ const PlaylistConfiguration = () => {
     }
 
     //-----------------
-    const isSpotifyTrackData = (data: unknown): data is SpotifyTrackData[] => {
-        return Array.isArray(data) && data.every((item: unknown) => {
-            return (
-                typeof item === "object" &&
-                item !== null &&
-                "added_at" in item &&
-                "added_by" in item &&
-                "is_local" in item &&
-                "primary_color" in item &&
-                "track" in item &&
-                "video_thumbnail" in item &&
-                "points" in item &&
-                ("played" in item || "clue" in item || "youtubeLink" in item || "youtubePlay" in item)
-            );
-        });
+    const isSpotifyCombinedData = (data: unknown): data is SpotifyCombinedData => {
+        if (
+            typeof data === "object" &&
+            data !== null &&
+            "tracks" in data &&
+            "currentPlaylist" in data
+        ) {
+            const tracks = (data as SpotifyCombinedData).tracks;
+            const currentPlaylist = (data as SpotifyCombinedData).currentPlaylist;
+    
+            // Validate tracks
+            const isValidTracks = Array.isArray(tracks) && tracks.every((item: unknown) => {
+                return (
+                    typeof item === "object" &&
+                    item !== null &&
+                    "added_at" in item &&
+                    "added_by" in item &&
+                    "is_local" in item &&
+                    "primary_color" in item &&
+                    "track" in item &&
+                    "video_thumbnail" in item &&
+                    "points" in item &&
+                    ("played" in item || "clue" in item || "youtubeLink" in item || "youtubePlay" in item)
+                );
+            });
+    
+            // Validate currentPlaylist
+            const isValidCurrentPlaylist =
+                typeof currentPlaylist === "object" &&
+                currentPlaylist !== null &&
+                "title" in currentPlaylist &&
+                "description" in currentPlaylist &&
+                "uri" in currentPlaylist &&
+                "albumUrl" in currentPlaylist;
+    
+            return isValidTracks && isValidCurrentPlaylist;
+        }
+        return false;
     };
+    
 
 
 
@@ -76,8 +106,10 @@ const PlaylistConfiguration = () => {
             const text = e.target.result as string;
             try {
                 const parsedData = JSON.parse(text);
-                if (isSpotifyTrackData(parsedData)) {
-                    tracks.setStorageState(text);
+                if (isSpotifyCombinedData(parsedData)) {
+                    // currentPlaylist.setStorageState()
+                    tracks.setStorageState(JSON.stringify(parsedData.tracks));
+                    currentPlaylist.setStorageState(JSON.stringify(parsedData.currentPlaylist));
                 } else {
                     console.error("Parsed JSON is not of type SpotifyTrackData.");
                     setError("File doesnt contain correct game data.");
@@ -274,6 +306,18 @@ type SpotifyTrackData = {
     played?: boolean;
     youtubeLink?: string;
     youtubePlay?: boolean;
+};
+
+type SpotifyPlaylistData = {
+    title: string;
+    description: string;
+    uri: string;
+    albumUrl: string;
+}
+
+type SpotifyCombinedData = {
+    tracks: SpotifyTrackData[];
+    currentPlaylist: SpotifyPlaylistData;
 };
 
 // const handleAddPlaylist = async () => {
