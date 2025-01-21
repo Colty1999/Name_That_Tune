@@ -1,9 +1,10 @@
-name: Supabase Heartbeat
+name: Scheduled Login API Call
 
 on:
   schedule:
-    # Runs once every 24 hours at 12:00 AM UTC (adjust as needed)
+    # Runs every 24 hours
     - cron: "0 0 * * *"
+  workflow_dispatch: # Enable manual triggering
 
 jobs:
   api_call:
@@ -11,9 +12,6 @@ jobs:
 
     steps:
       - name: Make API POST Request
-        env:
-          API_USERNAME: ${{ secrets.API_USERNAME }}
-          API_PASSWORD: ${{ secrets.API_PASSWORD }}
         run: |
           curl -X POST "https://namethattune.vercel.app/api/login" \
             -H "Content-Type: application/json" \
