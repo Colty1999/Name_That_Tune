@@ -11,11 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Make API POST Request
-        env:
-          API_USERNAME: ${{ secrets.API_USERNAME }}
-          API_PASSWORD: ${{ secrets.API_PASSWORD }}
+      - name: Supabase Heartbeat
         run: |
-          curl -X POST "https://namethattune.vercel.app/api/login" \
-            -H "Content-Type: application/json" \
-            -d '{}'
+          curl -X GET "https://namethattune.vercel.app/api/callback?code=1234" \
+            -H "Content-Type: application/json"
