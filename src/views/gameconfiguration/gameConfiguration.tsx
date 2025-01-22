@@ -48,7 +48,7 @@ const GameConfiguration = () => {
 
     useEffect(() => {
         fetchAndSetPlaylists();
-    }, [fetchAndSetPlaylists]);
+    }, []);
 
     useEffect(() => {
         if (!search) {
@@ -86,7 +86,7 @@ const GameConfiguration = () => {
                 // setLoading(false);
             })
         return () => { cancel = true };
-    }, [search, searchResults.length, accessToken, setError, spotifyApi]);
+    }, [search, accessToken, setError, spotifyApi]);
 
     if (!accessToken) return <div className="spotifyLoginPrompt"><div style={{ paddingBottom: "1rem" }}>{t('sessionexpired')}</div><SpotifyLogin /></div>;
     return (
