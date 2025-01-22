@@ -1,0 +1,66 @@
+* {
+    .modalContainer {
+        position: absolute;
+        // inset: 20% 10%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        // right: 10%;
+        // bottom: 10%;
+        // height: inherit;
+        // width: 50%;
+        padding: 1.5rem;
+        background-color: var(--primaryColor);
+        color: var(--secondaryTextColor);
+        border-radius: 1.5rem;
+        box-shadow: 0 0 1rem var(--buttonHoverColor);
+        font-size: 1.2rem;
+
+        .modalHeader {
+            height: 10%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 0 1rem 0;
+            border-bottom: 0.1rem solid var(--secondaryColor);
+        }
+
+        .modalFooter {
+            height: 10%;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: space-between;
+            padding: 1rem 0 0 0;
+            border-top: 0.1rem solid var(--secondaryColor);
+        }
+
+        button {
+            // min-width: 10rem;
+            width: 100%;
+            border-color: var(--buttonHoverColor);
+            transition: all 0.2s ease-in-out;
+            border-color: var(--spotifyColor);
+            background-color: var(--spotifyColor);
+            font-size: 1rem;
+
+            &:hover {
+                color: var(--primaryTextColor);
+                background-color: var(--secondaryColor);
+                border-color: var(--buttonHoverColor);
+                filter: drop-shadow(0 0 1rem var(--buttonHoverColor));
+            }
+        }
+
+    }
+
+    .overlayContainer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: none;
+        backdrop-filter: blur(0.25rem);
+    }
+}

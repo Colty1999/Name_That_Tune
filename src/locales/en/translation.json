@@ -163,6 +163,10 @@
     "summary": "Game Summary",
     "settings": "Settings",
     "playlists": "Playlists",
+    "savedplaylists": "Saved playlists:",
+    "currentplaylist": "Selected playlist:",
+    "save": "Save",
+    "load": "Load",
     "start": "Start Game",
     "modal": {
       "settings": "Settings",
@@ -176,6 +180,10 @@
       "resetcluesmsg": " - Reset clues for all teams.",
       "maxpointsmsg": " - Max points value for a song (default 400).",
       "pointsincrementmsg": " - The value by which points increase every second (default 5).",
+      "saved": "Playlist saved!",
+      "deletequestion": "Do you want to delete playlist?",
+      "delete": "Delete",
+      "deleted": "Playlist deleted!",
       "close": "Close settings"
     },
     "trackresults": {

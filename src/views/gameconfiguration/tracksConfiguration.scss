@@ -56,7 +56,7 @@
                 gap: 0.7rem;
                 width: auto;
                 border-top: 0.1rem solid var(--secondaryColor);
-                padding: 1rem;
+                padding: 0 1rem;
 
                 a {
                     width: 100%;
@@ -78,12 +78,45 @@
                 }
 
                 .tracksSettingsButton {
-                    // margin-top: 2rem;
-                    // border-top: 0.2rem solid var(--secondaryColor);
-                    // min-width: 15rem;
                     border-color: var(--spotifyColor);
                     background-color: var(--spotifyColor);
-                    // margin-left: 1rem;
+
+                    &:disabled {
+                        background-color: var(--buttonDisabledColor);
+                        border-color: var(--buttonDisabledColor);
+
+                        &:hover {
+                            pointer-events: none;
+                        }
+                    }
+                }
+
+                .currentPlaylist {
+                    width: 100%;
+                    border: 1px solid var(--secondaryColor);
+                    border-radius: 1rem;
+                    // margin: 1rem 0 0 0;
+                    // padding: 0 0 0.5rem 0;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.1rem;
+
+                    .title {
+                        width: 100%;
+                        border-bottom: 1px solid var(--secondaryColor);
+                    }
+            
+                    .content {
+                        width: 90%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.5rem 0;
+                    }
                 }
             }
         }

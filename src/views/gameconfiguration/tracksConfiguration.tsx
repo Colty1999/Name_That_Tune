@@ -9,10 +9,12 @@ import { useStorageState } from "src/hooks/useStorageState";
 import TrackResult from "./components/trackResult/trackResult";
 import SpotifyLogin from "src/components/spotifyLogin/spotifyLogin";
 import { AppContext } from "src/App";
+import { savePlaylist } from "src/requests/savePlaylist";
+import PlaylistSavedModal from "./components/modals/playlistSavedModal";
 
 const PlaylistConfiguration = () => {
     const [t] = useTranslation();
-    const { setError } = useContext(AppContext);
+    const { setLoading, setError } = useContext(AppContext);
 
     const accessToken = getCookie("accessToken");
     const tracks = useStorageState({ state: "tracks" });
@@ -35,7 +37,8 @@ const PlaylistConfiguration = () => {
     // Configuration modal functions
     const [maxPointsLocal, setMaxPointsLocal] = useState<number>(maxPoints.store !== null ? Number(maxPoints.store) : 400);
     const [pointsIncrementLocal, setPointsIncrementLocal] = useState<number>(pointsIncrement.store !== null ? Number(pointsIncrement.store) : 5);
-
+    const [playlistName, setPlaylistName] = useState<string>(currentPlaylist.store !== null ? JSON.parse(currentPlaylist.store).title : "");
+    const [showModal, setShowModal] = useState(false);
 
     const downloadTxtFile = () => {
         const element = document.createElement("a");
@@ -61,7 +64,7 @@ const PlaylistConfiguration = () => {
         ) {
             const tracks = (data as SpotifyCombinedData).tracks;
             const currentPlaylist = (data as SpotifyCombinedData).currentPlaylist;
-    
+
             // Validate tracks
             const isValidTracks = Array.isArray(tracks) && tracks.every((item: unknown) => {
                 return (
@@ -77,7 +80,7 @@ const PlaylistConfiguration = () => {
                     ("played" in item || "clue" in item || "youtubeLink" in item || "youtubePlay" in item)
                 );
             });
-    
+
             // Validate currentPlaylist
             const isValidCurrentPlaylist =
                 typeof currentPlaylist === "object" &&
@@ -86,12 +89,12 @@ const PlaylistConfiguration = () => {
                 "description" in currentPlaylist &&
                 "uri" in currentPlaylist &&
                 "albumUrl" in currentPlaylist;
-    
+
             return isValidTracks && isValidCurrentPlaylist;
         }
         return false;
     };
-    
+
 
 
 
@@ -180,6 +183,7 @@ const PlaylistConfiguration = () => {
     if (!accessToken) return <div className="spotifyLoginPrompt"><div style={{ paddingBottom: "1rem" }}>{t('sessionexpired')}</div><SpotifyLogin /></div>;
     return (
         <div className="tracksConfigurationContainer">
+            <PlaylistSavedModal show={showModal} handleClose={() => setShowModal(false)} />
             <div className="tracksSettings" style={(tracks.store && tracks.store.length > 0) ? {} : { display: 'none' }}>
                 <div className="tracksSettingsTitle">{t('config.summary')}</div>
                 <div className="tracksSettingsContainer">
@@ -190,7 +194,27 @@ const PlaylistConfiguration = () => {
             <div className="tracksSettings" style={(tracks.store && tracks.store.length > 0) ? {} : { display: 'none' }}>
                 <div className="tracksSettingsTitle">{t('config.settings')}</div>
                 <div className="tracksButtonContainer">
-                    <button onClick={downloadTxtFile} >{t('config.modal.download')}</button>
+                    {(currentPlaylist.store && currentPlaylist.store !== "") &&
+                        <div style={{ borderBottom: "0.1rem solid var(--secondaryColor)", paddingBottom: "1rem", display: "flex", flexDirection: "column", gap: "0.5rem", width: "100%" }}>
+                            <div className="currentPlaylist">
+                                <div className="title">{t('config.currentplaylist')}</div>
+                                <div className="content">
+                                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", gap: "1rem" }}>
+                                        <img src={JSON.parse(currentPlaylist.store).albumUrl} alt={JSON.parse(currentPlaylist.store).title} style={{ width: "20%" }} />
+                                        <div className="clueForm">
+                                            <input
+                                                type="text"
+                                                value={playlistName}
+                                                onChange={(e) => { setPlaylistName(e.target.value); currentPlaylist.setStorageState(JSON.stringify({ ...JSON.parse(currentPlaylist.store!), title: e.target.value })) }}
+                                            />
+                                        </div>
+                                    </div>
+                                    <button className="tracksSettingsButton" disabled={false} onClick={() => savePlaylist(currentPlaylist.store!, tracks.store!, setLoading, setError, setShowModal)}>{t('config.save')}</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <button onClick={downloadTxtFile}>{t('config.modal.download')}</button>
                     <button onClick={handleClick}>{t('config.modal.upload')}</button>
                     <input
                         type="file"
@@ -319,30 +343,3 @@ type SpotifyCombinedData = {
     tracks: SpotifyTrackData[];
     currentPlaylist: SpotifyPlaylistData;
 };
-
-// const handleAddPlaylist = async () => {
-//     try {
-//         const response = await fetch("/api/addPlaylist", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify({
-//                 playlist_name: playlistName,
-//                 playlist: playlistData,
-//             }),
-//         });
-
-//         const result = await response.json();
-
-//         if (response.ok) {
-//             setMessage("Playlist added successfully!");
-//         } else {
-//             setMessage(`Error: ${result.error}`);
-//         }
-//     } catch (err) {
-//         console.error("Error adding playlist:", err);
-//         setMessage("Failed to add playlist");
-//     }
-// };
-
