@@ -170,7 +170,7 @@ const GameConfiguration = () => {
                         ))}
                     </div>
                     {(currentPlaylist.store && currentPlaylist.store !== "") &&
-                        <div className="currentPlaylist">
+                        <div className="currentPlaylist" style={{width: "100%"}}>
                             <div className="title" style={{ fontWeight: "bold" }}>{t('config.currentplaylist')}</div>
                             <div className="content">
                                 <img src={JSON.parse(currentPlaylist.store).albumUrl} alt={JSON.parse(currentPlaylist.store).title} />
