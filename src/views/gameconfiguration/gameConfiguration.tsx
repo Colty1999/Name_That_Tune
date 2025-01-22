@@ -117,7 +117,7 @@ const GameConfiguration = () => {
             <div className="form" style={{ height: "calc(100vh - 4.5rem)" }}>
                 <div className="tracksSettingsTitle">{t('config.playlists')}</div>
                 <div className="tracksButtonContainer">
-                    <div style={{ borderBottom: "0.1rem solid var(--secondaryColor)", paddingBottom: "1rem", display: "flex", flexDirection: "column", gap: "0.5rem", width: "100%" }}>
+                    <div style={{ borderBottom: "0.1rem solid var(--secondaryColor)", paddingBottom: "1rem", display: "flex", flexDirection: "column", gap: "0.5rem", width: "100%",  overflowY: "auto" }}>
                         {playlists.length ? t('config.savedplaylists') : ""}
                         {playlists.map((playlist: any, key: number) => (
                             <div className="currentPlaylist" key={key}>
@@ -173,8 +173,8 @@ const GameConfiguration = () => {
                         <div className="currentPlaylist">
                             <div className="title" style={{ fontWeight: "bold" }}>{t('config.currentplaylist')}</div>
                             <div className="content">
-                                <img src={JSON.parse(currentPlaylist.store).albumUrl} alt={JSON.parse(currentPlaylist.store).title} style={{ width: "20%" }} />
-                                <div style={{ textAlign: "left" }}>{JSON.parse(currentPlaylist.store).title}</div>
+                                <img src={JSON.parse(currentPlaylist.store).albumUrl} alt={JSON.parse(currentPlaylist.store).title} />
+                                <div style={{ textAlign: "left", overflow: "hidden", flex: 1 }}>{JSON.parse(currentPlaylist.store).title}</div>
                             </div>
                         </div>
                     }
