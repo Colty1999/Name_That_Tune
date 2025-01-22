@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import { AppContext } from "../../App";
-import { PlaylistSearchResultType } from "../../assets/common";
+import { Playlist, PlaylistSearchResultType } from "../../assets/common";
 import { deleteCookie, getCookie } from "cookies-next/client";
 import { Link, useNavigate } from "react-router-dom";
 import { useStorageState } from "src/hooks/useStorageState";
@@ -48,7 +48,7 @@ const GameConfiguration = () => {
 
     useEffect(() => {
         fetchAndSetPlaylists();
-    }, []);
+    }, [fetchAndSetPlaylists]);
 
     useEffect(() => {
         if (!search) {
@@ -86,7 +86,7 @@ const GameConfiguration = () => {
                 // setLoading(false);
             })
         return () => { cancel = true };
-    }, [search, accessToken, setError, spotifyApi]);
+    }, [search, searchResults.length, accessToken, setError, spotifyApi]);
 
     if (!accessToken) return <div className="spotifyLoginPrompt"><div style={{ paddingBottom: "1rem" }}>{t('sessionexpired')}</div><SpotifyLogin /></div>;
     return (
@@ -119,7 +119,7 @@ const GameConfiguration = () => {
                 <div className="tracksButtonContainer">
                     <div style={{ borderBottom: "0.1rem solid var(--secondaryColor)", paddingBottom: "1rem", display: "flex", flexDirection: "column", gap: "0.5rem", width: "100%",  overflowY: "auto" }}>
                         {playlists.length ? t('config.savedplaylists') : ""}
-                        {playlists.map((playlist: any, key: number) => (
+                        {playlists.map((playlist: Playlist, key: number) => (
                             <div className="currentPlaylist" key={key}>
                                 <div className="title">{JSON.parse(playlist.playlist).title}</div>
                                 <div className="content">

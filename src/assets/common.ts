@@ -51,6 +51,13 @@ export interface Track {
   showName?: boolean;
 }
 
+export interface Playlist {
+  id: string;
+  user_id: string;
+  playlist: string;
+  tracks: string;
+}
+
 export interface PlaylistSearchResultType {
   title: string;
   description: string;

@@ -78,7 +78,7 @@ const SpotifyGameMaster = () => {
             count.setStorageState((Number(maxPoints.store)).toString());
             forceUpdate();
         }
-    }, [count.store])
+    }, [count, count.store, forceUpdate, maxPoints.store]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -98,7 +98,7 @@ const SpotifyGameMaster = () => {
         return () => {
             clearInterval(interval); // Clean up the interval when the component unmounts
         };
-    }, [count, category.store, forceUpdate, songPlaying]);
+    }, [count, category.store, forceUpdate, songPlaying, maxPoints.store, pointsIncrement.store]);
 
     //starts playing song
     const startPlaying = (track: Track) => {
