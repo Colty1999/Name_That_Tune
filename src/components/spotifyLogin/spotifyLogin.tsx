@@ -23,7 +23,7 @@ const SpotifyLogin = () => {
         const { error } = await supabase.auth.signInWithOAuth({
         provider: 'spotify',
         options: {
-            scopes: 'user-read-email user-read-private user-library-read user-library-modify user-read-playback-state user-modify-playback-state',
+            scopes: 'user-read-email user-read-private user-library-read user-library-modify user-read-playback-state user-modify-playback-state streaming app-remote-control user-read-currently-playing',
             redirectTo: `${frontend}/api/callback`,
         },
         })
