@@ -2,16 +2,25 @@ name: Supabase Heartbeat
 
 on:
   schedule:
-    # Runs once every 24 hours at 12:00 AM UTC (adjust as needed)
-    - cron: "0 0 * * *"
-  workflow_dispatch: # Enable manual triggering
+    - cron: '0 2 * * *'
+  workflow_dispatch:
 
 jobs:
-  api_call:
+  ping-database:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Supabase Heartbeat
+      - name: Query Supabase to keep it active
         run: |
-          curl -X GET "https://namethattune.vercel.app/api/callback?code=1234" \
+          curl -X POST "${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}/rest/v1/user_playlists?select=id&limit=1" \
+            -H "apikey: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}" \
             -H "Content-Type: application/json"
+        
+      - name: Report status
+        if: success()
+        run: echo "✅ Successfully pinged Supabase database"
+        
+      - name: Report failure
+        if: failure()
+        run: echo "❌ Failed to ping Supabase database"
